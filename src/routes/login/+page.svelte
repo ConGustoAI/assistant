@@ -2,7 +2,7 @@
 	// import { Notification } from '$lib/components';
 
 	// import { applyAction, enhance } from '$app/forms';
-	import { env } from '$env/dynamic/public';
+	import { PUBLIC_DISABLE_EMAIL_LOGIN, PUBLIC_DISABLE_GOOGLE_LOGIN, PUBLIC_DISABLE_GITHUB_LOGIN } from '$env/static/public';
 	import { A } from '$lib/appstate.svelte';
 	import { goto } from '$app/navigation';
 	import GitHub from '$lib/components/icons/GitHub.svelte';
@@ -110,12 +110,12 @@
 	</form>
 {/if} -->
 
-{#if !env.PUBLIC_DISABLE_EMAIL_LOGIN && (!env.PUBLIC_DISABLE_GOOGLE_LOGIN || !env.PUBLIC_DISABLE_GITHUB_LOGIN)}
+{#if !PUBLIC_DISABLE_EMAIL_LOGIN && (!PUBLIC_DISABLE_GOOGLE_LOGIN || !PUBLIC_DISABLE_GITHUB_LOGIN)}
 	<div class="divider">OR</div>
 {/if}
 <form method="POST" action="?/loginProvider">
 	<div class="flex flex-col gap-2">
-		{#if !env.PUBLIC_DISABLE_GOOGLE_LOGIN}
+		{#if !PUBLIC_DISABLE_GOOGLE_LOGIN}
 			<button
 				formaction="?/google"
 				class="btn btn-outline text-xl"
@@ -130,7 +130,7 @@
 				{isLogin ? 'Log in' : 'Sign Up'} with Google
 			</button>
 		{/if}
-		{#if !env.PUBLIC_DISABLE_GITHUB_LOGIN}
+		{#if !PUBLIC_DISABLE_GITHUB_LOGIN}
 			<button
 				formaction="?/github"
 				class="btn btn-outline text-xl"
@@ -146,7 +146,7 @@
 			</button>
 		{/if}
 
-		{#if env.PUBLIC_DISABLE_EMAIL_LOGIN && env.PUBLIC_DISABLE_GOOGLE_LOGIN && env.PUBLIC_DISABLE_GITHUB_LOGIN}
+		{#if PUBLIC_DISABLE_EMAIL_LOGIN && PUBLIC_DISABLE_GOOGLE_LOGIN && PUBLIC_DISABLE_GITHUB_LOGIN}
 			<div class="text-center">
 				<p>No login methods available.</p>
 				<p>Please contact the Admin.</p>
