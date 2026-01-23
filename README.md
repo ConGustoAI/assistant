@@ -57,6 +57,7 @@ DATABASE_URL=postgres://user:password@host:port/database
 ```
 
 TODO: Local deployment with SQLite and no Auth.
+TODO: PR review loop test note.
 
 ### OAuth Authentication with Google and/or Github
 
