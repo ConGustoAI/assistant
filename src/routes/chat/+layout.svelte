@@ -167,7 +167,9 @@
 		ondragleave={dragLeave}
 		bind:this={conversationDragArea}>
 		<ChatTitle />
-		<div class="mb-auto flex w-full grow flex-col justify-start overflow-y-auto bg-transparent bg-opacity-10">
+		<div
+			class="mb-auto flex w-full grow flex-col justify-start overflow-y-auto bg-transparent bg-opacity-10"
+			style="content-visibility: auto; contain: layout paint;">
 			{#if A.conversation?.messages}
 				{#each A.conversation.messages as _, i}
 					<ChatMessage
