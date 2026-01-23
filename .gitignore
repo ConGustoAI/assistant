@@ -19,6 +19,12 @@ Thumbs.db
 !.env.example
 !.env.test
 
+# Local contributor guide (generated)
+AGENTS.md
+
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# One-off scripts
+src/scripts/oneoff/

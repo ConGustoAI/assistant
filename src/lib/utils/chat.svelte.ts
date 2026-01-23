@@ -203,10 +203,18 @@ export async function _submitConversationClientSide() {
 							} else {
 								data = await file.file.arrayBuffer();
 							}
-							contentChunks.push({
-								type: 'image',
-								image: data
-							});
+							if (provider.type === 'google') {
+								contentChunks.push({
+									type: 'file',
+									data,
+									mimeType: file.mimeType ?? 'image/png'
+								});
+							} else {
+								contentChunks.push({
+									type: 'image',
+									image: data
+								});
+							}
 						} else {
 							contentChunks.push({
 								type: 'text',
