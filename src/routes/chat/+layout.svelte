@@ -168,8 +168,7 @@
 		bind:this={conversationDragArea}>
 		<ChatTitle />
 		<div
-			class="mb-auto flex w-full grow flex-col justify-start overflow-y-auto bg-transparent bg-opacity-10"
-			style="content-visibility: auto; contain: layout paint;">
+			class="mb-auto flex w-full grow flex-col justify-start overflow-y-auto bg-transparent bg-opacity-10 contain-paint [content-visibility:auto]">
 			{#if A.conversation?.messages}
 				{#each A.conversation.messages as _, i}
 					<ChatMessage

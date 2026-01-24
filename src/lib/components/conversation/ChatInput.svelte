@@ -6,7 +6,7 @@
 	import { handleDataTransfer } from '$lib/utils/media_utils.svelte';
 	import { trimLineLength } from '$lib/utils/utils';
 	import dbg from 'debug';
-	import { ChevronDown, Send, StopCircle, Upload } from 'lucide-svelte';
+	import { ChevronDown, Send, CircleStop, Upload } from 'lucide-svelte';
 	import { fade, slide } from 'svelte/transition';
 
 	const debug = dbg('app:ui:components:ChatInput');
@@ -290,7 +290,7 @@
 					<div class="relative">
 						<button aria-label="Cancel" class="btn btn-sm" onclick={cancelConversation}>
 							<div class="relative">
-								<StopCircle />
+								<CircleStop />
 								<span class="absolute inset-0 flex items-center justify-center">
 									<span class="loading loading-spinner loading-md"></span>
 								</span>

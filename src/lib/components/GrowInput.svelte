@@ -16,7 +16,7 @@
 		onchange = () => {},
 		handlePaste = _handlePaste,
 		autofocus = false,
-		arialabel="",
+		arialabel = ''
 	} = $props<{
 		value: string | undefined;
 		placeholder?: string;
@@ -36,7 +36,7 @@
 
 	function _handlePaste(event: ClipboardEvent) {
 		event.preventDefault();
-		debug('handlePaste',  event );
+		debug('handlePaste', event);
 		const text = event.clipboardData?.getData('text/plain');
 		if (!text) return;
 		document.execCommand('insertText', false, text);

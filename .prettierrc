@@ -15,6 +15,7 @@
 			}
 		}
 	],
+	"tailwindConfig": "tailwind.config.js",
 	"svelteStrictMode": false,
 	"svelteBracketNewLine": false,
 	"svelteAllowShorthand": true
