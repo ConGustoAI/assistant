@@ -12,7 +12,7 @@
 	} from '$lib/components';
 	import 'highlight.js/styles/github-dark.min.css';
 	import 'katex/dist/katex.min.css';
-	import { Computer, PlusCircle, Smile, StepForward } from 'lucide-svelte';
+	import { Computer, CirclePlus, Smile, StepForward } from 'lucide-svelte';
 
 	import { ChatMessageControls, Notification } from '$lib/components';
 	import { handleDataTransfer, uploadConversationMedia } from '$lib/utils/media_utils.svelte';
@@ -37,7 +37,7 @@
 
 	let detailsOpen = $state(false);
 
-	let summaryElement: HTMLElement|undefined = undefined;
+	let summaryElement: HTMLElement | undefined = undefined;
 
 	function closeDetails() {
 		console.log('closeDetails');
@@ -191,7 +191,6 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	class="flex flex-col"
-	style="content-visibility: auto; contain: layout paint;"
 	ondragenter={dragEnter}
 	ondragleave={dragLeave}
 	ondragover={handleDragOver}
@@ -213,7 +212,7 @@
 							}
 						}}
 						title="Add media">
-						<PlusCircle size="fit-h" />
+						<CirclePlus size="fit-h" />
 					</button>
 				{/if}
 				{#each message.media ?? [] as media}
@@ -281,9 +280,7 @@
 						bind:value={message.text}
 						onkeydown={inputKeyboardHandler}
 						{handlePaste}
-						autofocus={true}
-
-						/>
+						autofocus={true} />
 					<div class="mt-2 flex w-full items-start justify-start gap-2">
 						<button
 							class="btn btn-outline btn-sm"
@@ -323,26 +320,23 @@
 				</div>
 			{:else}
 				{#if markdown}
-					<MarkdownMessage bind:message />
+					<div class="contain-paint [content-visibility:auto]">
+						<MarkdownMessage bind:message />
+					</div>
 				{:else}
-					<div class="w-full whitespace-pre-wrap break-words py-2">{message.text}</div>
+					<div class="w-full whitespace-pre-wrap break-words py-2 contain-paint [content-visibility:auto]">
+						{message.text}
+					</div>
 				{/if}
 
-				{#if
-					A.conversation?.messages?.at(-1) === message &&
-					message.role === 'assistant' &&
-					message.finishReason !== 'stop' &&
-					!isPublicPage() &&
-					!A.chatStreaming}
+				{#if A.conversation?.messages?.at(-1) === message && message.role === 'assistant' && message.finishReason !== 'stop' && !isPublicPage() && !A.chatStreaming}
 					<button
 						class="btn btn-ghost btn-xs absolute bottom-2 right-2 rounded-md p-0 px-1"
 						title="Continue generating"
-						onclick={submitConversation}
-					>
+						onclick={submitConversation}>
 						<StepForward size={15} />
 					</button>
 				{/if}
-
 			{/if}
 
 			{#if message.finishReason === 'content-filter'}
