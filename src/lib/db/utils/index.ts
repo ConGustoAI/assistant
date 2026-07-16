@@ -8,4 +8,4 @@ export * from './messages';
 export * from './hide';
 export * from './file';
 export * from './media';
-export * from './prompts'
+export * from './prompts';

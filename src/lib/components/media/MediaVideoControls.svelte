@@ -10,7 +10,6 @@
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const debug = dbg('app:ui:components:MediaVideoControls');
 
-
 	let processingImages = $state(false);
 
 	async function handleVideoAsImages() {

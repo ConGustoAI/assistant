@@ -2,3 +2,14 @@
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+
+# Generated and local tooling
+.pi/
+lovely-docs/
+.lovely-docs.yaml
+.windsurf/
+archive/
+AGENTS.md
+migrations/meta/
+test/gemini-flash-thinking/
+test/mock-server/

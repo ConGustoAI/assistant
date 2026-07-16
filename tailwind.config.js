@@ -37,7 +37,6 @@ const config = {
 					error: '#ff5555',
 					'--debug': '#00d9ff',
 
-
 					'--star': '#ffff00',
 					'--base-usermessage': '#171717',
 					'--message': '#ececec',

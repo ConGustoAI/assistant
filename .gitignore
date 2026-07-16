@@ -2,6 +2,9 @@ node_modules
 package-lock.json
 .cursorignore
 static/pdf.worker.mjs*
+/lovely-docs/
+/.lovely-docs.yaml
+/.pi/
 
 # Output
 .output
@@ -18,6 +21,7 @@ Thumbs.db
 .env.*
 !.env.example
 !.env.test
+/private_key.pem
 
 # Vite
 vite.config.js.timestamp-*

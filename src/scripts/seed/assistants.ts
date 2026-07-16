@@ -1,7 +1,6 @@
-import type { db } from "$lib/db";
-import { assistantsTable, defaultsUUID } from "$lib/db/schema";
-import { chatGPT4oID, claude35SonnetID, gemini15ProID } from "./providers";
-
+import type { db } from '$lib/db';
+import { assistantsTable, defaultsUUID } from '$lib/db/schema';
+import { chatGPT4oID, claude35SonnetID, gemini15ProID } from './providers';
 
 // Assistant IDs
 export const sonnet35ID = 'e068974a-e930-4345-8824-9397104a5030';

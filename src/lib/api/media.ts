@@ -5,12 +5,12 @@ import { filterNull } from '$lib/utils/utils';
 const debug = dbg('app:lib:api:media');
 
 export async function APIfetchAllMedia() {
-	debug("fetchMedia");
+	debug('fetchMedia');
 	const res = await fetch(`/api/media`);
 
 	if (!res.ok) throw new Error(`Failed to fetch media: ${(await res.json()).message}`);
 	const data = (await res.json()).map((media: MediaInterface) => filterNull(media));
-	debug("fetchMedia -> %o", data);
+	debug('fetchMedia -> %o', data);
 	return data as MediaInterface[];
 }
 

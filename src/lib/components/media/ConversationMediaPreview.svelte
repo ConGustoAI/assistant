@@ -270,17 +270,17 @@
 		</div>
 
 		<!-- {#await media.thumbnail then thumbnail} -->
-			{#if (!media.original || media.original.status === 'ok') && (!media.thumbnail || media.thumbnail.status === 'ok')}
-				<div class="absolute bottom-0.5 left-0 z-30 text-success">
-					<Upload size={14} strokeWidth={3} />
-				</div>
-			{/if}
+		{#if (!media.original || media.original.status === 'ok') && (!media.thumbnail || media.thumbnail.status === 'ok')}
+			<div class="absolute bottom-0.5 left-0 z-30 text-success">
+				<Upload size={14} strokeWidth={3} />
+			</div>
+		{/if}
 		<!-- {/await} -->
 	</div>
 
 	<div class="mx-1 flex w-full shrink-0 flex-col items-start text-nowrap text-sm" title={media.title}>
 		{#if isHovered}
-			<div class="z-20 overflow-visible bg-base-300 px-1 border rounded-md">
+			<div class="z-20 overflow-visible rounded-md border bg-base-300 px-1">
 				{media.title}
 			</div>
 		{:else}

@@ -100,7 +100,10 @@ export async function VideoThumbnail(media: MediaInterface): Promise<FileInterfa
 		video.onseeked = () => {
 			// Calculate dimensions to maintain aspect ratio
 			const aspectRatio = video.videoWidth / video.videoHeight;
-			let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
+			let drawWidth,
+				drawHeight,
+				offsetX = 0,
+				offsetY = 0;
 
 			if (aspectRatio > 1) {
 				drawHeight = 128;

@@ -22,7 +22,13 @@ export async function DBgetMessage({ session, id }: { session?: SessionInterface
 	return message;
 }
 
-export async function DBupsertMessages({ session, messages }: { session?: SessionInterface; messages: MessageInterface[] }) {
+export async function DBupsertMessages({
+	session,
+	messages
+}: {
+	session?: SessionInterface;
+	messages: MessageInterface[];
+}) {
 	debug('DBupsertMessages', session);
 	if (!session) error(401, 'Unauthorized');
 	if (!messages.length) error(400, 'Messages array is required');
@@ -80,11 +86,12 @@ export async function DBmarkDeletedMessage({ session, ids }: { session?: Session
 	const res = await db
 		.update(messagesTable)
 		.set({ deleted: true })
-		.where(and(inArray(messagesTable.id, ids), eq(messagesTable.userID, session.userID))).returning({id: messagesTable.id})
+		.where(and(inArray(messagesTable.id, ids), eq(messagesTable.userID, session.userID)))
+		.returning({ id: messagesTable.id });
 
-	const deletedIds = res.map((r) => r.id)
-	if (!deletedIds.length) error(400, "No messages deleted")
-	if (deletedIds.length != ids.length) debug("Not all messages were deleted")
+	const deletedIds = res.map((r) => r.id);
+	if (!deletedIds.length) error(400, 'No messages deleted');
+	if (deletedIds.length != ids.length) debug('Not all messages were deleted');
 
 	return deletedIds;
 }

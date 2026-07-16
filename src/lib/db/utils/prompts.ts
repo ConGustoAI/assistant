@@ -17,12 +17,12 @@ export async function DBinsertPrompt({ session, prompt }: { session?: SessionInt
 	if (!session) error(401, 'Unauthorized');
 	if (!prompt.id) error(400, 'Prompt ID is required');
 
-    const hash = await promptHash(prompt.text);
-    if (hash !== prompt.id) error(500, "Prompt hash mismatch.")
+	const hash = await promptHash(prompt.text);
+	if (hash !== prompt.id) error(500, 'Prompt hash mismatch.');
 
 	const upsert = await db.insert(promptsTable).values(prompt).onConflictDoNothing().returning();
 
-    // onConflictDoNothing() does not return the existing prompt
+	// onConflictDoNothing() does not return the existing prompt
 	if (!upsert.length) return prompt;
 	return upsert[0];
 }

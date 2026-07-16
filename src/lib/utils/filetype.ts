@@ -16,7 +16,6 @@ async function isTextFile(file: File): Promise<boolean> {
 	});
 }
 
-
 export async function typeFromFile(file: File): Promise<'image' | 'video' | 'audio' | 'text' | 'pdf'> {
 	const mimeType = file.type;
 	const filename = file.name;
@@ -120,7 +119,7 @@ export async function typeFromFile(file: File): Promise<'image' | 'video' | 'aud
 		'.el',
 		'.prolog',
 		'.forth',
-		'.zig',
+		'.zig'
 		// '.svelte'
 	];
 	if (textExtensions.some((ext) => filename.toLowerCase().endsWith(ext))) {

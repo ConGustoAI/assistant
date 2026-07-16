@@ -32,8 +32,10 @@ export async function deleteAllSessions(userID: string): Promise<void> {
 	await DBDeleteAllSessions(userID);
 }
 
-
-export async function validateSession(event: RequestEvent, token?: string | null): Promise<SessionInterface | undefined> {
+export async function validateSession(
+	event: RequestEvent,
+	token?: string | null
+): Promise<SessionInterface | undefined> {
 	if (!token) return undefined;
 
 	// debug('validateSessionToken %o', token);
@@ -42,7 +44,8 @@ export async function validateSession(event: RequestEvent, token?: string | null
 
 	// debug('sessionId %o', sessionId);
 
-	const sessionUser = filterNull(await DBGetSession(sessionId, !event.url.pathname.startsWith("/api/"))) as SessionInterface | undefined;
+	const sessionUser = filterNull(await DBGetSession(sessionId, !event.url.pathname.startsWith('/api/'))) as
+		SessionInterface | undefined;
 	// debug('sessionUser %o', sessionUser);
 	if (!sessionUser) return undefined;
 

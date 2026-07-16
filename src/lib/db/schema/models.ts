@@ -4,7 +4,6 @@ import { assistantsTable } from './assistants';
 import { providersTable } from './providers';
 import { usersTable } from './users';
 
-
 export const modelsTable = pgTable('models', {
 	id: uuid('id').defaultRandom().primaryKey(),
 	userID: uuid('user_id')

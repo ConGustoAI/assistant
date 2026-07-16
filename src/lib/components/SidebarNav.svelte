@@ -5,7 +5,8 @@
 		items,
 		adminItems,
 		children
-	}: { items: { href: string; title: string }[]; adminItems: { href: string; title: string }[], children:any } = $props();
+	}: { items: { href: string; title: string }[]; adminItems: { href: string; title: string }[]; children: any } =
+		$props();
 </script>
 
 <div class="drawer lg:drawer-open">

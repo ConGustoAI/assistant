@@ -143,10 +143,10 @@ export async function _submitConversationClientSide() {
 				assert(media.conversationID === A.conversation?.id, "Media doesn't belong to the conversation");
 				assert(
 					media.type === 'image' ||
-					media.type === 'audio' ||
-					media.type === 'video' ||
-					media.type === 'text' ||
-					media.type === 'pdf',
+						media.type === 'audio' ||
+						media.type === 'video' ||
+						media.type === 'text' ||
+						media.type === 'pdf',
 					'Media type is not supported'
 				);
 
@@ -156,7 +156,10 @@ export async function _submitConversationClientSide() {
 					assert(media.originalHeight, 'Image missing original height');
 
 					//Either both are set or both are not set
-					assert((media.resizedHeight && media.resizedWidth) || (!media.resizedHeight && !media.resizedWidth), 'Inconsistent image resize dimensions');
+					assert(
+						(media.resizedHeight && media.resizedWidth) || (!media.resizedHeight && !media.resizedWidth),
+						'Inconsistent image resize dimensions'
+					);
 
 					let file: FileInterface;
 					let width: number;
@@ -518,9 +521,10 @@ export async function _submitConversationClientSide() {
 		AM.assistantName = assistant.name;
 		AM.modelID = model.id;
 		AM.modelName = model.name;
-		AM.temperature = (assistant.temperature_enabled && model.temperature_enabled !== false) ? assistant.temperature : undefined;
-		AM.topP = (assistant.top_p_enabled && model.top_p_enabled !== false) ? assistant.topP : undefined;
-		AM.topK = (assistant.top_k_enabled && model.top_k_enabled !== false) ? assistant.topK : undefined;
+		AM.temperature =
+			assistant.temperature_enabled && model.temperature_enabled !== false ? assistant.temperature : undefined;
+		AM.topP = assistant.top_p_enabled && model.top_p_enabled !== false ? assistant.topP : undefined;
+		AM.topK = assistant.top_k_enabled && model.top_k_enabled !== false ? assistant.topK : undefined;
 		AM.promptID = systemPromptHash;
 		AM.prompt = prompt;
 
@@ -606,9 +610,12 @@ export async function _submitConversationClientSide() {
 		debug('onError:', event);
 
 		// Save the error in the assistant message
-		AM.error = event?.error instanceof Error ? event.error.message :
-			typeof event?.error === 'string' ? event.error :
-				'Unknown error occurred during streaming';
+		AM.error =
+			event?.error instanceof Error
+				? event.error.message
+				: typeof event?.error === 'string'
+					? event.error
+					: 'Unknown error occurred during streaming';
 
 		// Create a minimal fake response for onFinish
 		const fakeResult = {
@@ -629,10 +636,12 @@ export async function _submitConversationClientSide() {
 		model: client,
 		messages: inputMessages,
 		system: systemPromptText?.trim().length ? systemPromptText : undefined,
-		temperature: (assistant.temperature_enabled && model.temperature_enabled !== false) ? assistant.temperature : undefined,
-		topP: (assistant.top_p_enabled && model.top_p_enabled !== false) ? assistant.topP : undefined,
-		topK: (assistant.top_k_enabled && model.top_k_enabled !== false) ? assistant.topK : undefined,
-		maxTokens: (assistant.max_tokens_enabled && model.max_tokens_enabled !== false) ? assistant.maxTokens || undefined : undefined,
+		temperature:
+			assistant.temperature_enabled && model.temperature_enabled !== false ? assistant.temperature : undefined,
+		topP: assistant.top_p_enabled && model.top_p_enabled !== false ? assistant.topP : undefined,
+		topK: assistant.top_k_enabled && model.top_k_enabled !== false ? assistant.topK : undefined,
+		maxTokens:
+			assistant.max_tokens_enabled && model.max_tokens_enabled !== false ? assistant.maxTokens || undefined : undefined,
 		onFinish,
 		onChunk,
 		onError,
@@ -684,18 +693,24 @@ export async function submitConversationClientSide() {
 						modelID: A.assistants[A.conversation.assistantID ?? 'unknown']?.modelID ?? 'Unknown',
 						modelName:
 							A.models[A.assistants[A.conversation.assistantID ?? 'unknown']?.modelID ?? 'unknown']?.name ?? 'Unknown',
-						temperature: (A.assistants[A.conversation.assistantID ?? 'unknown']?.temperature_enabled &&
-							A.models[A.assistants[A.conversation.assistantID ?? 'unknown']?.modelID ?? 'unknown']?.temperature_enabled !== false)
-							? A.assistants[A.conversation.assistantID ?? 'unknown']?.temperature ?? 0
-							: undefined,
-						topP: (A.assistants[A.conversation.assistantID ?? 'unknown']?.top_p_enabled &&
-							A.models[A.assistants[A.conversation.assistantID ?? 'unknown']?.modelID ?? 'unknown']?.top_p_enabled !== false)
-							? A.assistants[A.conversation.assistantID ?? 'unknown']?.topP ?? 0
-							: undefined,
-						topK: (A.assistants[A.conversation.assistantID ?? 'unknown']?.top_k_enabled &&
-							A.models[A.assistants[A.conversation.assistantID ?? 'unknown']?.modelID ?? 'unknown']?.top_k_enabled !== false)
-							? A.assistants[A.conversation.assistantID ?? 'unknown']?.topK ?? 0
-							: undefined,
+						temperature:
+							A.assistants[A.conversation.assistantID ?? 'unknown']?.temperature_enabled &&
+							A.models[A.assistants[A.conversation.assistantID ?? 'unknown']?.modelID ?? 'unknown']
+								?.temperature_enabled !== false
+								? (A.assistants[A.conversation.assistantID ?? 'unknown']?.temperature ?? 0)
+								: undefined,
+						topP:
+							A.assistants[A.conversation.assistantID ?? 'unknown']?.top_p_enabled &&
+							A.models[A.assistants[A.conversation.assistantID ?? 'unknown']?.modelID ?? 'unknown']?.top_p_enabled !==
+								false
+								? (A.assistants[A.conversation.assistantID ?? 'unknown']?.topP ?? 0)
+								: undefined,
+						topK:
+							A.assistants[A.conversation.assistantID ?? 'unknown']?.top_k_enabled &&
+							A.models[A.assistants[A.conversation.assistantID ?? 'unknown']?.modelID ?? 'unknown']?.top_k_enabled !==
+								false
+								? (A.assistants[A.conversation.assistantID ?? 'unknown']?.topK ?? 0)
+								: undefined,
 						conversationID: A.conversation.id
 					};
 

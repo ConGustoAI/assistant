@@ -41,6 +41,7 @@ When deploying Congusto Chat, you will need:
 ### Postgres database.
 
 Some options (not sponsored):
+
 - [Neon](https://neon.tech) - Free tier available. Has a nice UI for managing the database.
 - [Supabase](https://supabase.com) - Free tier available. Has a nice UI for managing the database.
   - Make sure you get the "Session mode" connection string:
@@ -63,6 +64,7 @@ TODO: Local deployment with SQLite and no Auth.
 #### Github
 
 Github is the easiest to set up.
+
 - Go to [Github Developer Settings/OAuth Apps](https://github.com/settings/applications) and create a new OAuth App.
 
   - Set the `Homepage URL` to your domain.
@@ -112,6 +114,7 @@ PUBLIC_DISABLE_GOOGLE_LOGIN=true
 ```
 
 ### Email login
+
 Coming soon.
 
 ## Local development
@@ -134,6 +137,7 @@ Coming soon.
 - Open the browser at http://localhost:5173 and sign up as a new user.
 
 > **Note:** Run migrations when you make changes to the database schema (src/lib/db/schema/*.ts):
+
 - `npm db:generate` to update the migrations.
 - `npm db:migrate` to apply the migrations. This will sync the database schema with the code.
 
@@ -175,4 +179,5 @@ For frontend logs, set `debug` to `*` in the browser local storage.
 See the [debug](https://www.npmjs.com/package/debug) package for more information.
 
 ## Sponsors:
+
 Possibly, you: [info@congusto.ai](mailto:info@congusto.ai)

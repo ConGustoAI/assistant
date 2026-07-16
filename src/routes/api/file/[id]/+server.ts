@@ -6,7 +6,6 @@ import dbg from 'debug';
 const debug = dbg('app:api:file:id');
 
 export async function GET({ params: { id }, locals: { session } }) {
-
 	debug('GET <- %o', { id, session: session?.userID ?? 'anon' });
 	if (!session) return json({ error: 'Unauthorized' }, { status: 401 });
 	if (!s3) error(500, 'S3 not configured');

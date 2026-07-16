@@ -9,7 +9,8 @@ export async function DBgetKeys({ session }: { session?: SessionInterface }) {
 	// The default keys values are censored, and an anonymous user can not use
 	// the chat, so it's just to demo the settings page.
 	const keys = await db.query.apiKeysTable.findMany({
-		where: (table, { eq, or }) => or(session ? eq(table.userID, session.userID) : undefined, eq(table.userID, defaultsUUID)),
+		where: (table, { eq, or }) =>
+			or(session ? eq(table.userID, session.userID) : undefined, eq(table.userID, defaultsUUID)),
 		orderBy: (table, { asc }) => asc(table.label)
 	});
 

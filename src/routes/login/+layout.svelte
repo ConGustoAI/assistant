@@ -8,9 +8,8 @@
 		<ArrowLeftCircle />Back to Chat
 	</a>
 	<div class="flex h-full w-full items-center justify-center">
-		<div class="modal-box card card-normal w-fit">
+		<div class="card modal-box card-normal w-fit">
 			{@render children()}
 		</div>
 	</div>
 </div>
-

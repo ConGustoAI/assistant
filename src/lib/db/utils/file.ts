@@ -24,13 +24,7 @@ export async function DBgetFiles({ session }: { session?: SessionInterface }) {
 
 	return files;
 }
-export async function DBupsertFile({
-	session,
-	file
-}: {
-	session?: SessionInterface;
-	file: FileInterface;
-}) {
+export async function DBupsertFile({ session, file }: { session?: SessionInterface; file: FileInterface }) {
 	if (!session) error(401, 'Unauthorized');
 
 	if (file.id) {

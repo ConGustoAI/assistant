@@ -122,7 +122,6 @@
 
 	let model = $derived(assistant.modelID ? A.models[assistant.modelID] : null);
 	let provider = $derived(model ? A.providers[model.providerID] : null);
-
 </script>
 
 <button

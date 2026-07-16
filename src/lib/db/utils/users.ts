@@ -28,7 +28,13 @@ export async function DBinsertUser({ user }: { user: UserInterface & { id: strin
 	return insert[0];
 }
 
-export async function DBupdateUser({ session, updatedUser }: { session?: SessionInterface; updatedUser: UserInterface }) {
+export async function DBupdateUser({
+	session,
+	updatedUser
+}: {
+	session?: SessionInterface;
+	updatedUser: UserInterface;
+}) {
 	if (!session) error(401, 'Unauthorized');
 	if (!updatedUser.id) error(400, 'User ID is required');
 	if (session.userID !== updatedUser.id) error(400, 'User ID mismatch');
@@ -70,12 +76,14 @@ export async function DBGetSession(id: string, fullUser: boolean = false) {
 	const session = await db.query.sessionsTable.findFirst({
 		where: (table, { eq }) => eq(table.id, id),
 		with: {
-			user: fullUser ? true : {
-				columns: {
-					id: true,
-					admin: true,
-				}
-			}
+			user: fullUser
+				? true
+				: {
+						columns: {
+							id: true,
+							admin: true
+						}
+					}
 		}
 	});
 
@@ -90,7 +98,10 @@ export async function DBDeleteSession(id: string) {
 }
 
 export async function DBDeleteAllSessions(userID: string) {
-	const del = await db.delete(sessionsTable).where(eq(sessionsTable.userID, userID)).returning({ id: sessionsTable.id });
+	const del = await db
+		.delete(sessionsTable)
+		.where(eq(sessionsTable.userID, userID))
+		.returning({ id: sessionsTable.id });
 
 	if (!del.length) error(500, 'Failed to delete sessions');
 	return del;
