@@ -173,7 +173,7 @@
 			</div>
 		{/if}
 
-		{#if message.result && (A.user?.hacker || isPublicPage()) }
+		{#if message.result && (A.user?.hacker || isPublicPage())}
 			<div class="collapse rounded-none bg-base-200">
 				<input bind:this={resultDropdown} type="checkbox" class="peer min-h-0" />
 				<div class="collapse-title min-h-0 bg-base-200 p-2 text-primary-content peer-checked:bg-base-100">

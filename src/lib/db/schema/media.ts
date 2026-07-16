@@ -1,5 +1,16 @@
 import { relations } from 'drizzle-orm';
-import { boolean, integer, pgEnum, pgTable, real, serial, text, timestamp, uuid, type AnyPgColumn } from 'drizzle-orm/pg-core';
+import {
+	boolean,
+	integer,
+	pgEnum,
+	pgTable,
+	real,
+	serial,
+	text,
+	timestamp,
+	uuid,
+	type AnyPgColumn
+} from 'drizzle-orm/pg-core';
 import { conversationsTable } from './conversations';
 import { fileTable } from './file';
 import { usersTable } from './users';

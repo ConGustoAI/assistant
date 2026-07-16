@@ -50,5 +50,5 @@ export const conversationTableRelations = relations(conversationsTable, ({ one, 
 		references: [assistantsTable.id]
 	}),
 	messages: many(messagesTable),
-	media: many(mediaTable),
+	media: many(mediaTable)
 }));

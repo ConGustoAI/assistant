@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import { APIupsertMedia } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
 	import {
@@ -10,10 +9,7 @@
 		PDFImageViewer,
 		PDFViewer
 	} from '$lib/components';
-	import {
-		assistantSupportsMedia,
-		mediaUpdateText
-	} from '$lib/utils/media_utils.svelte';
+	import { assistantSupportsMedia, mediaUpdateText } from '$lib/utils/media_utils.svelte';
 	import { assert, isPublicPage } from '$lib/utils/utils';
 
 	import dbg from 'debug';

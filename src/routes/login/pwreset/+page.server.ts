@@ -8,17 +8,14 @@ export const actions: Actions = {
 	// 	const formData = await request.formData();
 	// 	const password = formData.get('password') as string;
 	// 	const confirmPassword = formData.get('confirmPassword') as string;
-
 	// 	if (password !== confirmPassword) {
 	// 		return { error: 'Passwords do not match' };
 	// 	}
-
 	// 	const res = await locals.supabase.auth.updateUser({ password });
 	// 	if (res.error) {
 	// 		debug('Error updating password: %o', res.error);
 	// 		return { error: res.error.message };
 	// 	}
-
 	// 	debug('Password updated successfully');
 	// 	const logoutRes = await locals.supabase.auth.signOut();
 	// 	if (logoutRes.error) {
@@ -26,7 +23,6 @@ export const actions: Actions = {
 	// 		return { error: logoutRes.error.message };
 	// 	}
 	// 	locals.user = locals.session = locals.dbUser = undefined;
-
 	// 	redirect(303, '/login');
 	// }
 };

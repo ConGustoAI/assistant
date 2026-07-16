@@ -44,7 +44,6 @@ export const messagesTable = pgTable('messages', {
 		.array()
 		.default(sql`ARRAY[]::uuid[]`),
 
-
 	messagesSent: text('messages_sent'),
 	result: text('result'),
 

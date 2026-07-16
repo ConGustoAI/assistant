@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { boolean, integer,  pgTable, real, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { boolean, integer, pgTable, real, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { conversationsTable } from './conversations';
 import { apiKeysTable } from './keys';
 import { modelsTable } from './models';
@@ -32,7 +32,7 @@ export const assistantsTable = pgTable('assistants', {
 	video: boolean('video').notNull().default(false),
 	prefill: boolean('prefill').notNull().default(false),
 	pdf: boolean('pdf').notNull().default(false),
-	googleSafetyThreshold: integer('google_safety',).default(0),
+	googleSafetyThreshold: integer('google_safety').default(0),
 
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at')

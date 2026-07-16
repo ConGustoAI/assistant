@@ -36,7 +36,7 @@
 	let status: 'changed' | 'saving' | 'saved' | 'error' | 'deleting' | 'hiding' | 'copying' | null | undefined =
 		$state(undefined);
 	let errorMessage: string | null = $state(null);
-	let updateTimer: ReturnType<typeof setTimeout>|undefined;
+	let updateTimer: ReturnType<typeof setTimeout> | undefined;
 
 	// Don't let the user navigate off if changes are unsaved
 	beforeNavigate((navigation) => {

@@ -50,19 +50,18 @@
 		}
 
 		if (media.thumbnail) {
-				const t = media.thumbnail;
-				if (t && t.status === 'progress') {
-					totalSize += t.size ?? 0;
-					totalProgress += ((t.uploadProgress ?? 0) * (t.size ?? 0)) / 100;
-				}
+			const t = media.thumbnail;
+			if (t && t.status === 'progress') {
+				totalSize += t.size ?? 0;
+				totalProgress += ((t.uploadProgress ?? 0) * (t.size ?? 0)) / 100;
+			}
 
-				if (totalSize) {
-					uploadProgress = (totalProgress / totalSize) * 100;
-				} else {
-					uploadProgress = undefined;
-				}
-				debug('media uploadProgress', uploadProgress);
-
+			if (totalSize) {
+				uploadProgress = (totalProgress / totalSize) * 100;
+			} else {
+				uploadProgress = undefined;
+			}
+			debug('media uploadProgress', uploadProgress);
 		} else {
 			if (totalSize) {
 				uploadProgress = (totalProgress / totalSize) * 100;
@@ -169,7 +168,7 @@
 
 	<div class="mx-1 flex w-full shrink-0 flex-col items-start text-nowrap text-sm" title={media.title}>
 		{#if isHovered}
-			<div class="z-20 overflow-visible bg-base-300 border px-1 rounded-md">
+			<div class="z-20 overflow-visible rounded-md border bg-base-300 px-1">
 				{media.title}
 			</div>
 		{:else}

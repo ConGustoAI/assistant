@@ -21,8 +21,8 @@ export const DELETE: RequestHandler = async ({ locals: { session }, request }) =
 	const ids = (await request.json()) as string[];
 	if (!Array.isArray(ids) || ids.length === 0) error(400, 'At least one message ID is required');
 
-	debug('DELETE %o', {ids, session});
-	const del = await DBmarkDeletedMessage({session, ids})
+	debug('DELETE %o', { ids, session });
+	const del = await DBmarkDeletedMessage({ session, ids });
 	debug('DELETE -> %o', del);
 
 	return json(del);

@@ -4,10 +4,8 @@ import { generateCodeVerifier, generateState, Google } from 'arctic';
 import dbg from 'debug';
 import type { Actions } from './$types';
 
-
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
 import { GitHub } from 'arctic';
-
 
 const debug = dbg('app:login');
 
@@ -49,12 +47,12 @@ export const actions: Actions = {
 		});
 
 		cookies.set('google_oauth_code_verifier', codeVerifier, {
-			path: "/",
+			path: '/',
 			httpOnly: true,
 			maxAge: 60 * 10, // 10 min
 			sameSite: 'lax'
 		});
 
 		redirect(303, googleURL);
-	},
+	}
 };

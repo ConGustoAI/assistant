@@ -7,7 +7,8 @@ import { defaultsUUID, providersTable } from '../schema';
 export async function DBgetProviders({ session }: { session?: SessionInterface }) {
 	// Note: If the user is not authorized, we only return the default providers.
 	const providers = await db.query.providersTable.findMany({
-		where: (table, { eq, or }) => or(session ? eq(table.userID, session.userID) : undefined, eq(table.userID, defaultsUUID)),
+		where: (table, { eq, or }) =>
+			or(session ? eq(table.userID, session.userID) : undefined, eq(table.userID, defaultsUUID)),
 		orderBy: (table, { asc }) => asc(table.name)
 	});
 
@@ -25,7 +26,13 @@ export async function DBgetProvider({ session, id }: { session?: SessionInterfac
 	return provider;
 }
 
-export async function DBupsertProvider({ session, provider }: { session?: SessionInterface; provider: ProviderInterface }) {
+export async function DBupsertProvider({
+	session,
+	provider
+}: {
+	session?: SessionInterface;
+	provider: ProviderInterface;
+}) {
 	if (!session) error(401, 'Unauthorized');
 	if (provider.userID != session.userID && (!session.user?.admin || provider.userID !== defaultsUUID))
 		error(401, 'Tried to delete a provider that does not belong to the user');
@@ -48,7 +55,13 @@ export async function DBupsertProvider({ session, provider }: { session?: Sessio
 	return insert[0];
 }
 
-export async function DBdeleteProvider({ session, provider }: { session?: SessionInterface; provider: ProviderInterface }) {
+export async function DBdeleteProvider({
+	session,
+	provider
+}: {
+	session?: SessionInterface;
+	provider: ProviderInterface;
+}) {
 	if (!session) error(401, 'Unauthorized');
 	if (!provider.id) error(400, 'Provider ID is required');
 	if (provider.userID != session.userID && (!session.user?.admin || provider.userID !== defaultsUUID))

@@ -12,18 +12,14 @@ export const POST: RequestHandler = async ({ request, locals: { session } }) => 
 
 	debug('Searching conversations for user %s with query: %s', session.userID, search);
 
-	const res =  await db.query.messagesTable.findMany({
-        where: (table, { eq, ilike, and }) =>
-            and(
-                eq(table.userID, session.userID),
-                ilike(table.text, `%${search}%`),
-            ),
-        columns: {
-            conversationID: true,
-        },
-    });
-    const uniqueIds = [...new Set(res.map(item => item.conversationID))];
+	const res = await db.query.messagesTable.findMany({
+		where: (table, { eq, ilike, and }) => and(eq(table.userID, session.userID), ilike(table.text, `%${search}%`)),
+		columns: {
+			conversationID: true
+		}
+	});
+	const uniqueIds = [...new Set(res.map((item) => item.conversationID))];
 
-    debug('Found %o conversations', uniqueIds.length);
-    return json(uniqueIds);
+	debug('Found %o conversations', uniqueIds.length);
+	return json(uniqueIds);
 };

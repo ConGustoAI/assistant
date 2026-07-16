@@ -3,9 +3,7 @@
 
 // const debug = dbg('app:login:layout.server');
 
-
 // export async function load({ locals, url }) {
-
 
 // export async function load({ locals, url }) {
 // 	const code = url.searchParams.get('code');

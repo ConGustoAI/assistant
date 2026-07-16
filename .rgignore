@@ -1,0 +1,6 @@
+!lovely-docs/
+!lovely-docs/**
+!.lovely-docs.yaml
+!.pi/
+!.pi/**
+.pi/sandbox/

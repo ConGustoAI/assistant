@@ -12,13 +12,7 @@
 		}
 	});
 
-	import {
-		APIfetchAssistants,
-		APIfetchHidden,
-		APIfetchKeys,
-		APIfetchModels,
-		APIfetchProviders
-	} from '$lib/api';
+	import { APIfetchAssistants, APIfetchHidden, APIfetchKeys, APIfetchModels, APIfetchProviders } from '$lib/api';
 	import { toIdMap } from '$lib/utils/utils';
 	import dbg from 'debug';
 	import { untrack } from 'svelte';

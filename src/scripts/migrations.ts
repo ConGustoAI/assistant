@@ -28,4 +28,3 @@ debug('Running migrations...');
 await migrate(db, { migrationsFolder: './migrations' });
 debug('Migrations complete');
 process.exit(0);
-

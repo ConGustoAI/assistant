@@ -4,7 +4,7 @@ import dbg from 'debug';
 
 const debug = dbg('app:api:media:id');
 
-export async function GET({ params: { id }, locals: { session }}) {
+export async function GET({ params: { id }, locals: { session } }) {
 	debug('GET <- %o', { id, session: session?.userID ?? 'anon' });
 	if (!session) error(401, 'Unauthorized');
 

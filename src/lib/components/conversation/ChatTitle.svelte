@@ -16,7 +16,7 @@
 	let cloningConversation = $state(false);
 
 	let detailsOpen = $state(false);
-	let summaryElement: HTMLElement|undefined = undefined;
+	let summaryElement: HTMLElement | undefined = undefined;
 
 	function closeDetails() {
 		detailsOpen = false;

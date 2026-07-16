@@ -3,10 +3,8 @@
 	"singleQuote": true,
 	"trailingComma": "none",
 	"printWidth": 120,
-	"plugins": [
-		"prettier-plugin-svelte",
-		"prettier-plugin-tailwindcss"
-	],
+	"bracketSameLine": true,
+	"plugins": ["prettier-plugin-svelte", "prettier-plugin-tailwindcss"],
 	"overrides": [
 		{
 			"files": "*.svelte",
@@ -16,7 +14,5 @@
 		}
 	],
 	"tailwindConfig": "tailwind.config.js",
-	"svelteStrictMode": false,
-	"svelteBracketNewLine": false,
 	"svelteAllowShorthand": true
 }

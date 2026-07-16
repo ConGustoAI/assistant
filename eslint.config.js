@@ -20,7 +20,7 @@ export default [
 		},
 		rules: {
 			'@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-			'no-undef': 'off',
+			'no-undef': 'off'
 		}
 	},
 	{
@@ -32,6 +32,17 @@ export default [
 		}
 	},
 	{
-		ignores: ['build/', '.svelte-kit/', 'dist/', 'static/']
+		ignores: [
+			'build/',
+			'.svelte-kit/',
+			'dist/',
+			'static/',
+			'.pi/',
+			'lovely-docs/',
+			'.windsurf/',
+			'archive/',
+			'test/gemini-flash-thinking/',
+			'test/mock-server/'
+		]
 	}
 ];

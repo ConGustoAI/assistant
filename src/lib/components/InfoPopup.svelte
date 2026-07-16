@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/utils';
-import { Info } from 'lucide-svelte';
+	import { Info } from 'lucide-svelte';
 
-	let { class: clas,  title, children }: { class?: string, title: string, children?: any } = $props();
+	let { class: clas, title, children }: { class?: string; title: string; children?: any } = $props();
 </script>
 
-<div class={cn("dropdown dropdown-end", clas)}>
+<div class={cn('dropdown dropdown-end', clas)}>
 	<div tabindex="0" role="button" class="btn btn-circle btn-ghost btn-xs text-info">
 		<Info tabindex={0} class="h-4 w-4 stroke-current" />
 	</div>

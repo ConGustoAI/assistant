@@ -23,7 +23,7 @@
 
 			for (const m of A.conversation.media) {
 				// Don't await.
-				syncMedia(m)
+				syncMedia(m);
 			}
 
 			A.conversation.messages?.map((m) => {

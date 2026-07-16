@@ -32,7 +32,7 @@
 			<img
 				src={f.url}
 				alt={`Frame ${i} @ ${f.timestamp} seconds`}
-				class="pixilated border-gray-300 object-contain p-2 h-full"
+				class="pixilated h-full border-gray-300 object-contain p-2"
 				class:opacity-50={A.mediaEditing?.imagesSkip?.includes(i)} />
 		{:catch error}
 			<p>Error loading page {i}: {error.message}</p>

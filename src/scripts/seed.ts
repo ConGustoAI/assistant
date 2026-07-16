@@ -16,8 +16,6 @@ export const seed = async () => {
 		const select = await tx.query.seedTable.findFirst({ orderBy: (table, { desc }) => desc(table.seed) });
 		debug(select);
 
-
-
 		if ((select?.seed ?? 0) < 3) {
 			await seedDefaultUser(tx as unknown as typeof db);
 			await seedProviders(tx as unknown as typeof db);

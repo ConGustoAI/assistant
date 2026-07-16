@@ -55,8 +55,6 @@ export async function DBgetDefaultConversation({ id }: { id: string }) {
 		if (m.thumbnail && m.thumbnail.size > 0) m.thumbnail.url = await getDownloadURL(m.thumbnail);
 	}
 
-
-
 	return conversation;
 }
 
@@ -149,7 +147,7 @@ export async function DBgetConversation({ session, id }: { session: SessionInter
 	return conversation;
 }
 
-export async function  DBupsertConversation({
+export async function DBupsertConversation({
 	session,
 	conversation
 }: {

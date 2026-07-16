@@ -103,7 +103,7 @@
 		<div class="absolute -top-5"><InfoPopup title="Model supports PDF" /></div>
 	</div>
 	{#if provider.type === 'google'}
-		<div class="flex justify-center label-test">Gemini safety threshold (all categories)</div>
+		<div class="label-test flex justify-center">Gemini safety threshold (all categories)</div>
 	{:else}
 		<div></div>
 	{/if}
@@ -121,7 +121,7 @@
 			}} />
 		<input
 			type="number"
-			class="input input-sm input-bordered w-14 py-0 leading-none no-spinner"
+			class="no-spinner input input-sm input-bordered w-14 py-0 leading-none"
 			bind:value={assistant.temperature}
 			onchange={(e) => {
 				fixNumberInput(e, 0, model?.maxTemp ?? 2);
@@ -143,7 +143,7 @@
 			}} />
 		<input
 			type="number"
-			class="input input-sm input-bordered w-14 py-0 leading-none no-spinner"
+			class="no-spinner input input-sm input-bordered w-14 py-0 leading-none"
 			bind:value={assistant.topP}
 			onchange={(e) => {
 				fixNumberInput(e, 0, 1);
@@ -165,7 +165,7 @@
 			}} />
 		<input
 			type="number"
-			class="input input-sm input-bordered w-14 py-0 leading-none no-spinner"
+			class="no-spinner input input-sm input-bordered w-14 py-0 leading-none"
 			bind:value={assistant.topK}
 			onchange={(e) => {
 				fixNumberInput(e, 0, 1000);
@@ -187,7 +187,7 @@
 			}} />
 		<input
 			type="number"
-			class="input input-sm input-bordered w-14 py-0 leading-none no-spinner"
+			class="no-spinner input input-sm input-bordered w-14 py-0 leading-none"
 			bind:value={assistant.maxTokens}
 			onchange={(e) => {
 				fixNumberInput(e, 0, model?.outputContext ?? 4096);
@@ -235,24 +235,23 @@
 		{onchange} />
 
 	{#if provider.type === 'google'}
-	<div class="mt-4 w-full">
-		<div class="flex justify-center gap-2 items-start">
-			<p>Sensitive</p>
-			<div class="w-full max-w-md">
-				<input
-				type="range"
-				required
-				class="range range-sm w-full"
-				bind:value={assistant.googleSafetyThreshold}
-				step={1}
-				min={0}
-				max={3}
-				disabled={!edit}
-				{onchange} />
+		<div class="mt-4 w-full">
+			<div class="flex items-start justify-center gap-2">
+				<p>Sensitive</p>
+				<div class="w-full max-w-md">
+					<input
+						type="range"
+						required
+						class="range range-sm w-full"
+						bind:value={assistant.googleSafetyThreshold}
+						step={1}
+						min={0}
+						max={3}
+						disabled={!edit}
+						{onchange} />
+				</div>
+				<p>Insensitive</p>
 			</div>
-			<p>Insensitive</p>
 		</div>
-	</div>
 	{/if}
-
 </div>
