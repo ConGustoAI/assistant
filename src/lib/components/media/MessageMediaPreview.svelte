@@ -105,9 +105,9 @@
 	let volumeIcon = $state(1);
 </script>
 
-<!-- svelte-ignore a11y_no_static_element_interactions -->
-<!-- svelte-ignore a11y_click_events_have_key_events -->
 <div
+	role="group"
+	aria-label={media.filename}
 	class="relative flex h-full w-full flex-col justify-between gap-0.5 rounded-md bg-base-300 p-1"
 	class:opacity-50={!media.active && !isPublicPage()}
 	onmouseenter={() => (isHovered = true)}

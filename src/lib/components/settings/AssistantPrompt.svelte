@@ -12,7 +12,7 @@
 <div class="col-span-full flex flex-col">
 	<div class="flex w-full items-center justify-between">
 		<span class=" px-1 py-2 text-sm"
-			>About user. Include into system prompt with <code class="font-bold">{@html `{profile}`}</code></span>
+			>About user. Include into system prompt with <code class="font-bold">{'{profile}'}</code></span>
 
 		<div class="flex items-center gap-2">
 			{#if assistant.aboutUserFromUser}
@@ -38,8 +38,7 @@
 <div class="col-span-full flex flex-col">
 	<div class="flex w-full items-center justify-between">
 		<span class="px-1 py-2 text-sm"
-			>Assistant instructions. Include into system prompt with <code class="font-bold">{@html `{instructions}`}</code
-			></span>
+			>Assistant instructions. Include into system prompt with <code class="font-bold">{'{instructions}'}</code></span>
 
 		<div class="flex items-center gap-2">
 			{#if assistant.assistantInstructionsFromUser}

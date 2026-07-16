@@ -5,7 +5,9 @@
 	import { isPublicPage } from '$lib/utils/utils';
 	const debug = dbg('app:ui:components:ConversationInfo');
 
-	function collectInfo(): Array<any> {
+	type ConversationChange = Record<string, string | number>;
+
+	function collectInfo(): ConversationChange[] {
 		if (!A.conversation || !A.conversation.messages) return [];
 
 		const assistantMessages = A.conversation.messages.filter((m) => m.role === 'assistant');
@@ -15,7 +17,7 @@
 			const currentMessage = assistantMessages[i];
 			const previousMessage = i > 0 ? assistantMessages[i - 1] : null;
 
-			let changes: { [key: string]: any } = {};
+			const changes: ConversationChange = {};
 
 			if (!previousMessage || currentMessage.assistantID !== previousMessage.assistantID) {
 				changes.assistant = currentMessage.assistantName || 'N/A';

@@ -498,10 +498,11 @@ export async function _submitConversationClientSide() {
 		systemPromptText = '';
 	}
 
-	async function onFinish(
-		// I don't always love TypeScript
-		result: NonNullable<Parameters<NonNullable<Parameters<typeof streamText>[0]['onFinish']>>>[0]
-	): Promise<void> {
+	type StreamFinishResult = NonNullable<Parameters<NonNullable<Parameters<typeof streamText>[0]['onFinish']>>>[0];
+	type FinishResult = Pick<StreamFinishResult, 'finishReason' | 'providerMetadata' | 'text' | 'usage'> &
+		Partial<StreamFinishResult>;
+
+	async function onFinish(result: FinishResult): Promise<void> {
 		debug('streamText result:', JSON.stringify(result, null, 2));
 		assert(A.conversation, 'Conversation missing');
 		assert(A.user, 'User missing');
@@ -622,14 +623,15 @@ export async function _submitConversationClientSide() {
 			finishReason: 'error' as const,
 			usage: {
 				promptTokens: 0,
-				completionTokens: 0
+				completionTokens: 0,
+				totalTokens: 0
 			},
-			experimental_providerMetadata: undefined,
+			providerMetadata: undefined,
 			text: AM.text
-		};
+		} satisfies FinishResult;
 
 		// Call onFinish with the fake result
-		await onFinish(fakeResult as any);
+		await onFinish(fakeResult);
 	}
 
 	const res = await streamText({

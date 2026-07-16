@@ -119,7 +119,6 @@
 						aria-label="Video"
 						checked />
 					<div class="tab-content h-full overflow-auto">
-						<!-- svelte-ignore a11y_media_has_caption -->
 						<video class="shrink grow overflow-hidden object-contain" controls>
 							<source src={A.mediaEditing.original.url} type={A.mediaEditing.original.mimeType} />
 							Your browser does not support the video tag.

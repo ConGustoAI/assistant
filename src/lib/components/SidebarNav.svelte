@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import type { Snippet } from 'svelte';
 
 	let {
 		items,
 		adminItems,
 		children
-	}: { items: { href: string; title: string }[]; adminItems: { href: string; title: string }[]; children: any } =
+	}: { items: { href: string; title: string }[]; adminItems: { href: string; title: string }[]; children: Snippet } =
 		$props();
 </script>
 

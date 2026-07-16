@@ -17,10 +17,6 @@
 	// let EmailSpinning = false;
 	let loginGoogleSpinning = $state(false);
 	let loginGithubSpinning = $state(false);
-
-	function toggleMode() {
-		isLogin = !isLogin;
-	}
 </script>
 
 <h2 class="card-title justify-center">{isLogin ? 'Login' : 'Sign Up'}</h2>

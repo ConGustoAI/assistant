@@ -56,7 +56,6 @@
 		}
 	}
 
-	// svelte-ignore state_snapshot_uncloneable
 	$effect(() => debug('media: ', $state.snapshot(media)));
 
 	let isHovered = $state(false);
@@ -144,8 +143,9 @@
 	});
 </script>
 
-<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
+	role="group"
+	aria-label={media.filename}
 	class="relative flex h-full w-full flex-col justify-between gap-0.5 rounded-md bg-base-300 p-1"
 	draggable="false"
 	class:opacity-50={!media.active}
@@ -173,7 +173,6 @@
 				</div>
 			{/if}
 		{:else if media.type === 'video'}
-			<!-- svelte-ignore a11y_media_has_caption -->
 			<video
 				class="grow object-cover"
 				onmousemove={(event) => handleVideoSeek(event)}
