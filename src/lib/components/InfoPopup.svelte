@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/utils';
 	import { Info } from 'lucide-svelte';
+	import type { Snippet } from 'svelte';
 
-	let { class: clas, title, children }: { class?: string; title: string; children?: any } = $props();
+	let { class: clas, title, children }: { class?: string; title: string; children?: Snippet } = $props();
 </script>
 
 <div class={cn('dropdown dropdown-end', clas)}>

@@ -216,7 +216,6 @@
 								}
 							}} />
 					{:else}
-						<!-- svelte-ignore a11y_click_events_have_key_events -->
 						<div
 							aria-label="Conversation summary"
 							class="items-bottom flex w-full shrink cursor-pointer gap-1"

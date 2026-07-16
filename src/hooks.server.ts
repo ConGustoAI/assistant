@@ -1,7 +1,6 @@
 import { type Handle } from '@sveltejs/kit';
 
 import dbg from 'debug';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const debug = dbg('app:hooks');
 
 export const sse = false;

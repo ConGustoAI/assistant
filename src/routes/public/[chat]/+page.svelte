@@ -48,8 +48,9 @@
 
 	$effect(() => {
 		// This gets called once on mount, so we add the check to avid a double fetch.
-		if ($page.params.chat && untrack(() => A.conversation?.id !== $page.params.chat)) {
-			untrack(() => fetchConversation($page.params.chat));
+		const chatID = $page.params.chat;
+		if (chatID && untrack(() => A.conversation?.id !== chatID)) {
+			untrack(() => fetchConversation(chatID));
 		}
 	});
 

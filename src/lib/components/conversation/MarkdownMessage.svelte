@@ -4,6 +4,7 @@
 	import rehypeExternalLinks from 'rehype-external-links';
 	import rehypeHighlight from 'rehype-highlight';
 	import rehypeKatex from 'rehype-katex';
+	import rehypeSanitize from 'rehype-sanitize';
 	import rehypeStringify from 'rehype-stringify';
 	import remarkBreaks from 'remark-breaks';
 	import remarkGfm from 'remark-gfm';
@@ -264,6 +265,7 @@
 			.use(remarkBreaks)
 			.use(remarkGfm)
 			.use(remarkRehype, { allowDangerousHtml: true })
+			.use(rehypeSanitize)
 			.use(rehypeApplyMods)
 			.use(rehypeHighlight, { detect: true, languages: { ...common, latex } })
 			.use(rehypeKatex)
@@ -287,5 +289,7 @@
 </script>
 
 <div class="prose w-full grow pt-2 text-message">
+	<!-- Markdown is sanitized before trusted AST transforms add generated markup. -->
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html message.markdownCache}
 </div>

@@ -13,10 +13,10 @@
 			<p>Loading frame {i}...</p>
 		{:then f}
 			<div class="flex gap-1">
-				<p class="px-2">Frame {i} @ {f.timestamp} seconds</p>
+				<label class="px-2" for={`frame-${i}`}>Frame {i} @ {f.timestamp} seconds</label>
 				<input
 					type="checkbox"
-					id={`frme-${i}`}
+					id={`frame-${i}`}
 					checked={!A.mediaEditing?.imagesSkip?.includes(i)}
 					onchange={async (e: Event) => {
 						assert(A.mediaEditing);
@@ -35,7 +35,7 @@
 				class="pixilated h-full border-gray-300 object-contain p-2"
 				class:opacity-50={A.mediaEditing?.imagesSkip?.includes(i)} />
 		{:catch error}
-			<p>Error loading page {i}: {error.message}</p>
+			<p>Error loading page {i}: {error instanceof Error ? error.message : 'Unknown error'}</p>
 		{/await}
 	{/each}
 {/if}
