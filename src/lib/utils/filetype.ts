@@ -151,6 +151,9 @@ export async function typeFromFile(file: File): Promise<DetectedMediaType> {
 			debug('Detected file type from signature', filename, detectedFileType);
 			return { type: detectedMediaType, mimeType: detectedMimeType };
 		}
+
+		debug('Unsupported file type detected from signature', filename, detectedFileType);
+		throw new Error(`Unsupported media type: ${detectedMimeType}`);
 	}
 
 	if (mimeType === 'application/pdf' || filename.endsWith('.pdf')) {

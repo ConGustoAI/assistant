@@ -33,7 +33,7 @@ It holds current user, conversation, assistants, models, providers, API keys, me
 
 ## Media flow
 
-`src/lib/utils/filetype.ts` classifies images, video, audio, text, and PDF files. Binary signatures take precedence over browser MIME hints. Detection returns both application media category and MIME type so uploads preserve detected content type.
+`src/lib/utils/filetype.ts` classifies images, video, audio, text, and PDF files. Binary signatures take precedence over browser MIME hints, and recognized unsupported binary formats are rejected before text fallbacks. Detection returns both application media category and MIME type so uploads preserve detected content type.
 
 `src/lib/utils/media_utils.svelte.ts` creates media records and synchronizes browser files, object URLs, metadata, derived content, and thumbnails. `syncMedia` records failures in transient `MediaInterface.processingError`; callers can request rethrowing at the chat boundary.
 
@@ -46,7 +46,7 @@ Video processing in `src/lib/utils/video.svelte.ts` has bounded waits and explic
 
 Detected video formats unsupported by the browser video element use a neutral placeholder. They can still be uploaded as original files when the selected assistant supports direct video; frame extraction remains unavailable.
 
-Failed media is shown in previews/editor, excluded from new uploads and message associations, and blocks submission while it is a new active attachment. Existing message associations survive transient processing failures. Uploads wait for media processing to finish. Audio decoding is skipped once duration is known, and temporary `AudioContext` instances are closed.
+Failed media is shown in previews/editor, excluded from new uploads and message associations, and blocks submission while it is a new active attachment. Existing message associations survive transient processing failures. Uploads wait up to one minute for media processing to finish. Audio decoding is skipped once duration is known, and temporary `AudioContext` instances are closed.
 
 Chat submission accepts text, media, or both once active media processing completes successfully.
 

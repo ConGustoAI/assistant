@@ -82,18 +82,20 @@ export function videoToImages(media: MediaInterface, fps = 1): Promise<DerivedIm
 	return new Promise((resolve, reject) => {
 		const frames: DerivedImageInterface[] = [];
 		const video = document.createElement('video');
-		video.preload = 'metadata';
+		video.preload = 'auto';
 
 		const canvas = document.createElement('canvas');
 		const ctx = canvas.getContext('2d');
 		assert(ctx);
 
 		let settled = false;
+		let capturing = false;
 		let timeoutID: ReturnType<typeof setTimeout> | undefined;
 
 		const cleanup = () => {
 			if (timeoutID !== undefined) clearTimeout(timeoutID);
 			video.onloadedmetadata = null;
+			video.onloadeddata = null;
 			video.onseeked = null;
 			video.onerror = null;
 			video.src = '';
@@ -113,36 +115,10 @@ export function videoToImages(media: MediaInterface, fps = 1): Promise<DerivedIm
 			}, VIDEO_FRAMES_IDLE_TIMEOUT_MS);
 		};
 
-		video.onloadedmetadata = () => {
+		const captureFrame = async () => {
+			if (settled || capturing) return;
+			capturing = true;
 			refreshTimeout();
-			if (video.videoWidth <= 0 || video.videoHeight <= 0 || !Number.isFinite(video.duration) || video.duration < 0) {
-				fail(`Invalid video metadata while extracting frames for ${media.filename}`);
-				return;
-			}
-
-			canvas.width = video.videoWidth;
-			canvas.height = video.videoHeight;
-
-			if (video.duration === 0) {
-				if (settled) return;
-				settled = true;
-				cleanup();
-				resolve(frames);
-				return;
-			}
-
-			video.currentTime = 0;
-		};
-
-		video.onseeked = async () => {
-			refreshTimeout();
-			if (video.currentTime >= video.duration) {
-				if (settled) return;
-				settled = true;
-				cleanup();
-				resolve(frames);
-				return;
-			}
 
 			try {
 				const timestamp = video.currentTime;
@@ -174,10 +150,36 @@ export function videoToImages(media: MediaInterface, fps = 1): Promise<DerivedIm
 					return;
 				}
 
+				capturing = false;
 				video.currentTime = nextTimestamp;
 			} catch (error) {
 				fail(error instanceof Error ? error.message : `Failed to encode extracted video frame for ${media.filename}`);
 			}
+		};
+
+		video.onloadedmetadata = () => {
+			refreshTimeout();
+			if (video.videoWidth <= 0 || video.videoHeight <= 0 || !Number.isFinite(video.duration) || video.duration < 0) {
+				fail(`Invalid video metadata while extracting frames for ${media.filename}`);
+				return;
+			}
+
+			canvas.width = video.videoWidth;
+			canvas.height = video.videoHeight;
+
+			if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+				video.onloadeddata = null;
+				void captureFrame();
+			}
+		};
+
+		video.onloadeddata = () => {
+			video.onloadeddata = null;
+			void captureFrame();
+		};
+
+		video.onseeked = () => {
+			void captureFrame();
 		};
 
 		video.onerror = () => {
@@ -196,7 +198,7 @@ export async function VideoThumbnail(media: MediaInterface): Promise<FileInterfa
 
 	return await new Promise((resolve, reject) => {
 		const video = document.createElement('video');
-		video.preload = 'metadata';
+		video.preload = 'auto';
 
 		const canvas = document.createElement('canvas');
 		canvas.width = 128;
@@ -206,11 +208,14 @@ export async function VideoThumbnail(media: MediaInterface): Promise<FileInterfa
 		assert(ctx);
 
 		let settled = false;
+		let rendering = false;
+		let targetTime: number | undefined;
 		let timeoutID: ReturnType<typeof setTimeout> | undefined;
 
 		const cleanup = () => {
 			if (timeoutID !== undefined) clearTimeout(timeoutID);
 			video.onloadedmetadata = null;
+			video.onloadeddata = null;
 			video.onseeked = null;
 			video.onerror = null;
 			video.src = '';
@@ -230,6 +235,53 @@ export async function VideoThumbnail(media: MediaInterface): Promise<FileInterfa
 			}, VIDEO_THUMBNAIL_TIMEOUT_MS);
 		};
 
+		const renderThumbnail = () => {
+			if (settled || rendering) return;
+			rendering = true;
+			refreshTimeout();
+
+			try {
+				const aspectRatio = video.videoWidth / video.videoHeight;
+				let drawWidth = 128;
+				let drawHeight = 128;
+				let offsetX = 0;
+				let offsetY = 0;
+
+				if (aspectRatio > 1) {
+					drawHeight = 128;
+					drawWidth = drawHeight * aspectRatio;
+					offsetX = -(drawWidth - 128) / 2;
+				} else {
+					drawWidth = 128;
+					drawHeight = drawWidth / aspectRatio;
+					offsetY = -(drawHeight - 128) / 2;
+				}
+
+				ctx.drawImage(video, offsetX, offsetY, drawWidth, drawHeight);
+
+				canvas.toBlob((blob) => {
+					if (!blob) {
+						fail(`Failed to encode video thumbnail for ${media.filename}`);
+						return;
+					}
+
+					if (settled) return;
+					settled = true;
+					cleanup();
+					resolve({
+						userID: media.userID,
+						size: blob.size,
+						mimeType: 'image/jpeg',
+						url: URL.createObjectURL(blob),
+						file: new File([blob], `${media.filename}-thumbnail.jpg`),
+						isThumbnail: true
+					});
+				}, 'image/jpeg');
+			} catch (error) {
+				fail(error instanceof Error ? error.message : `Failed to generate video thumbnail for ${media.filename}`);
+			}
+		};
+
 		video.onloadedmetadata = () => {
 			refreshTimeout();
 			if (video.videoWidth <= 0 || video.videoHeight <= 0) {
@@ -237,50 +289,19 @@ export async function VideoThumbnail(media: MediaInterface): Promise<FileInterfa
 				return;
 			}
 
-			const targetTime = Number.isFinite(video.duration) && video.duration > 0 ? video.duration / 2 : 0;
-			video.currentTime = targetTime;
-		};
-
-		video.onseeked = () => {
-			refreshTimeout();
-
-			const aspectRatio = video.videoWidth / video.videoHeight;
-			let drawWidth = 128;
-			let drawHeight = 128;
-			let offsetX = 0;
-			let offsetY = 0;
-
-			if (aspectRatio > 1) {
-				drawHeight = 128;
-				drawWidth = drawHeight * aspectRatio;
-				offsetX = -(drawWidth - 128) / 2;
-			} else {
-				drawWidth = 128;
-				drawHeight = drawWidth / aspectRatio;
-				offsetY = -(drawHeight - 128) / 2;
+			targetTime = Number.isFinite(video.duration) && video.duration > 0 ? video.duration / 2 : 0;
+			if (targetTime > 0) {
+				video.currentTime = targetTime;
+			} else if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+				renderThumbnail();
 			}
-
-			ctx.drawImage(video, offsetX, offsetY, drawWidth, drawHeight);
-
-			canvas.toBlob((blob) => {
-				if (!blob) {
-					fail(`Failed to encode video thumbnail for ${media.filename}`);
-					return;
-				}
-
-				if (settled) return;
-				settled = true;
-				cleanup();
-				resolve({
-					userID: media.userID,
-					size: blob.size,
-					mimeType: 'image/jpeg',
-					url: URL.createObjectURL(blob),
-					file: new File([blob], `${media.filename}-thumbnail.jpg`),
-					isThumbnail: true
-				});
-			}, 'image/jpeg');
 		};
+
+		video.onloadeddata = () => {
+			if (targetTime === 0) renderThumbnail();
+		};
+
+		video.onseeked = renderThumbnail;
 
 		video.onerror = () => {
 			fail(`Failed to load video for thumbnail generation: ${media.filename}`);

@@ -10,13 +10,16 @@
 ## Current
 
 - [x] Detect supported file types from binary signatures and text content.
+- [x] Reject recognized unsupported binary signatures before text fallbacks.
 - [x] Preserve detected MIME type through media creation and upload.
 - [x] Reject corrupt or stalled video metadata, frame, and thumbnail processing.
 - [x] Show placeholders for video formats the browser cannot preview while preserving direct-file upload.
 - [x] Surface media processing failures in previews and editor.
 - [x] Wait for media processing and prevent failed new media from being uploaded or submitted.
+- [x] Bound upload waits and keep PDF processing counters balanced on failure.
 - [x] Preserve existing message attachments through transient client processing failures.
 - [x] Return fully encoded video frames instead of nested frame promises.
+- [x] Capture initial video frames without relying on a no-op seek event.
 - [x] Keep repeated audio synchronization idempotent and close audio contexts.
 - [x] Cover MIME detection with Bun tests and browser-check valid/corrupt video fixtures.
 - [x] Require and document Node.js 22+ for `file-type` 22.

@@ -16,9 +16,19 @@ import { assert } from './utils';
 import { VideoGetMeta, VideoThumbnail, videoToImages } from './video.svelte';
 
 const debug = dbg('app:lib:media_utils');
+const MEDIA_PROCESSING_WAIT_TIMEOUT_MS = 60_000;
 
 function errorMessage(error: unknown, fallback: string) {
 	return error instanceof Error ? error.message : fallback;
+}
+
+async function waitForMediaProcessing() {
+	const deadline = Date.now() + MEDIA_PROCESSING_WAIT_TIMEOUT_MS;
+	while (A.mediaProcessing) {
+		const remaining = deadline - Date.now();
+		if (remaining <= 0) throw new Error('Timed out waiting for media processing to finish.');
+		await new Promise((resolve) => setTimeout(resolve, Math.min(100, remaining)));
+	}
 }
 
 // Resize image
@@ -272,7 +282,7 @@ export async function uploadConversationMedia(apiKey?: ApiKeyInterface) {
 	if (!A.conversation) throw Error('Conversation missing');
 
 	debug('uploadMedia', $state.snapshot(A.conversation));
-	while (A.mediaProcessing) await new Promise((resolve) => setTimeout(resolve, 25));
+	await waitForMediaProcessing();
 
 	A.mediaUploading = (A.mediaUploading ?? 0) + 1;
 
