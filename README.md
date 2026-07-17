@@ -121,7 +121,7 @@ Coming soon.
 
 - Clone the repository: `git clone https://github.com/ConGustoAI/chat`
 - Copy `.env.example` to `.env` and set the environment variables.
-- Make sure you have NodeJS v20+ installed.
+- Make sure you have NodeJS v22+ installed.
 - Install the dependencies
   - `npm i`
 
@@ -160,7 +160,7 @@ If you update the default providers/models/assistants, don't forget to reflect t
   - Install command: `npm i`
   - Development command: `npm dev`
 
-- Node version: 20
+- Node version: 22
 - Runtime limits: 60 seconds on Hoby plan, 300 seconds on Pro plan.
 - Set the environment variables.
 - Set the domain name to your domain, and make sure the auth callback URL for Google/Github matches the domain.

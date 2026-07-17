@@ -95,7 +95,9 @@
 		}
 
 		await uploadConversationMedia();
-		message.mediaIDs = message.media?.map((m) => m.id!) ?? [];
+		const persistedMediaIDs = new Set(message.mediaIDs ?? []);
+		message.mediaIDs =
+			message.media?.filter((m) => m.id && (!m.processingError || persistedMediaIDs.has(m.id))).map((m) => m.id!) ?? [];
 
 		savingMessage = true;
 		Object.assign(message, await APIupsertMessage(message));

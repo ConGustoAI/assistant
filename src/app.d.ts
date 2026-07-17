@@ -320,11 +320,13 @@ declare global {
 		// Promises that resolve to the iobject URLs.
 		PDFMeta?: Promise<PDFMeta>;
 
-		// For converting video or PDF to images.
-		derivedImages?: Promise<DerivedImageInterface>[];
+		// For converting video or PDF to images. PDF conversion remains lazy per page.
+		derivedImages?: (DerivedImageInterface | Promise<DerivedImageInterface>)[];
 
 		active?: boolean;
 		processing?: number;
+		processingError?: string;
+		videoPreviewUnsupported?: boolean;
 	}
 
 	// interface GoogleUploadInterface {

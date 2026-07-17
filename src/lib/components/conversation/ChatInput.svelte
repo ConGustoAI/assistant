@@ -22,6 +22,24 @@
 	let input = $state('');
 	let chatError: string | undefined = $state(undefined);
 
+	function getNewMedia() {
+		const previouslyIncludedMedia = new Set(
+			A.conversation?.messages?.flatMap((message) => message.mediaIDs ?? []) ?? []
+		);
+		const newMedia: MediaInterface[] = [];
+
+		for (const media of A.conversation?.media ?? []) {
+			if (media.active && (!media.id || !previouslyIncludedMedia.has(media.id))) {
+				newMedia.push(media);
+			}
+		}
+
+		return newMedia;
+	}
+
+	let hasMediaProcessingError = $derived(getNewMedia().some((media) => media.processingError));
+	let hasSubmittableContent = $derived(!!input.trim() || getNewMedia().length > 0);
+
 	async function onSubmit() {
 		debug('onSubmit', { input, connversation: A.conversation });
 		if (!A.conversation) return;
@@ -33,16 +51,10 @@
 
 		if (!A.conversation.messages) A.conversation.messages = [];
 
-		const previouslyIncludedMedia = new Set(A.conversation.messages.map((m) => m.mediaIDs).flat());
-		const newMedia = [];
-
-		for (const media of A.conversation.media ?? []) {
-			if (media.active && !previouslyIncludedMedia.has(media.id)) {
-				newMedia.push(media);
-			}
-		}
+		const newMedia = getNewMedia();
 
 		if (!input && !newMedia.length) return;
+		if (newMedia.some((media) => media.processingError)) return;
 
 		if (!A.conversation.summary) {
 			if (input) {
@@ -93,14 +105,7 @@
 
 		if (!A.conversation.messages) A.conversation.messages = [];
 
-		const previouslyIncludedMedia = new Set(A.conversation.messages.map((m) => m.mediaIDs).flat());
-		const newMedia = [];
-
-		for (const media of A.conversation.media ?? []) {
-			if (media.active && !previouslyIncludedMedia.has(media.id)) {
-				newMedia.push(media);
-			}
-		}
+		const newMedia = getNewMedia();
 
 		const UM: MessageInterface = { userID: A.conversation.userID, role, text: input, media: newMedia };
 		A.conversation.messages.push(UM);
@@ -113,6 +118,7 @@
 			!A.chatStreaming &&
 			!A.mediaUploading &&
 			!A.mediaProcessing &&
+			!hasMediaProcessingError &&
 			event instanceof KeyboardEvent &&
 			event.key === 'Enter'
 		) {
@@ -294,8 +300,16 @@
 						class="btn btn-sm rounded-md"
 						aria-label="Send"
 						onclick={onSubmit}
-						disabled={A.chatStreaming || !!A.mediaProcessing || !!A.mediaUploading || !input.trim()}
-						class:btn-disabled={A.chatStreaming || A.mediaProcessing || A.mediaUploading || !input.trim()}>
+						disabled={A.chatStreaming ||
+							!!A.mediaProcessing ||
+							!!A.mediaUploading ||
+							hasMediaProcessingError ||
+							!hasSubmittableContent}
+						class:btn-disabled={A.chatStreaming ||
+							A.mediaProcessing ||
+							A.mediaUploading ||
+							hasMediaProcessingError ||
+							!hasSubmittableContent}>
 						<Send size={20} />
 					</button>
 				{/if}

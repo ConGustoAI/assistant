@@ -17,6 +17,10 @@ import { VideoGetMeta, VideoThumbnail, videoToImages } from './video.svelte';
 
 const debug = dbg('app:lib:media_utils');
 
+function errorMessage(error: unknown, fallback: string) {
+	return error instanceof Error ? error.message : fallback;
+}
+
 // Resize image
 export async function resizeImage(
 	file: FileInterface,
@@ -230,6 +234,11 @@ export async function mediaResizeFromPreset(
 }
 
 export async function uploadChangedMedia(media: MediaInterface, apiKey?: ApiKeyInterface) {
+	if (media.processingError) {
+		debug('Skipping upload for media with processing error %o', $state.snapshot(media));
+		return;
+	}
+
 	assert(media.original, 'Original media not found');
 	assert(A.conversation?.id, 'Conversation ID missing'); // Conversation should be created at this point.
 
@@ -263,6 +272,7 @@ export async function uploadConversationMedia(apiKey?: ApiKeyInterface) {
 	if (!A.conversation) throw Error('Conversation missing');
 
 	debug('uploadMedia', $state.snapshot(A.conversation));
+	while (A.mediaProcessing) await new Promise((resolve) => setTimeout(resolve, 25));
 
 	A.mediaUploading = (A.mediaUploading ?? 0) + 1;
 
@@ -359,11 +369,12 @@ export async function syncFileURL(file: FileInterface, filename: string = 'file'
 	}
 }
 
-export async function syncMedia(media: MediaInterface) {
+export async function syncMedia(media: MediaInterface, options?: { throwOnError?: boolean }) {
 	if (!media.original) throw new Error('MediaInterface must have an original file');
 
 	A.mediaProcessing = (A.mediaProcessing ?? 0) + 1;
 	media.processing = (media.processing ?? 0) + 1;
+	media.processingError = undefined;
 	try {
 		assert(media.original);
 		await syncFileURL(media.original, media.filename);
@@ -392,17 +403,26 @@ export async function syncMedia(media: MediaInterface) {
 			await imageProcessResize(media);
 		} else if (media.type === 'video') {
 			if (
-				media.originalWidth === undefined ||
-				media.originalHeight === undefined ||
-				media.originalDuration === undefined
+				!media.videoPreviewUnsupported &&
+				(media.originalWidth === undefined ||
+					media.originalHeight === undefined ||
+					media.originalDuration === undefined)
 			) {
 				const meta = await VideoGetMeta(media);
-				media.originalWidth = meta.width;
-				media.originalHeight = meta.height;
-				media.originalDuration = meta.duration;
+				if (meta) {
+					media.originalWidth = meta.width;
+					media.originalHeight = meta.height;
+					media.originalDuration = meta.duration;
+				} else {
+					media.videoPreviewUnsupported = true;
+				}
 			}
 
-			if (media.videoAsImages && !media.derivedImages) {
+			if (media.videoPreviewUnsupported && media.videoAsImages) {
+				throw new Error('This browser cannot extract frames from this video format.');
+			}
+
+			if (!media.videoPreviewUnsupported && media.videoAsImages && !media.derivedImages) {
 				debug('extractFrames', $state.snapshot(media));
 				media.derivedImages = await videoToImages(media);
 				debug('extractFrames done', $state.snapshot(media));
@@ -410,14 +430,19 @@ export async function syncMedia(media: MediaInterface) {
 		} else if (media.type === 'audio') {
 			assert(media.original.file);
 
-			debug('audio', media.original.file);
-			const audioContext = new AudioContext();
-			const arraybuffer = await media.original.file.arrayBuffer();
+			if (media.originalDuration === undefined) {
+				debug('audio', media.original.file);
+				const audioContext = new AudioContext();
+				try {
+					const arraybuffer = await media.original.file.arrayBuffer();
+					const audioBuffer = await audioContext.decodeAudioData(arraybuffer);
 
-			const audioBuffer = await audioContext.decodeAudioData(arraybuffer);
-
-			media.originalDuration = audioBuffer.duration;
-			debug('audio duration', media.originalDuration);
+					media.originalDuration = audioBuffer.duration;
+					debug('audio duration', media.originalDuration);
+				} finally {
+					await audioContext.close();
+				}
+			}
 		} else if (media.type === 'text') {
 			assert(media.original.file);
 			if (!media.text) media.text = await media.original.file.text();
@@ -429,7 +454,15 @@ export async function syncMedia(media: MediaInterface) {
 			if (media.PDFAsImages && !media.derivedImages) media.derivedImages = await PDFToImages(media);
 		}
 
-		if (!media.thumbnail) media.thumbnail = await mediaCreateThumbnail(media);
+		if (!media.thumbnail && !(media.type === 'video' && media.videoPreviewUnsupported)) {
+			media.thumbnail = await mediaCreateThumbnail(media);
+		}
+	} catch (error) {
+		media.processingError = errorMessage(error, `Failed to process media ${media.filename}`);
+		debug('syncMedia failed', error, $state.snapshot(media));
+		if (options?.throwOnError) {
+			throw error instanceof Error ? error : new Error(media.processingError);
+		}
 	} finally {
 		media.processing--;
 		A.mediaProcessing--;
@@ -439,7 +472,7 @@ export async function syncMedia(media: MediaInterface) {
 export async function fileToMedia(file: File): Promise<MediaInterface> {
 	// if (!A.user) throw new Error('User not logged in');
 
-	const type = await typeFromFile(file);
+	const { type, mimeType } = await typeFromFile(file);
 	debug('fileToMedia', type);
 
 	let assistantSupportsVideo = false;
@@ -460,7 +493,7 @@ export async function fileToMedia(file: File): Promise<MediaInterface> {
 		filename: file.name,
 		type,
 		original: {
-			mimeType: file.type || (type === 'text' ? 'text/plain' : 'application/octet-stream'),
+			mimeType,
 			size: file.size,
 			userID: A.user?.id ?? '',
 			file: file
@@ -588,7 +621,9 @@ export async function handleDataTransfer({
 
 			if (!A.conversation.media) A.conversation.media = [];
 			A.conversation.media.push(...newMedia);
-			newMedia.forEach(syncMedia);
+			newMedia.forEach((m) => {
+				syncMedia(m);
+			});
 			if (message) {
 				if (!message.media) message.media = [];
 				message.media.push(...newMedia);

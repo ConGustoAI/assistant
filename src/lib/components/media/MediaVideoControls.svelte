@@ -7,35 +7,41 @@
 	import dbg from 'debug';
 	import { untrack } from 'svelte';
 	import InfoPopup from '../InfoPopup.svelte';
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const debug = dbg('app:ui:components:MediaVideoControls');
 
 	let processingImages = $state(false);
 
-	async function handleVideoAsImages() {
+	async function handleVideoAsImages(clearPreviousError = true) {
 		assert(A.mediaEditing);
 		assert(A.mediaEditing.original);
 
 		processingImages = true;
+		if (clearPreviousError) A.mediaEditing.processingError = undefined;
 
 		try {
 			// A.mediaEditing.PDFAsImagesDPI = parseInt(DPISelector.value);
 			const newImages = await videoToImages(A.mediaEditing);
-
-			// Here we await the promises, so they are fully resolved when the page is rendered.
-			// This avoids flicker, as otherwise there would be a short period of no images displayed
-			/// while the promises resolve.
-			await Promise.all(newImages);
 			A.mediaEditing.derivedImages = newImages;
 			Object.assign(A.mediaEditing, await APIupsertMedia(A.mediaEditing));
+		} catch (error) {
+			A.mediaEditing.processingError = error instanceof Error ? error.message : 'Failed to extract video frames';
+			A.mediaEditing.derivedImages = undefined;
+			debug('Failed to extract video frames', error);
 		} finally {
 			processingImages = false;
 		}
 	}
 
 	$effect(() => {
-		if (A.mediaEditing?.videoAsImages && !A.mediaEditing.derivedImages) {
-			untrack(() => handleVideoAsImages());
+		if (
+			A.mediaEditing?.videoAsImages &&
+			!A.mediaEditing.derivedImages &&
+			!A.mediaEditing.processingError &&
+			!processingImages
+		) {
+			untrack(() => {
+				handleVideoAsImages(false);
+			});
 		}
 	});
 
@@ -54,16 +60,25 @@
 			<input
 				type="checkbox"
 				id="as-images"
-				disabled={(currentAssistant && !currentAssistant.images && !A.mediaEditing.videoAsImages) ||
+				disabled={(A.mediaEditing.videoPreviewUnsupported && !A.mediaEditing.videoAsImages) ||
+					(currentAssistant && !currentAssistant.images && !A.mediaEditing.videoAsImages) ||
 					processingImages ||
 					isPublicPage()}
 				bind:checked={A.mediaEditing.videoAsImages}
 				onchange={async () => {
 					assert(A.mediaEditing);
-					if (A.mediaEditing.videoAsImages) await handleVideoAsImages();
+					if (A.mediaEditing.videoAsImages) {
+						await handleVideoAsImages();
+					} else if (A.mediaEditing.videoPreviewUnsupported) {
+						A.mediaEditing.processingError = undefined;
+						Object.assign(A.mediaEditing, await APIupsertMedia(A.mediaEditing));
+					}
 				}} />
 			<label for="as-images">As images</label>
 		</div>
+		{#if A.mediaEditing.videoPreviewUnsupported}
+			<div class="col-start-2 w-48 text-sm opacity-70">Browser cannot extract frames from this format.</div>
+		{/if}
 		{#if A.mediaEditing.videoAsImages && currentAssistant && !currentAssistant.images}
 			<div class="col-start-2 w-full text-error">
 				<p>Assistant does not support images</p>

@@ -113,7 +113,19 @@
 	onmouseenter={() => (isHovered = true)}
 	onmouseleave={() => (isHovered = false)}>
 	<div class="flex h-full w-full flex-col overflow-hidden bg-base-100">
-		{#if media.type === 'image' || media.type === 'video'}
+		{#if media.type === 'video' && media.videoPreviewUnsupported}
+			<div class="flex h-full flex-col items-center justify-center p-2 text-center">
+				<p class="text-sm font-medium">Video</p>
+				<p class="text-xs opacity-70">Preview unavailable</p>
+				{#if media.processingError}
+					<p class="mt-1 text-xs text-error">{media.processingError}</p>
+				{/if}
+			</div>
+		{:else if media.processingError}
+			<div class="flex h-full items-center justify-center p-2">
+				<p class="text-left text-xs text-error">{media.processingError}</p>
+			</div>
+		{:else if media.type === 'image' || media.type === 'video'}
 			<img
 				src={thumbnailURL}
 				alt={media.filename}
@@ -182,6 +194,16 @@
 		<progress class="progress-success absolute h-full w-full -rotate-90 opacity-50" value={uploadProgress} max={100}
 		></progress>
 	{/if}
+
+	<div class="absolute bottom-1 left-1 right-1 flex flex-col gap-0.5">
+		{#if media.original?.status === 'failed'}
+			<p class="text-xs text-error">Upload error: {media.original.uploadError}</p>
+		{/if}
+
+		{#if media.thumbnail?.status === 'failed'}
+			<p class="text-xs text-error">Upload error: {media.thumbnail.uploadError}</p>
+		{/if}
+	</div>
 
 	{#if media.processing}
 		<div class="loading absolute left-1 top-1 m-auto"></div>
