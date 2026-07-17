@@ -15,4 +15,13 @@ describe('typeFromFile', () => {
 
 		expect(await typeFromFile(file)).toEqual({ type: 'text', mimeType: 'text/plain' });
 	});
+
+	test('does not let a text extension override a binary signature', async () => {
+		const zipHeader = new Uint8Array([
+			0x50, 0x4b, 0x03, 0x04, 0x14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		]);
+		const file = new File([zipHeader], 'archive.csv', { type: 'text/csv' });
+
+		await expect(typeFromFile(file)).rejects.toThrow('Unsupported media type: application/zip');
+	});
 });

@@ -71,10 +71,10 @@ export async function PDFToImages(media: MediaInterface): Promise<Promise<Derive
 	A.mediaProcessing = (A.mediaProcessing ?? 0) + 1;
 	media.processing = (media.processing ?? 0) + 1;
 
-	const PDFImageURLs: Promise<DerivedImageInterface>[] = [];
-
-	const pdfDocument = await media.PDFDocument;
 	try {
+		const PDFImageURLs: Promise<DerivedImageInterface>[] = [];
+		const pdfDocument = await media.PDFDocument;
+
 		for (let page = 1; page <= pdfDocument.numPages; page++) {
 			const pdfPage = await pdfDocument.getPage(page);
 			const viewport = pdfPage.getViewport({ scale: media.PDFAsImagesDPI / 72 });
