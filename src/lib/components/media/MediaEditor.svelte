@@ -13,6 +13,7 @@
 	import { assert, isPublicPage } from '$lib/utils/utils';
 
 	import dbg from 'debug';
+	import { AlertTriangle } from 'lucide-svelte';
 	import MediaVideoControls from './MediaVideoControls.svelte';
 	import VideoImageViewer from './VideoImageViewer.svelte';
 	const debug = dbg('app:ui:components:MediaEditor');
@@ -97,7 +98,24 @@
 		class="modal-box relative flex h-[80vh] w-[95vw] min-w-[95vw] flex-col overflow-visible rounded-sm border p-1 md:flex-row lg:w-[80vw] lg:min-w-[80vw]"
 		class:mb-60={A.debug}>
 		{#if A.mediaEditing}
-			{#if A.mediaEditing?.type === 'image'}
+			{#if A.mediaEditing.type === 'video' && A.mediaEditing.videoPreviewUnsupported}
+				<div class="flex h-full grow items-center justify-center p-6">
+					<div class="max-w-xl text-center">
+						<p class="font-medium">Video preview unavailable</p>
+						<p class="text-sm opacity-70">This browser cannot display {A.mediaEditing.original.mimeType} files.</p>
+						{#if A.mediaEditing.processingError}
+							<p class="mt-2 text-sm text-error">{A.mediaEditing.processingError}</p>
+						{/if}
+					</div>
+				</div>
+			{:else if A.mediaEditing.processingError}
+				<div class="flex h-full grow items-center justify-center p-6">
+					<div class="alert alert-error max-w-xl text-left">
+						<AlertTriangle size={18} />
+						<span>{A.mediaEditing.processingError}</span>
+					</div>
+				</div>
+			{:else if A.mediaEditing?.type === 'image'}
 				<img
 					src={displayedImageURL}
 					alt={A.mediaEditing.title}

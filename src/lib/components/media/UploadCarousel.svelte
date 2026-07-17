@@ -37,7 +37,7 @@
 
 			A.conversation.media.push(...newMedia);
 
-			A.conversation.media.map(syncMedia);
+			A.conversation.media.map((m) => syncMedia(m));
 
 			debug('Files added to conversation: ', $state.snapshot(A.conversation));
 			input.value = '';
@@ -125,8 +125,8 @@
 
 			<button
 				class="btn btn-disabled carousel-item btn-outline relative h-9 min-h-8 w-14 items-center justify-center rounded-sm p-0"
-				class:btn-disabled={!meidaNeedsUpload || totalUploadProgress !== undefined}
-				disabled={!meidaNeedsUpload || totalUploadProgress !== undefined}
+				class:btn-disabled={!meidaNeedsUpload || !!A.mediaProcessing || totalUploadProgress !== undefined}
+				disabled={!meidaNeedsUpload || !!A.mediaProcessing || totalUploadProgress !== undefined}
 				onclick={async () => {
 					const newConversation = await uploadConversationMedia();
 					if (newConversation) {

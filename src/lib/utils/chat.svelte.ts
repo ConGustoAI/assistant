@@ -8,7 +8,7 @@ import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createOpenAI } from '@ai-sdk/openai';
 import { streamText, type CoreAssistantMessage, type CoreUserMessage, type UserContent } from 'ai';
 import dbg from 'debug';
-import { uploadConversationMedia } from './media_utils.svelte';
+import { syncMedia, uploadConversationMedia } from './media_utils.svelte';
 import { assert, promptHash, secondstoMMSS } from './utils';
 const debug = dbg('app:lib:utils:chat');
 
@@ -150,6 +150,11 @@ export async function _submitConversationClientSide() {
 					'Media type is not supported'
 				);
 
+				const shouldAddMedia = !addedMedia.includes(media.id) && (media.repeat || message === UM);
+				if (!shouldAddMedia) continue;
+
+				await syncMedia(media, { throwOnError: true });
+
 				if (media.type === 'image') {
 					assert(media.original, 'Image missing original');
 					assert(media.originalWidth, 'Image missing original width');
@@ -182,8 +187,6 @@ export async function _submitConversationClientSide() {
 						width = media.originalWidth;
 						height = media.originalHeight;
 					}
-
-					const shouldAddMedia = !addedMedia.includes(media.id) && (media.repeat || message === UM);
 
 					if (shouldAddMedia) {
 						addedMedia.push(media.id);
@@ -231,8 +234,6 @@ export async function _submitConversationClientSide() {
 					assert(media.original.file, 'Audio missing original file');
 					assert(media.originalDuration !== undefined, 'Audio missing original duration');
 
-					const shouldAddMedia = !addedMedia.includes(media.id) && (media.repeat || message === UM);
-
 					if (shouldAddMedia) {
 						addedMedia.push(media.id);
 						contentChunks.push({
@@ -271,14 +272,15 @@ export async function _submitConversationClientSide() {
 				} else if (media.type === 'video') {
 					assert(media.original, 'Video missing original');
 					assert(media.original.file, 'Video missing original file');
-					assert(media.originalDuration != undefined, 'Video missing original duration');
-					assert(media.originalWidth, 'Video missing original width');
-					assert(media.originalHeight, 'Video missing original height');
-
-					const shouldAddMedia = !addedMedia.includes(media.id) && (media.repeat || message === UM);
 
 					if (shouldAddMedia) {
 						addedMedia.push(media.id);
+						const duration =
+							media.originalDuration === undefined ? '' : `duration="${media.originalDuration} seconds" `;
+						const resolution =
+							media.originalWidth && media.originalHeight
+								? `resolution="${media.originalWidth}x${media.originalHeight}" `
+								: '';
 
 						contentChunks.push({
 							type: 'text',
@@ -287,8 +289,8 @@ export async function _submitConversationClientSide() {
 								`title="${media.title}" ` +
 								`filename="${media.filename}" ` +
 								`mimetype="${media.original.mimeType ?? 'video/mp4'}" ` +
-								`duration="${media.originalDuration} seconds" ` +
-								`resolution="${media.originalWidth}x${media.originalHeight}" ` +
+								duration +
+								resolution +
 								`>`
 						});
 
@@ -361,8 +363,6 @@ export async function _submitConversationClientSide() {
 					assert(media.original, 'Text missing original');
 					assert(media.original.file, 'Text missing original file');
 
-					const shouldAddMedia = !addedMedia.includes(media.id) && (media.repeat || message === UM);
-
 					if (shouldAddMedia) {
 						addedMedia.push(media.id);
 						contentChunks.push({
@@ -377,8 +377,6 @@ export async function _submitConversationClientSide() {
 				} else if (media.type === 'pdf') {
 					assert(media.original, 'PDF missing original');
 					assert(media.original.file, 'PDF missing original file');
-
-					const shouldAddMedia = !addedMedia.includes(media.id) && (media.repeat || message === UM);
 
 					if (shouldAddMedia) {
 						addedMedia.push(media.id);
