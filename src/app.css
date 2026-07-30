@@ -118,7 +118,7 @@ select {
 	background-repeat: no-repeat;
 	background-position: right 0.7rem center;
 	background-size: 0.7rem;
-	padding-inline-end: 2rem;
+	padding-inline-end: 2.5rem;
 }
 
 /* Media playback bar: a native <progress> only styles through pseudo-elements. */
