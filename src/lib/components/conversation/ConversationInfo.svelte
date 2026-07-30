@@ -112,8 +112,8 @@
 </script>
 
 {#if A.conversation?.id}
-	<div class="relative flex w-full flex-col overflow-auto rounded-2xl rounded-none bg-base-300 p-4 shadow-xl">
-		<!-- <h3 class="flex items-center gap-2 text-xl font-semibold text-base">Conversation Stats</h3> -->
+	<div class="relative flex w-full flex-col overflow-auto rounded-none bg-base-300 p-4 shadow-xl">
+		<!-- <h3 class="flex items-center gap-2 font-semibold text-base">Conversation Stats</h3> -->
 		{#if A.conversation.createdAt}
 			<div>
 				<span><strong>Created at:</strong></span>
@@ -128,7 +128,7 @@
 			</div>
 		{/if}
 
-		<div class="flex w-full flex-col gap-2 p-0 p-8">
+		<div class="flex w-full flex-col gap-2 p-0">
 			{#if info.length}
 				{#if !compareStats(statsFromMessages, statsFromConversation) && (statsFromConversation.tokensIn || statsFromConversation.tokensOut) && !isPublicPage()}
 					<div class="grid w-fit grid-cols-[1fr_1fr]">

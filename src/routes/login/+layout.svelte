@@ -8,7 +8,7 @@
 		<ArrowLeftCircle />Back to Chat
 	</a>
 	<div class="flex h-full w-full items-center justify-center">
-		<div class="rounded-box relative flex w-fit flex-col rounded-2xl bg-base-100 p-6 shadow-lg">
+		<div class="relative flex w-fit flex-col rounded-2xl bg-base-100 p-6 shadow-lg">
 			{@render children()}
 		</div>
 	</div>

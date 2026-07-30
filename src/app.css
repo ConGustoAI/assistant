@@ -93,18 +93,11 @@
 	}
 }
 
-@utility no-scrollbar {
-	/* Hide scrollbar for Chrome, Safari and Opera */
-	&::-webkit-scrollbar {
-		display: none;
+@layer base {
+	/* Must stay layered: unlayered it would outrank the no-scrollbar utility. */
+	* {
+		scrollbar-width: thin;
 	}
-	/* Hide scrollbar for IE, Edge and Firefox */
-	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
-}
-
-* {
-	scrollbar-width: thin;
 }
 
 /* Native selects: keep the chevron the app had, instead of the platform arrow. */

@@ -134,10 +134,10 @@
 			transition:slide={{ duration: 100, axis: 'x' }}>
 			<div class="flex w-full">
 				<button
-					class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'join-item h-full grow')}
+					class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'grow')}
 					onclick={async () => await NewChat()}>New chat</button>
 				<DropdownMenu.Root bind:open={assistantSelectOpen}>
-					<DropdownMenu.Trigger class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'h-full px-1')}
+					<DropdownMenu.Trigger class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'px-1')}
 						><ChevronUp class="rotate-180" /></DropdownMenu.Trigger>
 					<DropdownMenu.Content align="end" class="z-20 flex w-52 flex-col bg-base-300 p-2 text-sm shadow-sm">
 						<Divider class="py-2">Your assistants</Divider>
@@ -254,13 +254,13 @@
 
 		<Divider />
 
-		<div class="m-2 flex h-fit shrink-0 grow-0 items-center gap-2 p-2 py-0">
+		<div class="m-2 flex h-fit min-h-16 shrink-0 grow-0 items-center gap-2 p-2 py-0">
 			<div class="flex max-w-fit flex-1 justify-start">
 				{#if !A.sidebarOpen}
 					<div class={cn(buttonVariants({ size: 'icon' }), 'rounded-full sm:hidden')} style="visibility: hidden;"></div>
 				{/if}
 			</div>
-			<div class="mx-auto flex h-fit max-w-full flex-none grow justify-center p-0 md:max-w-[95%]">
+			<div class="mx-auto flex h-fit max-w-full grow justify-center p-0 md:max-w-[95%]">
 				<ChatInput
 					submitConversation={submitConversationClientSide}
 					cancelConversation={() => abortController?.abort()} />
