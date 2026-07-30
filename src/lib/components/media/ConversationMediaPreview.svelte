@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { Spinner } from '$lib/components/ui/spinner';
 	import { APIupsertMessage } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
@@ -149,7 +151,7 @@
 <div
 	role="group"
 	aria-label={media.filename}
-	class="bg-base-300 relative flex h-full w-full flex-col justify-between gap-0.5 rounded-md p-1"
+	class="relative flex h-full w-full flex-col justify-between gap-0.5 rounded-md bg-base-300 p-1"
 	draggable="false"
 	class:opacity-50={!media.active}
 	onmouseenter={() => (isHovered = true)}
@@ -157,18 +159,18 @@
 	<!-- {:else if media.type === 'audio'}
 		TODO: Audio
 	{:else} -->
-	<div class="bg-base-100 relative flex h-full w-full flex-col overflow-hidden">
+	<div class="relative flex h-full w-full flex-col overflow-hidden bg-base-100">
 		{#if media.type === 'video' && media.videoPreviewUnsupported}
 			<div class="flex h-full flex-col items-center justify-center p-2 text-center">
 				<p class="text-sm font-medium">Video</p>
 				<p class="text-xs opacity-70">Preview unavailable</p>
 				{#if media.processingError}
-					<p class="text-error mt-1 text-xs">{media.processingError}</p>
+					<p class="mt-1 text-xs text-error">{media.processingError}</p>
 				{/if}
 			</div>
 		{:else if media.processingError}
 			<div class="flex h-full items-center justify-center p-2">
-				<p class="text-error text-left text-xs">{media.processingError}</p>
+				<p class="text-left text-xs text-error">{media.processingError}</p>
 			</div>
 		{:else if media.type === 'image'}
 			<img
@@ -179,7 +181,7 @@
 
 			{#if media.originalWidth != undefined}
 				<div
-					class="text-primary-content absolute bottom-0 right-0 rounded-none bg-black bg-opacity-50 px-1 text-center text-sm">
+					class="text-primary-content bg-opacity-50 absolute right-0 bottom-0 rounded-none bg-black px-1 text-center text-sm">
 					{media.originalWidth}x{media.originalHeight}
 					{#if media.transformed}
 						<span>↓</span>
@@ -198,7 +200,7 @@
 			</video>
 			<progress
 				bind:this={mediaPlaybackProgressBar}
-				class="media-progress text-error absolute bottom-0 z-20 h-1 rounded-none"
+				class="media-progress absolute bottom-0 z-20 h-1 rounded-none text-error"
 				value="0"
 				max={100}></progress>
 		{:else if media.type === 'audio'}
@@ -226,7 +228,7 @@
 				</audio>
 				<progress
 					bind:this={mediaPlaybackProgressBar}
-					class="media-progress text-error absolute bottom-0 z-20 h-1 rounded-none"
+					class="media-progress absolute bottom-0 z-20 h-1 rounded-none text-error"
 					value="0"
 					max={100}></progress>
 			</div>
@@ -235,7 +237,7 @@
 		{:else if media.type === 'text'}
 			<pre class="tab-size-2 m-0 line-clamp-5 overflow-hidden text-sm">{thumbnailText ?? ''}</pre>
 			<div
-				class="text-primary-content absolute bottom-0 right-0 rounded-none bg-black bg-opacity-50 px-1 text-end text-sm">
+				class="text-primary-content bg-opacity-50 absolute right-0 bottom-0 rounded-none bg-black px-1 text-end text-sm">
 				<p>
 					{#if numWords != undefined}
 						W: {numWords}
@@ -252,8 +254,8 @@
 		{/if}
 
 		{#if !(mediaSupported === true)}
-			<div class="pointer-events-none absolute left-0 top-0 size-full p-5">
-				<div class="text-error pointer-events-auto rounded-md bg-black bg-opacity-50">
+			<div class="pointer-events-none absolute top-0 left-0 size-full p-5">
+				<div class="bg-opacity-50 pointer-events-auto rounded-md bg-black text-error">
 					<AlertTriangle size="fit-h" />
 				</div>
 			</div>
@@ -261,14 +263,11 @@
 
 		<div class="absolute bottom-1 mr-2 flex h-fit w-full flex-col gap-0.5">
 			{#if media.original?.status === 'progress'}
-				<progress
-					class="media-progress progress-success h-1 rounded-none"
-					value={media.original.uploadProgress}
-					max={100}>
+				<progress class="media-progress h-1 rounded-none text-success" value={media.original.uploadProgress} max={100}>
 					{media.original.uploadProgress}%
 				</progress>
 			{:else if media.original?.status === 'failed'}
-				<p class="text-error text-xs">Upload error: {media.original.uploadError}</p>
+				<p class="text-xs text-error">Upload error: {media.original.uploadError}</p>
 			{/if}
 
 			{#if media.thumbnail}
@@ -276,14 +275,11 @@
 					<Spinner class="m-auto size-6" />
 				{:then thumbnail}
 					{#if thumbnail.status === 'progress'}
-						<progress
-							class="media-progress progress-success h-1 rounded-none"
-							value={thumbnail.uploadProgress}
-							max={100}>
+						<progress class="media-progress h-1 rounded-none text-success" value={thumbnail.uploadProgress} max={100}>
 							{thumbnail.uploadProgress}%
 						</progress>
 					{:else if thumbnail.status === 'failed'}
-						<p class="text-error text-xs">Upload error: {thumbnail?.uploadError}</p>
+						<p class="text-xs text-error">Upload error: {thumbnail?.uploadError}</p>
 					{/if}
 				{/await}
 			{/if}
@@ -291,16 +287,16 @@
 
 		<!-- {#await media.thumbnail then thumbnail} -->
 		{#if (!media.original || media.original.status === 'ok') && (!media.thumbnail || media.thumbnail.status === 'ok')}
-			<div class="text-success absolute bottom-0.5 left-0 z-30">
+			<div class="absolute bottom-0.5 left-0 z-30 text-success">
 				<Upload size={14} strokeWidth={3} />
 			</div>
 		{/if}
 		<!-- {/await} -->
 	</div>
 
-	<div class="mx-1 flex w-full shrink-0 flex-col items-start text-nowrap text-sm" title={media.title}>
+	<div class="mx-1 flex w-full shrink-0 flex-col items-start text-sm text-nowrap" title={media.title}>
 		{#if isHovered}
-			<div class="bg-base-300 z-20 overflow-visible rounded-md border px-1">
+			<div class="z-20 overflow-visible rounded-md border bg-base-300 px-1">
 				{media.title}
 			</div>
 		{:else}
@@ -312,10 +308,10 @@
 
 	{#if isHovered}
 		<div
-			class="bg-primary absolute -right-2 -top-4 z-10 flex items-start gap-2 rounded-md p-1"
+			class="absolute -top-4 -right-2 z-10 flex items-start gap-2 rounded-md bg-primary p-1"
 			transition:fade={{ duration: 100 }}>
 			<!-- <button
-				class="btn-xs p-0"
+				class="size-6 p-0"
 				title="Edit file"
 				onclick={() => {
 					if (A.mediaEditing === media) {
@@ -328,31 +324,32 @@
 			</button> -->
 
 			<DeleteButton
-				btnClass="btn btn-xs p-0 text-error"
-				class="dropdown-bottom text-error"
+				btnClass={cn(buttonVariants({ size: 'xs' }), 'text-error p-0')}
+				class="text-error"
 				deleteAction={async () => await deleteMedia(media)}
 				title="Delete file" />
 			{#if !A.user || A.user.hacker}
-				<label
-					class="swap swap-rotate btn-xs p-0.5"
-					title={media.repeat ? 'Send the file for every chat turn' : 'Send the file once'}>
-					<input type="checkbox" bind:checked={media.repeat} />
-					<RefreshCcwIcon class="swap-on" size="fit-h" />
-					<RefreshCwOff class="swap-off" size="fit-h" />
-				</label>
+				<button
+					type="button"
+					class="z-40 size-6 p-0.5"
+					title={media.repeat ? 'Send the file for every chat turn' : 'Send the file once'}
+					aria-pressed={!!media.repeat}
+					onclick={() => (media.repeat = !media.repeat)}>
+					{#if media.repeat}<RefreshCcwIcon class="h-full w-auto" />{:else}<RefreshCwOff class="h-full w-auto" />{/if}
+				</button>
 			{/if}
 		</div>
 
 		{#if message}
-			<div class="pointer-events-none absolute left-0 top-0 h-full w-full p-10">
-				<button class="text-success pointer-events-auto bg-black bg-opacity-50" onclick={addMediaToMessage}>
+			<div class="pointer-events-none absolute top-0 left-0 h-full w-full p-10">
+				<button class="bg-opacity-50 pointer-events-auto bg-black text-success" onclick={addMediaToMessage}>
 					<Plus size="fit-h" />
 				</button>
 			</div>
 		{:else}
-			<div class="pointer-events-none absolute left-0 top-0 size-full p-10">
+			<div class="pointer-events-none absolute top-0 left-0 size-full p-10">
 				<button
-					class="pointer-events-auto rounded-md bg-black bg-opacity-50"
+					class="bg-opacity-50 pointer-events-auto rounded-md bg-black"
 					onclick={() => {
 						if (A.mediaEditing) {
 							A.mediaEditing = undefined;

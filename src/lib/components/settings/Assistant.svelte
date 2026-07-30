@@ -3,7 +3,7 @@
 	import { Spinner } from '$lib/components/ui/spinner';
 	import { cn } from '$lib/utils/utils';
 	import { buttonVariants } from '$lib/components/ui/button';
-	import { Divider } from '$lib/components';
+	import Divider from '$lib/components/Divider.svelte';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import { APIhideItem, APIunhideItem, APIupsertAssistant } from '$lib/api';
 	import { AssistantDetails, AssistantPrompt, DeleteButton } from '$lib/components';
@@ -157,7 +157,7 @@
 	disabled={!edit} />
 
 <select
-	class="border-input bg-background shadow-xs focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-12 w-full rounded-none border px-3 text-base outline-none disabled:opacity-50"
+	class="h-12 w-full rounded-none border border-input bg-background px-3 text-base shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50"
 	bind:value={assistant.modelID}
 	onchange={statusChanged}
 	onblur={() => {
@@ -189,7 +189,7 @@
 </select>
 
 <select
-	class="border-input bg-background shadow-xs focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-12 rounded-none border px-3 text-base outline-none disabled:opacity-50"
+	class="h-12 rounded-none border border-input bg-background px-3 text-base shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50"
 	bind:value={assistant.apiKeyID}
 	onchange={statusChanged}
 	onblur={() => {
@@ -251,7 +251,7 @@
 </button>
 
 <DeleteButton
-	btnClass="btn btn-outline w-full h-full p-2"
+	btnClass={cn(buttonVariants({ variant: 'outline' }), 'h-full w-full p-2')}
 	deleteAction={async () => {
 		status = 'deleting';
 		await deleteAssistant(assistant);
@@ -265,7 +265,7 @@
 		<Check />
 	</div>
 </div>
-<div class="text-error col-span-full" class:hidden={status !== 'error'}>
+<div class="col-span-full text-error" class:hidden={status !== 'error'}>
 	<span>{errorMessage}</span>
 </div>
 
@@ -277,7 +277,7 @@
 	<div class="col-span-full col-start-2 mb-6 flex w-full flex-col gap-2">
 		{#if showDefault && edit}
 			<Divider
-				><span class="bg-warning w-fit rounded-2xl px-4 py-0 text-black"
+				><span class="w-fit rounded-2xl bg-warning px-4 py-0 text-black"
 					>Changes made here will be visible to and will affect all users</span
 				></Divider>
 		{/if}

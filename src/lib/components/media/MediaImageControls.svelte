@@ -39,7 +39,7 @@
 		<div class="flex items-baseline gap-2">
 			<p class="label">Size</p>
 			<select
-				class="border-input bg-background shadow-xs focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-12 h-8 w-48 rounded-none border px-3 text-base text-sm outline-none disabled:opacity-50"
+				class="h-8 h-12 w-48 rounded-none border border-input bg-background px-3 text-base text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50"
 				bind:value={selectedResizePreset}
 				onchange={async () => {
 					debug('resizePreset', selectedResizePreset);

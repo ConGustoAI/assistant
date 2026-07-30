@@ -49,7 +49,7 @@
 	<title>Settings</title>
 </svelte:head>
 
-<div class="max-w-screen flex h-screen flex-col overflow-auto p-5 pb-16">
+<div class="flex h-screen max-w-screen flex-col overflow-auto p-5 pb-16">
 	<a class="flex gap-2 underline" href="/chat">
 		<ArrowLeftCircle />Back to Chat
 	</a>

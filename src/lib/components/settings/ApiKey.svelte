@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { cn } from '$lib/utils/utils';
 	import { Spinner } from '$lib/components/ui/spinner';
@@ -93,7 +94,7 @@
 	disabled={!edit || status === 'deleting'} />
 
 <DeleteButton
-	btnClass="btn btn-outline p-2 h-full w-full"
+	btnClass={cn(buttonVariants({ variant: 'outline' }), 'h-full w-full p-2')}
 	deleteAction={async () => {
 		status = 'deleting';
 		await deleteKey(apiKey);
@@ -107,6 +108,6 @@
 		<Check />
 	</div>
 </div>
-<div class="text-error col-span-full" class:hidden={status !== 'error'}>
+<div class="col-span-full text-error" class:hidden={status !== 'error'}>
 	<span>{errorMessage}</span>
 </div>

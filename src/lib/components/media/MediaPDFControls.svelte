@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Spinner } from '$lib/components/ui/spinner';
-	import { Divider } from '$lib/components';
+	import Divider from '$lib/components/Divider.svelte';
 	import { APIupsertMedia } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
 	import { PDFToImages } from '$lib/utils/pdf.svelte';
@@ -74,7 +74,7 @@
 				}} />
 			<label for="as-images">As images</label>
 			<select
-				class="border-input bg-background shadow-xs focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-12 h-8 rounded-none border px-3 text-base text-sm outline-none disabled:opacity-50"
+				class="h-8 rounded-none border border-input bg-background px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50"
 				bind:this={DPISelector}
 				onchange={handlePdfAsImages}
 				disabled={processingImages || !A.mediaEditing.PDFAsImages}>
@@ -85,7 +85,7 @@
 		</div>
 
 		{#if A.mediaEditing.PDFAsImages && currentAssistant && !currentAssistant.images}
-			<div class="text-error col-start-2 w-full">
+			<div class="col-start-2 w-full text-error">
 				<p>Assistant does not support images</p>
 			</div>
 		{/if}
@@ -120,7 +120,7 @@
 		</div>
 
 		{#if A.mediaEditing.PDFAsFile && currentAssistant && !currentAssistant.pdf}
-			<div class="text-error col-start-2 w-full">
+			<div class="col-start-2 w-full text-error">
 				<p>Assistant does not support PDF</p>
 			</div>
 		{/if}

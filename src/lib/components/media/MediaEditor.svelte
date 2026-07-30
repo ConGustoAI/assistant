@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as Tabs from '$lib/components/ui/tabs';
 	import { Input } from '$lib/components/ui/input';
 	import { Spinner } from '$lib/components/ui/spinner';
 	import { cn } from '$lib/utils/utils';
@@ -97,9 +98,9 @@
 	});
 </script>
 
-<dialog class="modal inset-0" open={!!A.mediaEditing}>
+<dialog class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 open:flex" open={!!A.mediaEditing}>
 	<div
-		class="modal-box rounded-xs relative flex h-[80vh] w-[95vw] min-w-[95vw] flex-col overflow-visible border p-1 md:flex-row lg:w-[80vw] lg:min-w-[80vw]"
+		class="relative flex h-[80vh] max-h-[calc(100vh-5em)] w-11/12 w-[95vw] max-w-2xl min-w-[95vw] flex-col overflow-visible overflow-y-auto rounded-2xl rounded-xs border bg-base-100 p-1 p-6 shadow-lg md:flex-row lg:w-[80vw] lg:min-w-[80vw]"
 		class:mb-60={A.debug}>
 		{#if A.mediaEditing}
 			{#if A.mediaEditing.type === 'video' && A.mediaEditing.videoPreviewUnsupported}
@@ -108,13 +109,13 @@
 						<p class="font-medium">Video preview unavailable</p>
 						<p class="text-sm opacity-70">This browser cannot display {A.mediaEditing.original.mimeType} files.</p>
 						{#if A.mediaEditing.processingError}
-							<p class="text-error mt-2 text-sm">{A.mediaEditing.processingError}</p>
+							<p class="mt-2 text-sm text-error">{A.mediaEditing.processingError}</p>
 						{/if}
 					</div>
 				</div>
 			{:else if A.mediaEditing.processingError}
 				<div class="flex h-full grow items-center justify-center p-6">
-					<div class="bg-error max-w-xl rounded-2xl px-4 text-left text-black">
+					<div class="max-w-xl rounded-2xl bg-error px-4 text-left text-black">
 						<AlertTriangle size={18} />
 						<span>{A.mediaEditing.processingError}</span>
 					</div>
@@ -132,31 +133,23 @@
 					</audio>
 				</div>
 			{:else if A.mediaEditing?.type === 'video'}
-				<div role="tablist" class="tabs tabs-lift h-full w-full">
-					<input
-						type="radio"
-						name="video-tabs"
-						role="tab"
-						class="tab text-nowrap [--tab-border-color:var(--tw-content)]"
-						aria-label="Video"
-						checked />
-					<div class="tab-content h-full overflow-auto">
+				<Tabs.Root value="video" class="h-full w-full">
+					<Tabs.List>
+						<Tabs.Trigger value="video" class="text-nowrap">Video</Tabs.Trigger>
+						<Tabs.Trigger value="images" class="text-nowrap" disabled={!A.mediaEditing.videoAsImages}>
+							As images
+						</Tabs.Trigger>
+					</Tabs.List>
+					<Tabs.Content value="video" class="h-full overflow-auto">
 						<video class="shrink grow overflow-hidden object-contain" controls>
 							<source src={A.mediaEditing.original.url} type={A.mediaEditing.original.mimeType} />
 							Your browser does not support the video tag.
 						</video>
-					</div>
-					<input
-						type="radio"
-						name="video-tabs"
-						role="tab"
-						class="tab text-nowrap"
-						aria-label="As images"
-						disabled={!A.mediaEditing.videoAsImages} />
-					<div class="tab-content h-full overflow-auto">
+					</Tabs.Content>
+					<Tabs.Content value="images" class="h-full overflow-auto">
 						<VideoImageViewer media={A.mediaEditing} />
-					</div>
-				</div>
+					</Tabs.Content>
+				</Tabs.Root>
 			{:else if A.mediaEditing?.type === 'text'}
 				<div class="flex h-full max-h-full grow flex-col overflow-auto p-2">
 					<GrowInput
@@ -167,38 +160,28 @@
 						disabled={isPublicPage()} />
 				</div>
 			{:else if A.mediaEditing?.type === 'pdf'}
-				<div role="tablist" class="tabs tabs-lift h-full w-full">
-					<input
-						type="radio"
-						name="pdf-tabs"
-						role="tab"
-						class="tab text-nowrap [--tab-border-color:var(--tw-content)]"
-						aria-label="Original"
-						checked />
-					<div class="tab-content h-full overflow-auto">
+				<Tabs.Root value="original" class="h-full w-full">
+					<Tabs.List>
+						<Tabs.Trigger value="original" class="text-nowrap">Original</Tabs.Trigger>
+						<Tabs.Trigger value="images" class="text-nowrap" disabled={!A.mediaEditing.PDFAsImages}>
+							As images
+						</Tabs.Trigger>
+						<Tabs.Trigger value="document" class="text-nowrap" disabled>As document</Tabs.Trigger>
+					</Tabs.List>
+					<Tabs.Content value="original" class="h-full overflow-auto">
 						<PDFViewer media={A.mediaEditing} />
-					</div>
-					<input
-						type="radio"
-						name="pdf-tabs"
-						role="tab"
-						class="tab text-nowrap"
-						aria-label="As images"
-						disabled={!A.mediaEditing.PDFAsImages} />
-					<div class="tab-content h-full overflow-auto">
+					</Tabs.Content>
+					<Tabs.Content value="images" class="h-full overflow-auto">
 						<PDFImageViewer media={A.mediaEditing} />
-					</div>
-					<input type="radio" name="pdf-tabs" role="tab" class="tab text-nowrap" aria-label="As document" disabled />
-					<div class="tab-content h-full overflow-auto">
-						<!-- <PDFDocumentViewer media={A.mediaEditing} /> -->
-					</div>
-				</div>
+					</Tabs.Content>
+					<Tabs.Content value="document" class="h-full overflow-auto"></Tabs.Content>
+				</Tabs.Root>
 			{/if}
 
 			<div
-				class="flex min-w-fit shrink-0 grow-0 flex-col items-end justify-start gap-1 overflow-visible border-t p-1 md:border-l md:border-t-0">
+				class="flex min-w-fit shrink-0 grow-0 flex-col items-end justify-start gap-1 overflow-visible border-t p-1 md:border-t-0 md:border-l">
 				{#if !mediaSupported}
-					<div class="text-error w-full text-center">
+					<div class="w-full text-center text-error">
 						<p>Media type not supported</p>
 					</div>
 				{/if}
@@ -246,14 +229,14 @@
 					{/if}
 				{/if}
 				<button
-					class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'bg-base-200 justify-self-end p-1')}
+					class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'justify-self-end bg-base-200 p-1')}
 					onclick={() => (A.mediaEditing = undefined)}>Close</button>
 			</div>
 		{/if}
 	</div>
 
 	<button
-		class="modal-backdrop"
+		class="fixed inset-0 -z-10 cursor-default text-transparent"
 		tabindex="-1"
 		onclick={() => {
 			A.mediaEditing = undefined;

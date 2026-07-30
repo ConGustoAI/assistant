@@ -222,7 +222,7 @@
 				{/if}
 				{#each message.media ?? [] as media}
 					<!-- {@const media = A.conversation?.media?.find((m) => m.id === mediaID)} -->
-					<div class="carousel-item bg-base-300 flex h-24 w-24 items-center justify-center">
+					<div class="carousel-item flex h-24 w-24 items-center justify-center bg-base-300">
 						<MessageMediaPreview {media} bind:message />
 					</div>
 				{/each}
@@ -236,18 +236,18 @@
 	{/if}
 
 	<div class="relative flex items-start pt-2 text-message" class:bg-base-usermessage={message.role == 'user'}>
-		<div class="div text-base-content items-start px-3 py-3">
+		<div class="div items-start px-3 py-3 text-base-content">
 			{#if loading}
 				<Spinner class="size-6" />
 			{:else if message.role == 'user'}
 				<Smile size="24" />
 			{:else}
-				<details class="dropdown dropdown-right" bind:open={detailsOpen}>
+				<details class="relative" bind:open={detailsOpen}>
 					<summary class="block cursor-pointer text-center">
 						<Computer />
 					</summary>
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
-					<div class="dropdown-content z-40 ml-2" onkeydown={handleKeydown} tabindex="-1">
+					<div class="absolute top-0 left-full z-40 ml-2" onkeydown={handleKeydown} tabindex="-1">
 						<MessageInfo {message} />
 					</div>
 				</details>
@@ -329,7 +329,7 @@
 						<MarkdownMessage bind:message />
 					</div>
 				{:else}
-					<div class="wrap-break-word w-full whitespace-pre-wrap py-2 contain-paint [content-visibility:auto]">
+					<div class="w-full py-2 wrap-break-word whitespace-pre-wrap contain-paint [content-visibility:auto]">
 						{message.text}
 					</div>
 				{/if}
@@ -338,7 +338,7 @@
 					<button
 						class={cn(
 							buttonVariants({ variant: 'ghost', size: 'xs' }),
-							'absolute bottom-2 right-2 rounded-md p-0 px-1'
+							'absolute right-2 bottom-2 rounded-md p-0 px-1'
 						)}
 						title="Continue generating"
 						onclick={submitConversation}>

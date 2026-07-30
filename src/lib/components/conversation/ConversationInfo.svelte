@@ -112,7 +112,7 @@
 </script>
 
 {#if A.conversation?.id}
-	<div class="bg-base-300 relative flex w-full flex-col overflow-auto rounded-2xl rounded-none p-4 shadow-xl">
+	<div class="relative flex w-full flex-col overflow-auto rounded-2xl rounded-none bg-base-300 p-4 shadow-xl">
 		<!-- <h3 class="flex items-center gap-2 text-xl font-semibold text-base">Conversation Stats</h3> -->
 		{#if A.conversation.createdAt}
 			<div>

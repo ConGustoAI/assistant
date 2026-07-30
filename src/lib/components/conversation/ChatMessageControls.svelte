@@ -1,7 +1,8 @@
 <script lang="ts">
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { cn } from '$lib/utils/utils';
 	import { buttonVariants } from '$lib/components/ui/button';
-	import { Divider } from '$lib/components';
+	import Divider from '$lib/components/Divider.svelte';
 	import { APIdeleteMessages, APIupsertMessage } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
 	import { Cost, DeleteMessageButton } from '$lib/components';
@@ -110,8 +111,8 @@
 	// });
 </script>
 
-<div class="absolute right-0 top-0 flex flex-col pr-2">
-	<div class="text-base-content flex w-full items-center justify-end gap-2">
+<div class="absolute top-0 right-0 flex flex-col pr-2">
+	<div class="flex w-full items-center justify-end gap-2 text-base-content">
 		{#if message.createdAt && message.role !== 'assistant'}
 			{new Date(message.createdAt).toLocaleString('en-GB', {
 				day: '2-digit',
@@ -123,7 +124,7 @@
 			})}
 		{/if}
 		{#if A.user?.showInfo && message.role == 'assistant' && message.id}
-			<div class="text-base-content mr-2 flex gap-4 text-xs">
+			<div class="mr-2 flex gap-4 text-xs text-base-content">
 				{#if shouldShowAssistantInfo()}
 					<span>
 						{#if message.assistantName}
@@ -171,8 +172,8 @@
 		{#if !isPublicPage()}
 			<DeleteMessageButton
 				title="Delete message"
-				class="dropdown-end"
-				btnClass="btn btn-xs btn-ghost rounded-md p-1"
+				class=""
+				btnClass={cn(buttonVariants({ variant: 'ghost', size: 'xs' }), 'rounded-md p-1')}
 				deleteAction={deleteMessage}
 				deleteWithMediaAction={message.role === 'user' && message.media?.length ? deleteMessageWithMedia : undefined} />
 		{/if}
@@ -186,11 +187,13 @@
 				}}>{markdown ? 'md' : 'raw'}</button>
 		{/if}
 		{#if A.user?.hacker && !isPublicPage()}
-			<div class="dropdown dropdown-end">
-				<button class={cn(buttonVariants({ variant: 'ghost', size: 'xs' }), 'rounded-md p-1')} title="More options">
-					<Menu size="fit-h" />
-				</button>
-				<ul class="dropdown-content bg-base-200 z-20 flex w-64 flex-col text-nowrap p-2 text-sm">
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger
+					class={cn(buttonVariants({ variant: 'ghost', size: 'xs' }), 'rounded-md p-1')}
+					title="More options">
+					<Menu class="h-full w-auto" />
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content align="end" class="z-20 flex w-64 flex-col bg-base-200 p-2 text-sm text-nowrap">
 					<li>
 						<button
 							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
@@ -241,8 +244,8 @@
 								await addMessage({ parent: message, role: 'user', above: false, editing: true });
 							}}>user</button>
 					</li>
-				</ul>
-			</div>
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
 		{/if}
 	</div>
 </div>

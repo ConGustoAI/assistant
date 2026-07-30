@@ -4,7 +4,7 @@
 	import { Spinner } from '$lib/components/ui/spinner';
 	import { cn } from '$lib/utils/utils';
 	import { buttonVariants } from '$lib/components/ui/button';
-	import { Divider } from '$lib/components';
+	import Divider from '$lib/components/Divider.svelte';
 	import { APISearchConversations } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
 	import { ConversationHistoryGroup, DeleteButton } from '$lib/components';
@@ -267,18 +267,18 @@
 	<div class="relative w-full">
 		<Checkbox
 			aria-label="Select all conversations"
-			class="absolute left-3 top-1/2 z-10 -translate-y-1/2 transform"
+			class="absolute top-1/2 left-3 z-10 -translate-y-1/2 transform"
 			name="selectAll"
 			onCheckedChange={selectAll}
 			checked={!!selectedConversations.length &&
 				selectedConversations.length === datedConversation.allFiltered.length} />
 		{#if selectedConversations.length}
 			{#if deleting}
-				<Spinner class="absolute right-3 top-1/2 size-6 -translate-y-1/2 transform" />
+				<Spinner class="absolute top-1/2 right-3 size-6 -translate-y-1/2 transform" />
 			{:else}
 				<DeleteButton
-					class="dropdown-right absolute right-3 top-1/2 z-10 -translate-y-1/2"
-					btnClass="btn btn-sm m-0 btn-outline rounded-md p-1"
+					class="absolute top-1/2 right-3 z-10 -translate-y-1/2"
+					btnClass={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'm-0 rounded-md p-1')}
 					deleteAction={deleteSelected} />
 			{/if}
 		{/if}
@@ -317,7 +317,7 @@
 <Divider class="grow-0"
 	><button
 		aria-label="Search options"
-		class="btn-outline mx-0 flex h-4 w-fit items-center rounded-full border px-4"
+		class="mx-0 flex h-4 w-fit items-center rounded-full border border-input px-4"
 		disabled={searchAMPdisabled}
 		class:btn-disabled={searchAMPdisabled}
 		class:rotate-180={searchOptionsOpen}
@@ -327,9 +327,9 @@
 
 {#if searchOptionsOpen}
 	<div
-		class="bg-base-100 relative mx-2 flex flex-col gap-2 rounded-md p-2 shadow-sm"
+		class="relative mx-2 flex flex-col gap-2 rounded-md bg-base-100 p-2 shadow-sm"
 		transition:slide={{ duration: 20 }}>
-		<div class="dropdown dropdown-right">
+		<div class="group relative">
 			<Input
 				type="text"
 				role="button"
@@ -341,7 +341,7 @@
 				bind:value={searchAMP} />
 
 			<div
-				class="dropdown-content bg-base-200 left-full top-2 z-40 ml-1 flex w-fit flex-col justify-start rounded-md shadow-lg">
+				class="absolute top-2 left-full z-40 ml-1 hidden w-fit flex-col justify-start rounded-md bg-base-200 shadow-lg group-focus-within:flex">
 				{#if historyAMPOptions.assistants.length}
 					<Divider class="py-0">Assistants</Divider>
 				{/if}
@@ -350,7 +350,7 @@
 					<button
 						class={cn(
 							buttonVariants({ variant: 'ghost', size: 'xs' }),
-							'ampoption cursor-pointer justify-start text-nowrap px-4 py-0 text-sm'
+							'ampoption cursor-pointer justify-start px-4 py-0 text-sm text-nowrap'
 						)}
 						tabindex="0"
 						onclick={() => {
@@ -370,7 +370,7 @@
 					<button
 						class={cn(
 							buttonVariants({ variant: 'ghost', size: 'xs' }),
-							'ampoption cursor-pointer justify-start text-nowrap px-4 py-0 text-sm'
+							'ampoption cursor-pointer justify-start px-4 py-0 text-sm text-nowrap'
 						)}
 						tabindex="0"
 						onclick={() => {
@@ -390,7 +390,7 @@
 					<button
 						class={cn(
 							buttonVariants({ variant: 'ghost', size: 'xs' }),
-							'ampoption cursor-pointer justify-start text-nowrap px-4 py-0 text-sm'
+							'ampoption cursor-pointer justify-start px-4 py-0 text-sm text-nowrap'
 						)}
 						tabindex="0"
 						onclick={() => {
@@ -415,7 +415,7 @@
 				<label for="oplyPrivate">
 					<div class="relative">
 						<Link size={20} />
-						<div class="absolute left-0 top-1/2 h-0.5 w-full -rotate-45 transform bg-red-500"></div>
+						<div class="absolute top-1/2 left-0 h-0.5 w-full -rotate-45 transform bg-red-500"></div>
 					</div>
 				</label>
 				<Checkbox

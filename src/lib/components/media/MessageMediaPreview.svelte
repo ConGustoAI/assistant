@@ -109,22 +109,22 @@
 <div
 	role="group"
 	aria-label={media.filename}
-	class="bg-base-300 relative flex h-full w-full flex-col justify-between gap-0.5 rounded-md p-1"
+	class="relative flex h-full w-full flex-col justify-between gap-0.5 rounded-md bg-base-300 p-1"
 	class:opacity-50={!media.active && !isPublicPage()}
 	onmouseenter={() => (isHovered = true)}
 	onmouseleave={() => (isHovered = false)}>
-	<div class="bg-base-100 flex h-full w-full flex-col overflow-hidden">
+	<div class="flex h-full w-full flex-col overflow-hidden bg-base-100">
 		{#if media.type === 'video' && media.videoPreviewUnsupported}
 			<div class="flex h-full flex-col items-center justify-center p-2 text-center">
 				<p class="text-sm font-medium">Video</p>
 				<p class="text-xs opacity-70">Preview unavailable</p>
 				{#if media.processingError}
-					<p class="text-error mt-1 text-xs">{media.processingError}</p>
+					<p class="mt-1 text-xs text-error">{media.processingError}</p>
 				{/if}
 			</div>
 		{:else if media.processingError}
 			<div class="flex h-full items-center justify-center p-2">
-				<p class="text-error text-left text-xs">{media.processingError}</p>
+				<p class="text-left text-xs text-error">{media.processingError}</p>
 			</div>
 		{:else if media.type === 'image' || media.type === 'video'}
 			<img
@@ -168,7 +168,7 @@
 				</audio>
 				<progress
 					bind:this={mediaPlaybackProgressBar}
-					class="media-progress text-error absolute bottom-0 z-20 h-1 rounded-none"
+					class="media-progress absolute bottom-0 z-20 h-1 rounded-none text-error"
 					value="0"
 					max={100}></progress>
 			</div>
@@ -179,9 +179,9 @@
 		{/if}
 	</div>
 
-	<div class="mx-1 flex w-full shrink-0 flex-col items-start text-nowrap text-sm" title={media.title}>
+	<div class="mx-1 flex w-full shrink-0 flex-col items-start text-sm text-nowrap" title={media.title}>
 		{#if isHovered}
-			<div class="bg-base-300 z-20 overflow-visible rounded-md border px-1">
+			<div class="z-20 overflow-visible rounded-md border bg-base-300 px-1">
 				{media.title}
 			</div>
 		{:else}
@@ -192,51 +192,54 @@
 	<!-- <div class="mx-1 w-full shrink-0 truncate text-nowrap text-sm">{media.title}</div> -->
 
 	{#if uploadProgress !== undefined}
-		<progress class="progress-success absolute h-full w-full -rotate-90 opacity-50" value={uploadProgress} max={100}
-		></progress>
+		<progress
+			class="media-progress absolute h-full w-full -rotate-90 text-success opacity-50"
+			value={uploadProgress}
+			max={100}></progress>
 	{/if}
 
-	<div class="absolute bottom-1 left-1 right-1 flex flex-col gap-0.5">
+	<div class="absolute right-1 bottom-1 left-1 flex flex-col gap-0.5">
 		{#if media.original?.status === 'failed'}
-			<p class="text-error text-xs">Upload error: {media.original.uploadError}</p>
+			<p class="text-xs text-error">Upload error: {media.original.uploadError}</p>
 		{/if}
 
 		{#if media.thumbnail?.status === 'failed'}
-			<p class="text-error text-xs">Upload error: {media.thumbnail.uploadError}</p>
+			<p class="text-xs text-error">Upload error: {media.thumbnail.uploadError}</p>
 		{/if}
 	</div>
 
 	{#if media.processing}
-		<Spinner class="absolute left-1 top-1 m-auto size-6" />
+		<Spinner class="absolute top-1 left-1 m-auto size-6" />
 	{/if}
 	<!-- {/if} -->
 
 	{#if isHovered}
 		{#if !isPublicPage()}
 			<div
-				class="bg-primary absolute right-0 top-0 flex items-start gap-1 rounded-md bg-opacity-30 p-1"
+				class="bg-opacity-30 absolute top-0 right-0 flex items-start gap-1 rounded-md bg-primary p-1"
 				transition:fade={{ duration: 100 }}>
 				{#if !A.user || A.user.hacker}
-					<label
-						class="swap swap-rotate btn-xs z-40 p-0.5"
-						title={media.repeat ? 'Send the file for every chat turn' : 'Send the file once'}>
-						<input type="checkbox" bind:checked={media.repeat} />
-						<RefreshCcwIcon class="swap-on" size="fit-h" />
-						<RefreshCwOff class="swap-off" size="fit-h" />
-					</label>
+					<button
+						type="button"
+						class="z-40 size-6 p-0.5"
+						title={media.repeat ? 'Send the file for every chat turn' : 'Send the file once'}
+						aria-pressed={!!media.repeat}
+						onclick={() => (media.repeat = !media.repeat)}>
+						{#if media.repeat}<RefreshCcwIcon class="h-full w-auto" />{:else}<RefreshCwOff class="h-full w-auto" />{/if}
+					</button>
 				{/if}
 			</div>
 
 			{#if message.editing}
-				<div class="absolute left-0 top-0 size-full p-6">
-					<button class="text-error rounded-md bg-black bg-opacity-50" onclick={unlinkMedia}>
+				<div class="absolute top-0 left-0 size-full p-6">
+					<button class="bg-opacity-50 rounded-md bg-black text-error" onclick={unlinkMedia}>
 						<X size="fit-h" />
 					</button>
 				</div>
 			{:else}
-				<div class="absolute left-0 top-0 size-full p-8">
+				<div class="absolute top-0 left-0 size-full p-8">
 					<button
-						class="rounded-md bg-black bg-opacity-50"
+						class="bg-opacity-50 rounded-md bg-black"
 						onclick={() => {
 							if (A.mediaEditing) {
 								A.mediaEditing = undefined;
@@ -249,9 +252,9 @@
 				</div>
 			{/if}
 		{:else}
-			<div class="absolute left-0 top-0 size-full p-8">
+			<div class="absolute top-0 left-0 size-full p-8">
 				<button
-					class="rounded-md bg-black bg-opacity-50"
+					class="bg-opacity-50 rounded-md bg-black"
 					onclick={() => {
 						if (A.mediaEditing) {
 							A.mediaEditing = undefined;

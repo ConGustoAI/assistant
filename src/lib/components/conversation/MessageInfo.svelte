@@ -68,7 +68,7 @@
 	let resultDropdown: HTMLInputElement | undefined = $state();
 </script>
 
-<div class="rounded-xs bg-base-300 lg:max-w-(--breakpoint-md) flex w-max max-w-md flex-col p-2">
+<div class="flex w-max max-w-md flex-col rounded-xs bg-base-300 p-2 lg:max-w-(--breakpoint-md)">
 	{#if message.createdAt}
 		<div>
 			<span><strong>Created at:</strong></span>
@@ -130,16 +130,19 @@
 	<div>
 		{#if message.prompt}
 			<strong>Prompt:</strong>
-			<pre class="prose w-full whitespace-pre-wrap text-sm">
+			<pre class="prose w-full text-sm whitespace-pre-wrap">
 {message.prompt.text}
 </pre>
 		{/if}
 	</div>
-	<div class="wrap wrap-break-word flex w-full flex-col gap-2">
+	<div class="wrap flex w-full flex-col gap-2 wrap-break-word">
 		{#if message.messagesSent && (A.user?.hacker || isPublicPage())}
-			<div class="bg-base-200 collapse rounded-none p-0">
-				<input bind:this={messagesSentDropdown} type="checkbox" class="peer min-h-0" />
-				<div class="collapse-title bg-base-200 text-primary-content peer-checked:bg-base-100 min-h-0 p-2">
+			<div class="relative flex flex-col rounded-none bg-base-200 p-0">
+				<input
+					bind:this={messagesSentDropdown}
+					type="checkbox"
+					class="peer absolute inset-x-0 top-0 z-10 h-10 cursor-pointer opacity-0" />
+				<div class="text-primary-content min-h-0 cursor-pointer bg-base-200 p-2 peer-checked:bg-base-100">
 					<div class="flex justify-end gap-2">
 						<strong class="mr-auto self-start">Sent</strong>
 						<button
@@ -167,7 +170,7 @@
 				</div>
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div
-					class="collapse-content bg-primary text-primary-content break-all"
+					class="text-primary-content hidden bg-primary p-2 break-all peer-checked:block"
 					onkeydown={handleKeydownSelectAll}
 					tabindex="-1">
 					<JsonView json={JSON.parse(message.messagesSent)} depth={3} />
@@ -176,9 +179,12 @@
 		{/if}
 
 		{#if message.result && (A.user?.hacker || isPublicPage())}
-			<div class="bg-base-200 collapse rounded-none">
-				<input bind:this={resultDropdown} type="checkbox" class="peer min-h-0" />
-				<div class="collapse-title bg-base-200 text-primary-content peer-checked:bg-base-100 min-h-0 p-2">
+			<div class="relative flex flex-col rounded-none bg-base-200">
+				<input
+					bind:this={resultDropdown}
+					type="checkbox"
+					class="peer absolute inset-x-0 top-0 z-10 h-10 cursor-pointer opacity-0" />
+				<div class="text-primary-content min-h-0 cursor-pointer bg-base-200 p-2 peer-checked:bg-base-100">
 					<div class="flex justify-end gap-2">
 						<strong class="mr-auto self-start">Received</strong>
 						<button
@@ -206,7 +212,7 @@
 				</div>
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div
-					class="collapse-content bg-primary text-primary-content break-all"
+					class="text-primary-content hidden bg-primary p-2 break-all peer-checked:block"
 					onkeydown={handleKeydownSelectAll}
 					tabindex="-1">
 					<JsonView json={JSON.parse(message.result)} depth={2} />

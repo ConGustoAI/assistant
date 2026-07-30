@@ -73,7 +73,7 @@
 </script>
 
 {#if A.user}
-	<section class="max-w-(--breakpoint-md) flex flex-col gap-2">
+	<section class="flex max-w-(--breakpoint-md) flex-col gap-2">
 		<div class="flex items-end gap-4">
 			<div class="flex flex-col gap-4">
 				<h2 class="text-2xl font-bold">User Profile</h2>
@@ -122,13 +122,13 @@
 		<Divider>Information for the Assistant</Divider>
 		<div class="flex flex-col">
 			<span class="text-sm">About you</span>
-			<GrowInput class="whitespace-pre-wrap text-wrap" bind:value={A.user.aboutUser} oninput={statusChanged} />
+			<GrowInput class="text-wrap whitespace-pre-wrap" bind:value={A.user.aboutUser} oninput={statusChanged} />
 		</div>
 
 		<div class="flex flex-col">
 			<span class="text-sm">Instructions</span>
 			<GrowInput
-				class="whitespace-pre-wrap text-wrap"
+				class="text-wrap whitespace-pre-wrap"
 				bind:value={A.user.assistantInstructions}
 				oninput={statusChanged} />
 		</div>
@@ -140,8 +140,8 @@
 			<div class="flex items-center">Token estimate</div>
 			<div class="flex items-center">Message info</div>
 			<div class="flex items-center">Show cost above</div>
-			<div class="text-warning flex items-center">Show cost above</div>
-			<div class="text-error flex items-center">Show cost above</div>
+			<div class="flex items-center text-warning">Show cost above</div>
+			<div class="flex items-center text-error">Show cost above</div>
 
 			<Checkbox
 				bind:checked={() => A.user?.showEstimate ?? false, (v) => A.user && (A.user.showEstimate = v)}

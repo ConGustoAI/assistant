@@ -108,33 +108,33 @@
 			<button
 				class={cn(
 					buttonVariants({ variant: 'outline' }),
-					'carousel-item rounded-xs relative h-9 min-h-8 w-14 items-center justify-center p-0'
+					'carousel-item relative h-9 min-h-8 w-14 items-center justify-center rounded-xs p-0'
 				)}
 				onclick={() => document.getElementById('fileInput')?.click()}
 				title="Upload one or more files">
 				<FilePlus size={32} />
 				{#if A.debug}
-					<p class="absolute bottom-1 right-1 text-debug">{A.mediaProcessing ?? 0}</p>
+					<p class="absolute right-1 bottom-1 text-debug">{A.mediaProcessing ?? 0}</p>
 				{/if}
 			</button>
 
 			<button
 				class={cn(
 					buttonVariants({ variant: 'outline' }),
-					'carousel-item rounded-xs relative h-9 min-h-8 items-center justify-center p-0'
+					'carousel-item relative h-9 min-h-8 items-center justify-center rounded-xs p-0'
 				)}
 				title="Upload one of more directory"
 				onclick={() => document.getElementById('directoryInput')?.click()}>
 				<FolderPlus size={32} />
 				{#if A.debug}
-					<p class="absolute bottom-1 right-1 text-debug">{A.mediaProcessing ?? 0}</p>
+					<p class="absolute right-1 bottom-1 text-debug">{A.mediaProcessing ?? 0}</p>
 				{/if}
 			</button>
 
 			<button
 				class={cn(
 					buttonVariants({ variant: 'outline' }),
-					'carousel-item rounded-xs pointer-events-none relative h-9 min-h-8 w-14 items-center justify-center p-0 opacity-50'
+					'carousel-item pointer-events-none relative h-9 min-h-8 w-14 items-center justify-center rounded-xs p-0 opacity-50'
 				)}
 				class:btn-disabled={!meidaNeedsUpload || !!A.mediaProcessing || totalUploadProgress !== undefined}
 				disabled={!meidaNeedsUpload || !!A.mediaProcessing || totalUploadProgress !== undefined}
@@ -146,12 +146,14 @@
 					}
 				}}>
 				{#if totalUploadProgress !== undefined}
-					<progress class="progress-success absolute h-full w-full opacity-50" value={totalUploadProgress} max={100}
-					></progress>
+					<progress
+						class="media-progress absolute h-full w-full text-success opacity-50"
+						value={totalUploadProgress}
+						max={100}></progress>
 				{/if}
 				<CloudUpload size={32} />
 				{#if A.debug}
-					<p class="absolute bottom-1 right-1 text-debug">{A.mediaUploading ?? 0}</p>
+					<p class="absolute right-1 bottom-1 text-debug">{A.mediaUploading ?? 0}</p>
 				{/if}
 			</button>
 		</div>

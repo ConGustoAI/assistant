@@ -4,11 +4,11 @@
 </script>
 
 <div class="div div-col h-full">
-	<a class="ml-2 mt-2 flex gap-2 underline" href="/chat">
+	<a class="mt-2 ml-2 flex gap-2 underline" href="/chat">
 		<ArrowLeftCircle />Back to Chat
 	</a>
 	<div class="flex h-full w-full items-center justify-center">
-		<div class="bg-base-100 rounded-box relative flex w-fit flex-col rounded-2xl p-6 shadow-lg">
+		<div class="rounded-box relative flex w-fit flex-col rounded-2xl bg-base-100 p-6 shadow-lg">
 			{@render children()}
 		</div>
 	</div>
