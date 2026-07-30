@@ -47,7 +47,7 @@
 	{#if disabled}
 		<div
 			class={cn(
-				'textarea h-fit min-h-10 w-full resize-none overflow-auto whitespace-pre-wrap py-2 text-base',
+				'border-input bg-background shadow-xs focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-fit min-h-10 w-full resize-none overflow-auto whitespace-pre-wrap rounded-none border px-3 py-2 text-base outline-none',
 				className
 			)}>
 			{value}
@@ -69,7 +69,10 @@
 			{oninput}
 			{onkeydown}
 			{onchange}
-			class={cn('textarea h-full min-h-10 overflow-y-auto whitespace-pre-wrap py-2 text-base', className)}>
+			class={cn(
+				'border-input bg-background shadow-xs focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-full min-h-10 overflow-y-auto whitespace-pre-wrap rounded-none border px-3 py-2 text-base outline-none',
+				className
+			)}>
 		</div>
 		{#if value === '' && !focused}
 			<div class={cn('pointer-events-none absolute inset-0 p-2 opacity-50', className)}>
