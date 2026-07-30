@@ -26,6 +26,8 @@
       tabs, frame extraction and page rendering have only been checked against the compiled CSS.
       Drive them the same way: open the upload panel, then set files on the hidden `#fileInput`
       (`agent-browser upload '#fileInput' <path>`).
+- [ ] Rework the provider/model/assistant grids: their fixed column widths overflow even a 2K
+      display, so Hide and Delete fall off the right edge. Pre-existing, not caused by the port.
 - [ ] Decide what light mode should be. It is defined but unreachable: `system` is migrated to dark
       because the light palette was never finished.
 - [ ] Revisit the vendored component tweaks (sizes, square corners, checkbox size) if shadcn's own
