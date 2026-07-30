@@ -22,8 +22,10 @@
 
 ### Follow-ups from the port
 
-- [ ] The media editor is the one area never exercised end to end - it only renders once media exists.
-      Upload an image, a PDF and a video and check the tabs, the crop/resize controls and the dialog.
+- [ ] Media: image upload and the editor dialog are verified. PDF and video still are not - their
+      tabs, frame extraction and page rendering have only been checked against the compiled CSS.
+      Drive them the same way: open the upload panel, then set files on the hidden `#fileInput`
+      (`agent-browser upload '#fileInput' <path>`).
 - [ ] Decide what light mode should be. It is defined but unreachable: `system` is migrated to dark
       because the light palette was never finished.
 - [ ] Revisit the vendored component tweaks (sizes, square corners, checkbox size) if shadcn's own
