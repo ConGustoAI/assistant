@@ -6,7 +6,7 @@
 	let { class: className = '', children }: { class?: string; children?: import('svelte').Snippet } = $props();
 </script>
 
-<div class={cn('flex w-full items-center gap-4 py-2', className)}>
+<div class={cn('flex w-full items-center gap-4', className)}>
 	<Separator class="shrink grow basis-0" />
 	{#if children}
 		<span class="text-sm whitespace-nowrap">{@render children()}</span>

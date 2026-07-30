@@ -263,7 +263,7 @@
 			<div class="absolute bottom-1 left-2">
 				<button
 					aria-label="Upload media"
-					class={cn(buttonVariants({ size: 'sm' }), 'relative rounded-full')}
+					class={cn(buttonVariants({ size: 'icon-sm' }), 'relative rounded-full')}
 					onclick={() => {
 						A.conversationUploadOpen = !A.conversationUploadOpen;
 						if (!A.conversationUploadOpen) {

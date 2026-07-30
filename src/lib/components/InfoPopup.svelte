@@ -9,7 +9,8 @@
 </script>
 
 <DropdownMenu.Root>
-	<DropdownMenu.Trigger class={cn(buttonVariants({ variant: 'ghost', size: 'xs' }), 'rounded-full text-info', clas)}>
+	<DropdownMenu.Trigger
+		class={cn(buttonVariants({ variant: 'ghost', size: 'icon-xs' }), 'rounded-full text-info', clas)}>
 		<Info class="h-4 w-4 stroke-current" />
 	</DropdownMenu.Trigger>
 

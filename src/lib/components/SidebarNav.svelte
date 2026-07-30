@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Divider from '$lib/components/Divider.svelte';
 	import { page } from '$app/stores';
 	import type { Snippet } from 'svelte';
 
@@ -19,14 +18,14 @@
 	<ul class="order-1 flex h-auto w-max shrink-0 flex-col p-4 pr-20 text-xl">
 		{#each items as item}
 			{@const selected = $page.route.id == item.href}
-			<li><a class:font-bold={selected} href={item.href}>{item.title}</a></li>
+			<li><a class="block px-4 py-2" class:font-bold={selected} href={item.href}>{item.title}</a></li>
 		{/each}
 		{#if adminItems.length}
-			<Divider class="mx-0 px-0">Admin</Divider>
+			<li class="px-4 py-2 pl-12 text-base">Admin</li>
 		{/if}
 		{#each adminItems as item}
 			{@const selected = $page.route.id == item.href}
-			<li><a class:font-bold={selected} href={item.href}>{item.title}</a></li>
+			<li><a class="block px-4 py-2" class:font-bold={selected} href={item.href}>{item.title}</a></li>
 		{/each}
 	</ul>
 </div>

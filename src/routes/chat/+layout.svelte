@@ -254,7 +254,7 @@
 
 		<Divider />
 
-		<div class="m-2 flex h-fit min-h-16 shrink-0 grow-0 items-center gap-2 p-2 py-0">
+		<div class="m-2 flex h-fit shrink-0 grow-0 items-center gap-2 p-2 py-0">
 			<div class="flex max-w-fit flex-1 justify-start">
 				{#if !A.sidebarOpen}
 					<div class={cn(buttonVariants({ size: 'icon' }), 'rounded-full sm:hidden')} style="visibility: hidden;"></div>
