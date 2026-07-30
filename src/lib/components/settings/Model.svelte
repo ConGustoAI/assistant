@@ -62,6 +62,13 @@
 		Object.assign(model, res);
 	}
 
+	// Checkboxes save on toggle. bits-ui renders them as buttons, so oninput/onchange never fire.
+	function checkboxChanged() {
+		status = 'changed';
+		clearTimeout(updateTimer);
+		updateModelNow();
+	}
+
 	function debounceModelUpdate() {
 		debug('debounceModelUpdate');
 		clearTimeout(updateTimer);
@@ -188,107 +195,45 @@
 
 <Checkbox
 	bind:checked={() => model.prefill ?? false, (v) => (model.prefill = v)}
-	oninput={() => {
-		status = 'changed';
-		debounceModelUpdate();
-	}}
-	onblur={() => {
-		clearTimeout(updateTimer);
-		updateModelNow();
-	}}
+	onCheckedChange={checkboxChanged}
 	disabled={!edit || status === 'deleting'} />
 
 <Checkbox
 	bind:checked={() => model.images ?? false, (v) => (model.images = v)}
-	oninput={() => {
-		status = 'changed';
-	}}
-	onblur={() => {
-		clearTimeout(updateTimer);
-		updateModelNow();
-	}}
+	onCheckedChange={checkboxChanged}
 	disabled={!edit || status === 'deleting'} />
 <Checkbox
 	bind:checked={() => model.audio ?? false, (v) => (model.audio = v)}
-	oninput={() => {
-		status = 'changed';
-		debounceModelUpdate();
-	}}
-	onblur={() => {
-		clearTimeout(updateTimer);
-		updateModelNow();
-	}}
+	onCheckedChange={checkboxChanged}
 	disabled={!edit || status === 'deleting'} />
 <Checkbox
 	bind:checked={() => model.video ?? false, (v) => (model.video = v)}
-	oninput={() => {
-		status = 'changed';
-		debounceModelUpdate();
-	}}
-	onblur={() => {
-		clearTimeout(updateTimer);
-		updateModelNow();
-	}}
+	onCheckedChange={checkboxChanged}
 	disabled={!edit || status === 'deleting'} />
 
 <Checkbox
 	bind:checked={() => model.pdf ?? false, (v) => (model.pdf = v)}
-	oninput={() => {
-		status = 'changed';
-		debounceModelUpdate();
-	}}
-	onblur={() => {
-		clearTimeout(updateTimer);
-		updateModelNow();
-	}}
+	onCheckedChange={checkboxChanged}
 	disabled={!edit || status === 'deleting'} />
 
 <Checkbox
 	bind:checked={() => model.temperature_enabled ?? false, (v) => (model.temperature_enabled = v)}
-	oninput={() => {
-		status = 'changed';
-		debounceModelUpdate();
-	}}
-	onblur={() => {
-		clearTimeout(updateTimer);
-		updateModelNow();
-	}}
+	onCheckedChange={checkboxChanged}
 	disabled={!edit || status === 'deleting'} />
 
 <Checkbox
 	bind:checked={() => model.top_p_enabled ?? false, (v) => (model.top_p_enabled = v)}
-	oninput={() => {
-		status = 'changed';
-		debounceModelUpdate();
-	}}
-	onblur={() => {
-		clearTimeout(updateTimer);
-		updateModelNow();
-	}}
+	onCheckedChange={checkboxChanged}
 	disabled={!edit || status === 'deleting'} />
 
 <Checkbox
 	bind:checked={() => model.top_k_enabled ?? false, (v) => (model.top_k_enabled = v)}
-	oninput={() => {
-		status = 'changed';
-		debounceModelUpdate();
-	}}
-	onblur={() => {
-		clearTimeout(updateTimer);
-		updateModelNow();
-	}}
+	onCheckedChange={checkboxChanged}
 	disabled={!edit || status === 'deleting'} />
 
 <Checkbox
 	bind:checked={() => model.max_tokens_enabled ?? false, (v) => (model.max_tokens_enabled = v)}
-	oninput={() => {
-		status = 'changed';
-		debounceModelUpdate();
-	}}
-	onblur={() => {
-		clearTimeout(updateTimer);
-		updateModelNow();
-	}}
+	onCheckedChange={checkboxChanged}
 	disabled={!edit || status === 'deleting'} />
 
 <button
