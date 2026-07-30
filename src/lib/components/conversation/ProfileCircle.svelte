@@ -27,7 +27,7 @@
 	<DropdownMenu.Trigger>
 		{#if A.user?.avatar}
 			<div class="p-auto relative m-auto inline-flex align-middle">
-				<div class="bordered w-6 rounded-xl">
+				<div class="w-6 rounded-xl">
 					<!-- https://stackoverflow.com/questions/40570117/http403-forbidden-error-when-trying-to-load-img-src-with-google-profile-pic -->
 					<img src={A.user.avatar} referrerpolicy="no-referrer" alt="User avatar" />
 				</div>

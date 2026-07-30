@@ -98,7 +98,7 @@
 	});
 </script>
 
-<dialog class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 open:flex" open={!!A.mediaEditing}>
+<dialog class="fixed inset-0 z-50 hidden h-full w-full items-center justify-center open:flex" open={!!A.mediaEditing}>
 	<div
 		class="relative flex h-[80vh] max-h-[calc(100vh-5em)] w-[95vw] min-w-[95vw] flex-col overflow-visible overflow-y-auto rounded-xs border bg-base-100 p-1 shadow-lg md:flex-row lg:w-[80vw] lg:min-w-[80vw]"
 		class:mb-60={A.debug}>

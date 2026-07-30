@@ -99,7 +99,7 @@
 	{/if} -->
 
 	<div
-		class="carousel carousel-center h-fit w-full shrink-0 space-x-4 p-4"
+		class="flex h-fit w-full shrink-0 snap-x snap-mandatory space-x-4 overflow-x-auto scroll-smooth p-4"
 		role="region"
 		aria-label="Image upload area">
 		<!-- Clickable box for file upload -->
@@ -108,7 +108,7 @@
 			<button
 				class={cn(
 					buttonVariants({ variant: 'outline' }),
-					'carousel-item relative h-9 min-h-8 w-14 items-center justify-center rounded-xs p-0'
+					'relative h-9 min-h-8 w-14 shrink-0 snap-center items-center justify-center rounded-xs p-0'
 				)}
 				onclick={() => document.getElementById('fileInput')?.click()}
 				title="Upload one or more files">
@@ -121,7 +121,7 @@
 			<button
 				class={cn(
 					buttonVariants({ variant: 'outline' }),
-					'carousel-item relative h-9 min-h-8 items-center justify-center rounded-xs p-0'
+					'relative h-9 min-h-8 shrink-0 snap-center items-center justify-center rounded-xs p-0'
 				)}
 				title="Upload one of more directory"
 				onclick={() => document.getElementById('directoryInput')?.click()}>
@@ -134,7 +134,7 @@
 			<button
 				class={cn(
 					buttonVariants({ variant: 'outline' }),
-					'carousel-item pointer-events-none relative h-9 min-h-8 w-14 items-center justify-center rounded-xs p-0 opacity-50'
+					'pointer-events-none relative h-9 min-h-8 w-14 shrink-0 snap-center items-center justify-center rounded-xs p-0 opacity-50'
 				)}
 				class:btn-disabled={!meidaNeedsUpload || !!A.mediaProcessing || totalUploadProgress !== undefined}
 				disabled={!meidaNeedsUpload || !!A.mediaProcessing || totalUploadProgress !== undefined}
@@ -168,7 +168,7 @@
 		{#if A.conversation?.media}
 			{#each A.conversation?.media as m, i}
 				{#if !message || !message.media?.includes(m)}
-					<div class="carousel-item flex h-32 w-32 flex-col">
+					<div class="flex h-32 w-32 shrink-0 snap-center flex-col">
 						<ConversationMediaPreview bind:media={A.conversation.media[i]} bind:message />
 					</div>
 				{/if}

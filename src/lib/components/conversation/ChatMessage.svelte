@@ -203,7 +203,7 @@
 	{#if message.media?.length || ((message.editing || dragging) && message.role === 'user')}
 		<div class="flex flex-col bg-base-usermessage">
 			<div
-				class="carousel carousel-center ml-10 max-w-full shrink-0 items-end gap-2 bg-base-usermessage p-2"
+				class="ml-10 flex max-w-full shrink-0 snap-x snap-mandatory items-end gap-2 overflow-x-auto scroll-smooth bg-base-usermessage p-2"
 				role="region"
 				aria-label="Image upload area">
 				{#if (message.editing || dragging) && message.role === 'user'}
@@ -222,7 +222,7 @@
 				{/if}
 				{#each message.media ?? [] as media}
 					<!-- {@const media = A.conversation?.media?.find((m) => m.id === mediaID)} -->
-					<div class="carousel-item flex h-24 w-24 items-center justify-center bg-base-300">
+					<div class="flex h-24 w-24 shrink-0 snap-center items-center justify-center bg-base-300">
 						<MessageMediaPreview {media} bind:message />
 					</div>
 				{/each}
