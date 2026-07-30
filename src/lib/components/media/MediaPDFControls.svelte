@@ -74,7 +74,7 @@
 				}} />
 			<label for="as-images">As images</label>
 			<select
-				class="select select-bordered select-sm"
+				class="border-input bg-background shadow-xs focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-12 h-8 rounded-none border px-3 text-base text-sm outline-none disabled:opacity-50"
 				bind:this={DPISelector}
 				onchange={handlePdfAsImages}
 				disabled={processingImages || !A.mediaEditing.PDFAsImages}>

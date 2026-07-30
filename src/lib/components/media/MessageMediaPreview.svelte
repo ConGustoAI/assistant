@@ -132,7 +132,7 @@
 				alt={media.filename}
 				class="pixilated bg-checkered mx-auto h-full w-full overflow-hidden object-contain" />
 		{:else if media.type === 'audio'}
-			<div class=" flex h-full w-full flex-col">
+			<div class="flex h-full w-full flex-col">
 				<button
 					class="z-20"
 					onclick={() => {
@@ -168,7 +168,7 @@
 				</audio>
 				<progress
 					bind:this={mediaPlaybackProgressBar}
-					class="progress progress-error absolute bottom-0 z-20 h-1 rounded-none"
+					class="media-progress text-error absolute bottom-0 z-20 h-1 rounded-none"
 					value="0"
 					max={100}></progress>
 			</div>
@@ -220,9 +220,9 @@
 					<label
 						class="swap swap-rotate btn-xs z-40 p-0.5"
 						title={media.repeat ? 'Send the file for every chat turn' : 'Send the file once'}>
-						<input type="checkbox" class="" bind:checked={media.repeat} />
+						<input type="checkbox" bind:checked={media.repeat} />
 						<RefreshCcwIcon class="swap-on" size="fit-h" />
-						<RefreshCwOff class="swap-off " size="fit-h" />
+						<RefreshCwOff class="swap-off" size="fit-h" />
 					</label>
 				{/if}
 			</div>

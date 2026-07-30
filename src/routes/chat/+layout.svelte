@@ -131,14 +131,14 @@
 		<div
 			class="bg-base-200 flex h-full w-full shrink-0 flex-col items-center justify-start gap-2 p-2 sm:w-56"
 			transition:slide={{ duration: 100, axis: 'x' }}>
-			<div class="join flex w-full">
+			<div class="flex w-full">
 				<button
 					class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'join-item h-full grow')}
 					onclick={async () => await NewChat()}>New chat</button>
-				<details class="dropdown dropdown-end join-item my-0 h-full" bind:this={assistantSelectDropdown}>
+				<details class="dropdown dropdown-end my-0 h-full" bind:this={assistantSelectDropdown}>
 					<summary class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'join-item h-full px-1')}
 						><ChevronUp class="rotate-180" /></summary>
-					<ul class="menu dropdown-content bg-base-300 z-20 w-52 p-2 shadow-sm">
+					<ul class="dropdown-content bg-base-300 z-20 flex w-52 flex-col p-2 text-sm shadow-sm">
 						<Divider class="py-2">Your assistants</Divider>
 						{#each Object.entries(A.assistants).filter(([_, ass]) => ass.userID !== defaultsUUID) as [id, assistant]}
 							{#if !A.hiddenItems.has(id) || A.user?.assistant === id}
@@ -163,7 +163,7 @@
 		</div>
 	{/if}
 
-	<div class="divider divider-horizontal hidden w-1 sm:block" class:hidden={!A.sidebarOpen}></div>
+	<div class="divider-horizontal flex hidden w-1 items-center sm:block" class:hidden={!A.sidebarOpen}></div>
 
 	<div
 		role="document"
@@ -190,7 +190,7 @@
 					<button class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'rounded-md p-1')} title="Add messages">
 						<Plus size="fit-h" />
 					</button>
-					<ul class="menu dropdown-content bg-base-200 z-20 w-32 text-nowrap p-2">
+					<ul class="dropdown-content bg-base-200 z-20 flex w-32 flex-col text-nowrap p-2 text-sm">
 						<li>
 							<button
 								class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
@@ -232,7 +232,7 @@
 						class="items-top flex text-2xl opacity-50"
 						target="_blank"
 						rel="noopener noreferrer">
-						<p class=" mx-2 flex items-center opacity-50">
+						<p class="mx-2 flex items-center opacity-50">
 							Give us a <Star class="mx-1" color="yellow" fill="yellow" /> on
 						</p>
 						<span class="flex items-center underline opacity-100">
@@ -251,18 +251,18 @@
 
 		<Divider />
 
-		<div class="navbar m-2 h-fit shrink-0 grow-0 py-0">
-			<div class="navbar-start max-w-fit">
+		<div class="m-2 flex h-fit min-h-16 shrink-0 grow-0 items-center gap-2 p-2 py-0">
+			<div class="flex max-w-fit flex-1 justify-start">
 				{#if !A.sidebarOpen}
 					<div class={cn(buttonVariants({ size: 'icon' }), 'rounded-full sm:hidden')} style="visibility: hidden;"></div>
 				{/if}
 			</div>
-			<div class="navbar-center mx-auto h-fit max-w-full grow p-0 md:max-w-[95%]">
+			<div class="mx-auto flex h-fit max-w-full flex-none grow justify-center p-0 md:max-w-[95%]">
 				<ChatInput
 					submitConversation={submitConversationClientSide}
 					cancelConversation={() => abortController?.abort()} />
 			</div>
-			<div class="navbar-end max-w-fit"></div>
+			<div class="flex max-w-fit flex-1 justify-end"></div>
 		</div>
 	</div>
 	<div class="absolute bottom-4 left-2 z-20">

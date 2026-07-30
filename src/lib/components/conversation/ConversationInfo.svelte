@@ -112,8 +112,8 @@
 </script>
 
 {#if A.conversation?.id}
-	<div class="card bg-base-300 w-full overflow-auto rounded-none p-4 shadow-xl">
-		<!-- <h3 class="card-title text-base">Conversation Stats</h3> -->
+	<div class="bg-base-300 relative flex w-full flex-col overflow-auto rounded-2xl rounded-none p-4 shadow-xl">
+		<!-- <h3 class="flex items-center gap-2 text-xl font-semibold text-base">Conversation Stats</h3> -->
 		{#if A.conversation.createdAt}
 			<div>
 				<span><strong>Created at:</strong></span>
@@ -128,7 +128,7 @@
 			</div>
 		{/if}
 
-		<div class="card-body w-full p-0">
+		<div class="flex w-full flex-col gap-2 p-0 p-8">
 			{#if info.length}
 				{#if !compareStats(statsFromMessages, statsFromConversation) && (statsFromConversation.tokensIn || statsFromConversation.tokensOut) && !isPublicPage()}
 					<div class="grid w-fit grid-cols-[1fr_1fr]">
@@ -148,7 +148,7 @@
 					<div class="mb-2">
 						{#each Object.keys(infoItem) as key}
 							{#if key === 'promptText'}
-								<div class="">
+								<div>
 									<strong>{key}:</strong>
 									<div class="text-base">{infoItem[key]}</div>
 								</div>

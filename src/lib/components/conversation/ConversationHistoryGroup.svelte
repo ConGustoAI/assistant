@@ -28,7 +28,7 @@
 
 {#each group as c}
 	<li
-		class="tooltip relative min-h-8 w-full grow-0 p-0"
+		class="relative min-h-8 w-full grow-0 p-0"
 		title={A.conversations[c]?.summary}
 		class:bg-base-300={A.conversation?.id === c}>
 		<Checkbox

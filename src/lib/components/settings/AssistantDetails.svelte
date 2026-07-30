@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Slider } from '$lib/components/ui/slider';
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import { Input } from '$lib/components/ui/input';
 	import { fixNumberInput } from '$lib/utils/utils';
@@ -232,16 +233,15 @@
 			<div class="flex items-start justify-center gap-2">
 				<p>Sensitive</p>
 				<div class="w-full max-w-md">
-					<input
-						type="range"
-						required
-						class="range range-sm w-full"
-						bind:value={assistant.googleSafetyThreshold}
+					<Slider
+						type="single"
+						class="w-full"
+						bind:value={() => assistant.googleSafetyThreshold ?? 0, (v) => (assistant.googleSafetyThreshold = v)}
 						step={1}
 						min={0}
 						max={3}
 						disabled={!edit}
-						{onchange} />
+						onValueCommit={() => onchange()} />
 				</div>
 				<p>Insensitive</p>
 			</div>

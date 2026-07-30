@@ -12,7 +12,7 @@
 	}
 </script>
 
-<h2 class="card-title">Logged in as {A.user?.name}</h2>
+<h2 class="flex items-center gap-2 text-xl font-semibold">Logged in as {A.user?.name}</h2>
 <p><strong>Email:</strong> {A.user?.email}</p>
 <p><strong>User ID:</strong> {A.user?.id}</p>
 <div class="mt-4 flex gap-4">

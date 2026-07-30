@@ -1,4 +1,6 @@
 <script lang="ts">
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+	import { Switch } from '$lib/components/ui/switch';
 	import { cn } from '$lib/utils/utils';
 	import { buttonVariants } from '$lib/components/ui/button';
 	import { goto } from '$app/navigation';
@@ -21,10 +23,10 @@
 	}
 </script>
 
-<div class="dropdown dropdown-left">
-	<div tabindex="0" role="button">
+<DropdownMenu.Root>
+	<DropdownMenu.Trigger>
 		{#if A.user?.avatar}
-			<div class="p-auto avatar m-auto align-middle">
+			<div class="p-auto relative m-auto inline-flex align-middle">
 				<div class="bordered w-6 rounded-xl">
 					<!-- https://stackoverflow.com/questions/40570117/http403-forbidden-error-when-trying-to-load-img-src-with-google-profile-pic -->
 					<img src={A.user.avatar} referrerpolicy="no-referrer" alt="User avatar" />
@@ -33,10 +35,9 @@
 		{:else}
 			<UserCircle />
 		{/if}
-	</div>
+	</DropdownMenu.Trigger>
 
-	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-	<ul tabindex="0" class="menu dropdown-content z-1 bg-base-200 p-2">
+	<DropdownMenu.Content align="end" class="bg-base-200 flex w-fit flex-col gap-1 p-2 text-sm">
 		<button
 			class={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'justify-start text-nowrap')}
 			onclick={gotoSettings}>Settings</button>
@@ -44,7 +45,10 @@
 		{#if A.user}
 			<div class={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'flex flex-nowrap items-center gap-2')}>
 				Hacker
-				<input type="checkbox" class="toggle" bind:checked={A.user.hacker} onchange={setHacker} name="hacker" />
+				<Switch
+					bind:checked={() => A.user?.hacker ?? false, (v) => A.user && (A.user.hacker = v)}
+					onCheckedChange={setHacker}
+					name="hacker" />
 			</div>
 		{/if}
 
@@ -53,5 +57,5 @@
 			href={A.user ? '/login/logout' : '/login'}>
 			{#if A.user}Log out{:else}Log in{/if}
 		</a>
-	</ul>
-</div>
+	</DropdownMenu.Content>
+</DropdownMenu.Root>

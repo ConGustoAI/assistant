@@ -12,7 +12,7 @@
 <div class="max-w-(--breakpoint-xl) flex flex-col gap-4">
 	<h2 class="text-xl font-bold">Providers</h2>
 
-	<div class=" ">
+	<div>
 		<Divider>Your providers</Divider>
 		<ProvidersGrid
 			showDefault={false}

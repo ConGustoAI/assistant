@@ -77,7 +77,7 @@
 	}} />
 <div class="self-center">
 	<Spinner class={cn('size-6', status !== 'saving' && 'hidden')} />
-	<div class="" class:hidden={status !== 'saved'}>
+	<div class:hidden={status !== 'saved'}>
 		<Check />
 	</div>
 </div>

@@ -118,13 +118,19 @@
 	scrollbar-width: thin;
 }
 
-/*
-  daisyUI 5 tightened menu rows; restore the 4.x vertical rhythm. Only the block
-  axis: this rule is unlayered, so touching padding-inline would beat the pl-*
-  utilities the sidebar rows use to clear their checkbox.
-*/
-.menu :where(li:not(.menu-title) > :not(ul, menu, details, .menu-title, .btn)) {
-	padding-block: 0.5rem;
+/* Media playback bar: a native <progress> only styles through pseudo-elements. */
+.media-progress {
+	appearance: none;
+	block-size: 0.5rem;
+	inline-size: 100%;
+	border: none;
+}
+.media-progress::-webkit-progress-bar {
+	background-color: var(--color-base-200);
+}
+.media-progress::-webkit-progress-value,
+.media-progress::-moz-progress-bar {
+	background-color: currentColor;
 }
 
 /* daisyUI 5 draws input borders at full strength; 4.x used 20% of base-content. */
