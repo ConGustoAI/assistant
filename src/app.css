@@ -107,6 +107,16 @@
 	scrollbar-width: thin;
 }
 
+/* Native selects: keep the chevron the app had, instead of the platform arrow. */
+select {
+	appearance: none;
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 0.75rem center;
+	background-size: 0.75rem;
+	padding-inline-end: 2rem;
+}
+
 /* Media playback bar: a native <progress> only styles through pseudo-elements. */
 .media-progress {
 	appearance: none;
