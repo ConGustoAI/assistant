@@ -6,24 +6,20 @@
 - `@sveltejs/adapter-node` builds the production server. PostgreSQL via Drizzle ORM.
 - Vercel AI SDK streams models **from the browser** with the user's own API keys (OpenAI, Anthropic, Google).
   The server stores data and hands out file URLs; it never proxies model traffic.
-- Tailwind CSS 4, with daisyUI 5 and shadcn-svelte side by side while components are ported
-  (see `PLAN.md`). Tailwind is CSS-first in `src/app.css`; `tailwind.config.js` survives only via
-  `@config` for the four theme colour aliases.
-  shadcn components are vendored under `src/lib/components/ui/` by its CLI, configured in
-  `components.json`, and excluded from ESLint.
-- The two systems overlap in `app.css` and need care:
-  - daisyUI reads `--border` as a border _width_, shadcn ships it as a colour, so shadcn's is
-    renamed to `--border-color` and `@theme inline` maps `--color-border` to it.
-  - Colour names like `--color-primary` are shared and `@theme inline` makes shadcn's palette win,
-    so shadcn's surface variables are pinned to the daisyUI palette rather than the other way round.
-  - A block of overrides near the end of `app.css` pins daisyUI 5 back to 4.x metrics
-    (`base-content` tone, control heights, menu rhythm, input border strength, square selectors)
-    so the port does not change how the app looks. They go away with daisyUI.
-  - Those overrides are unlayered, so they outrank Tailwind utilities: keep them off any property
-    a component sets with a utility class (`padding-inline` vs `pl-*`, for instance).
-  - `app.html` pins `class="dark" data-theme="dark"`, and the root layout mirrors `mode-watcher`'s
-    mode into `data-theme`, so the `.dark` class and daisyUI's theme never disagree.
-    A stored `system` preference is migrated to explicit dark: there is no working light default yet.
+- Tailwind CSS 4 with shadcn-svelte; there is no `tailwind.config.js`, everything is CSS-first in
+  `src/app.css`. Components are vendored under `src/lib/components/ui/` by the shadcn CLI,
+  configured in `components.json`, and excluded from ESLint since the CLI regenerates them.
+  Their default sizes were edited once to the app's scale (3rem fields, square corners, 24px
+  checkboxes) so call sites need no per-site classes.
+- `app.css` holds the palette the app had before the port, under `[data-theme='dark'|'light']`,
+  exposed to Tailwind through `@theme inline` - that is what keeps `bg-base-200`, `text-error` and
+  friends working. shadcn's own surface variables point at the same palette.
+  Rendered markdown themes `@tailwindcss/typography` by hand (`--tw-prose-*`).
+- `app.html` pins `class="dark" data-theme="dark"`, and the root layout mirrors `mode-watcher`'s
+  mode into `data-theme`, so the `.dark` class and the palette never disagree.
+  A stored `system` preference is migrated to explicit dark: there is no working light default yet.
+- Rules at the end of `app.css` are unlayered, so they outrank Tailwind utilities: keep them off any
+  property a component sets with a utility class (`padding-inline` vs `pl-*`, for instance).
 - Domain types are ambient globals in `src/app.d.ts` (`*Interface`), never imported.
   One interface covers DB columns plus client-only fields; comments mark what is not persisted.
 
@@ -117,5 +113,7 @@ pages. `DEV_LOGIN_USER` mints a fake admin session for local development.
 - `bunx vite build` builds without DB scripts. Full `bun run build` also copies the pdf.js worker into
   `static/`, migrates, and seeds the configured database.
 - UI changes are checked in a real browser with `agent-browser` against a dev server on port 5173.
-  Two traps: pages render client-side only (`ssr = false`), so screenshots need a wait on real content,
-  and screenshot paths must live inside the repo when the agent runs sandboxed.
+  Three traps: pages render client-side only (`ssr = false`), so screenshots need a wait on real
+  content; screenshot paths must live inside the repo when the agent runs sandboxed; and a browser
+  session that has been through many HMR updates reports stale module errors - reconnect before
+  believing them.
