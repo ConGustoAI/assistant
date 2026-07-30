@@ -334,7 +334,7 @@
 				type="text"
 				role="button"
 				tabindex={0}
-				class="h-8"
+				class="h-8 px-3 text-sm"
 				placeholder="Assistant/Provider/Model"
 				onkeydown={handleKeyDown}
 				bind:ref={searchAMPInput}

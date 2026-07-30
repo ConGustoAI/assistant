@@ -123,7 +123,7 @@
 			}} />
 		<Input
 			type="number"
-			class="no-spinner h-8 w-14 py-0 leading-none"
+			class="no-spinner h-8 w-14 px-3 py-0 text-sm leading-none"
 			bind:value={assistant.temperature}
 			onchange={(e) => {
 				fixNumberInput(e, 0, model?.maxTemp ?? 2);
@@ -144,7 +144,7 @@
 			}} />
 		<Input
 			type="number"
-			class="no-spinner h-8 w-14 py-0 leading-none"
+			class="no-spinner h-8 w-14 px-3 py-0 text-sm leading-none"
 			bind:value={assistant.topP}
 			onchange={(e) => {
 				fixNumberInput(e, 0, 1);
@@ -165,7 +165,7 @@
 			}} />
 		<Input
 			type="number"
-			class="no-spinner h-8 w-14 py-0 leading-none"
+			class="no-spinner h-8 w-14 px-3 py-0 text-sm leading-none"
 			bind:value={assistant.topK}
 			onchange={(e) => {
 				fixNumberInput(e, 0, 1000);
@@ -186,7 +186,7 @@
 			}} />
 		<Input
 			type="number"
-			class="no-spinner h-8 w-14 py-0 leading-none"
+			class="no-spinner h-8 w-14 px-3 py-0 text-sm leading-none"
 			bind:value={assistant.maxTokens}
 			onchange={(e) => {
 				fixNumberInput(e, 0, model?.outputContext ?? 4096);

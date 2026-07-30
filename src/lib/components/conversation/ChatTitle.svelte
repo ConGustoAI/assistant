@@ -209,7 +209,7 @@
 						<Input
 							aria-label="Conversation summary"
 							type="text"
-							class="h-8 w-full grow"
+							class="h-8 w-full grow px-3 text-sm"
 							bind:value={A.conversation.summary}
 							onblur={async () => {
 								await updateSummary();

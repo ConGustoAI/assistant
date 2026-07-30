@@ -195,7 +195,7 @@
 					{#if !isPublicPage()}
 						<Input
 							type="text"
-							class="h-8 w-48 justify-self-end"
+							class="h-8 w-48 justify-self-end px-3 text-sm"
 							bind:value={A.mediaEditing.title}
 							onchange={async () => {
 								titleUpdating = true;
