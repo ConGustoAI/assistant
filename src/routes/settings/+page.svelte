@@ -11,7 +11,6 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import { Input } from '$lib/components/ui/input';
-	import * as Select from '$lib/components/ui/select';
 	import { Spinner } from '$lib/components/ui/spinner';
 	import dbg from 'debug';
 	const debug = dbg('app:ui:settings:page');
@@ -64,12 +63,6 @@
 		debug('statusChanged, previously', $state.snapshot(status));
 		status = 'changed';
 	}
-
-	let assistantName = $derived(
-		!A.user?.assistant || A.user.assistant === defaultsUUID
-			? 'Last one used'
-			: (A.assistants[A.user.assistant]?.name ?? 'Last one used')
-	);
 </script>
 
 {#if A.user}
@@ -99,23 +92,15 @@
 
 			<label class="flex flex-col">
 				<span class="text-sm">Default Assistant</span>
-				<Select.Root
-					type="single"
-					bind:value={
-						() => A.user?.assistant ?? defaultsUUID,
-						(v) => {
-							if (A.user) A.user.assistant = v;
-							statusChanged();
-						}
-					}>
-					<Select.Trigger class="w-full min-w-[12.625rem]">{assistantName}</Select.Trigger>
-					<Select.Content>
-						<Select.Item value={defaultsUUID}>Last one used</Select.Item>
-						{#each Object.values(A.assistants) as assistant}
-							<Select.Item value={assistant.id!}>{assistant.name}</Select.Item>
-						{/each}
-					</Select.Content>
-				</Select.Root>
+				<select
+					class="h-12 w-full rounded-none border border-input bg-base-100 px-4 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:border-base-200 disabled:bg-base-200 disabled:text-base-content/40"
+					bind:value={A.user.assistant}
+					onchange={statusChanged}>
+					<option value={defaultsUUID}>Last one used</option>
+					{#each Object.values(A.assistants) as assistant}
+						<option value={assistant.id}>{assistant.name}</option>
+					{/each}
+				</select>
 			</label>
 		</div>
 
