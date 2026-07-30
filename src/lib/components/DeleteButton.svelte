@@ -32,14 +32,14 @@
 	</DropdownMenu.Trigger>
 
 	<DropdownMenu.Content class="w-fit p-2">
-		<button
+		<DropdownMenu.Item
 			class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'rounded-md bg-primary text-nowrap')}
-			onclick={async () => {
+			onSelect={async () => {
 				disabled = true;
 				deleting = true;
 				await deleteAction();
 				disabled = false;
 				deleting = false;
-			}}>Yes, delete!</button>
+			}}>Yes, delete!</DropdownMenu.Item>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

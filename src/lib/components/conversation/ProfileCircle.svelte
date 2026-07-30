@@ -33,7 +33,7 @@
 				</div>
 			</div>
 		{:else}
-			<UserCircle />
+			<CircleUser />
 		{/if}
 	</DropdownMenu.Trigger>
 

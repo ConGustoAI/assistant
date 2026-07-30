@@ -229,7 +229,7 @@
 <button
 	class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
 	onclick={() => (detailsToggled = !detailsToggled)}
-	class:btn-active={detailsToggled}>
+	aria-expanded={detailsToggled}>
 	Details
 </button>
 

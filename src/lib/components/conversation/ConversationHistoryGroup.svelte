@@ -24,7 +24,7 @@
 	}
 </script>
 
-<Divider class="grow-0">{title}</Divider>
+<li><Divider class="grow-0">{title}</Divider></li>
 
 {#each group as c}
 	<li

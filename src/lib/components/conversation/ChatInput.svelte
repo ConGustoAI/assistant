@@ -208,9 +208,10 @@
 	{/if}
 
 	<div class="grid grid-cols-[min-content_auto] items-center gap-0.5">
-		<div class="relative z-200" data-tip={prefillAvailable ? null : 'Prefill not available for this assistant'}>
+		<div>
 			<button
 				aria-label="Prefill Assistant message"
+				title={prefillAvailable ? undefined : 'Prefill not available for this assistant'}
 				class="row-span-2 w-6 p-0"
 				class:-rotate-90={!prefillEnabled}
 				onclick={() => {
@@ -304,11 +305,6 @@
 						disabled={A.chatStreaming ||
 							!!A.mediaProcessing ||
 							!!A.mediaUploading ||
-							hasMediaProcessingError ||
-							!hasSubmittableContent}
-						class:btn-disabled={A.chatStreaming ||
-							A.mediaProcessing ||
-							A.mediaUploading ||
 							hasMediaProcessingError ||
 							!hasSubmittableContent}>
 						<Send size={20} />

@@ -145,7 +145,7 @@
 						{#each Object.entries(A.assistants).filter(([_, ass]) => ass.userID !== defaultsUUID) as [id, assistant]}
 							{#if !A.hiddenItems.has(id) || A.user?.assistant === id}
 								<button
-									class={cn(buttonVariants({ variant: 'outline' }), 'btn-base-300 w-full')}
+									class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
 									onclick={async () => await NewChat(assistant.id)}>{assistant.name}</button>
 							{/if}
 						{/each}
@@ -153,7 +153,7 @@
 						{#each Object.entries(A.assistants).filter(([_, ass]) => ass.userID === defaultsUUID) as [id, assistant]}
 							{#if !A.hiddenItems.has(id) || A.user?.assistant === id}
 								<button
-									class={cn(buttonVariants({ variant: 'outline' }), 'btn-base-300 w-full')}
+									class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
 									onclick={async () => await NewChat(assistant.id)}>{assistant.name}</button>
 							{/if}
 						{/each}
@@ -177,7 +177,7 @@
 		bind:this={conversationDragArea}>
 		<ChatTitle />
 		<div
-			class="bg-opacity-10 mb-auto flex w-full grow flex-col justify-start overflow-y-auto bg-transparent contain-paint [content-visibility:auto]">
+			class="mb-auto flex w-full grow flex-col justify-start overflow-y-auto bg-transparent contain-paint [content-visibility:auto]">
 			{#if A.conversation?.messages}
 				{#each A.conversation.messages as _, i}
 					<ChatMessage
@@ -195,24 +195,20 @@
 						<Plus class="h-full w-auto" />
 					</DropdownMenu.Trigger>
 					<DropdownMenu.Content align="end" class="z-20 flex w-32 flex-col bg-base-200 p-2 text-sm text-nowrap">
-						<li>
-							<button
-								class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-								onclick={async (e) => {
-									const target = e.target as HTMLButtonElement;
-									target.blur();
-									await addMessage({ role: 'assistant', above: false, editing: true });
-								}}>assistant</button>
-						</li>
-						<li>
-							<button
-								class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-								onclick={async (e) => {
-									const target = e.target as HTMLButtonElement;
-									target.blur();
-									await addMessage({ role: 'user', above: false, editing: true });
-								}}>user</button>
-						</li>
+						<button
+							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
+							onclick={async (e) => {
+								const target = e.target as HTMLButtonElement;
+								target.blur();
+								await addMessage({ role: 'assistant', above: false, editing: true });
+							}}>assistant</button>
+						<button
+							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
+							onclick={async (e) => {
+								const target = e.target as HTMLButtonElement;
+								target.blur();
+								await addMessage({ role: 'user', above: false, editing: true });
+							}}>user</button>
 					</DropdownMenu.Content>
 				</DropdownMenu.Root>
 			{/if}

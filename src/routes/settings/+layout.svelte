@@ -51,7 +51,7 @@
 
 <div class="flex h-screen max-w-screen flex-col overflow-auto p-5 pb-16">
 	<a class="flex gap-2 underline" href="/chat">
-		<ArrowLeftCircle />Back to Chat
+		<CircleArrowLeft />Back to Chat
 	</a>
 
 	<SidebarNav items={sidebarNavItems} adminItems={A.user?.admin ? adminSidebarItems : []}>

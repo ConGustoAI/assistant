@@ -238,13 +238,13 @@
 
 <button
 	class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
-	class:btn-active={showApiKeys}
+	aria-expanded={showApiKeys}
 	onclick={() => (showApiKeys = !showApiKeys)}>
 	API Keys
 </button>
 <button
 	class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
-	class:btn-active={showModels}
+	aria-expanded={showModels}
 	onclick={() => (showModels = !showModels)}>
 	Models
 </button>

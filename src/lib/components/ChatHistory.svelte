@@ -319,7 +319,6 @@
 		aria-label="Search options"
 		class="mx-0 flex h-4 w-fit items-center rounded-full border border-base-content px-4"
 		disabled={searchAMPdisabled}
-		class:btn-disabled={searchAMPdisabled}
 		class:rotate-180={searchOptionsOpen}
 		onclick={() => (searchOptionsOpen = !searchOptionsOpen)}>
 		<ChevronDown size={12} />
@@ -340,7 +339,12 @@
 				bind:ref={searchAMPInput}
 				bind:value={searchAMP} />
 
+			<!-- The list is shown while the input has focus, so keep the click from stealing it:
+			     Firefox and Safari do not focus a button on mousedown, which would hide the list
+			     before the click landed. -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<div
+				onmousedown={(e) => e.preventDefault()}
 				class="absolute top-2 left-full z-40 ml-1 hidden w-fit flex-col justify-start rounded-md bg-base-200 shadow-lg group-focus-within:flex">
 				{#if historyAMPOptions.assistants.length}
 					<Divider class="py-0">Assistants</Divider>
@@ -487,6 +491,6 @@
 			bind:selectedConversations
 			fromMessages={datedConversation.fromMessages} />
 	{/if}
-	<div class="mb-14"></div>
+	<li class="mb-14"></li>
 </ul>
 <div class="grow"></div>

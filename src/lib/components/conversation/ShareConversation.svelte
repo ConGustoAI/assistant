@@ -18,7 +18,7 @@
 		{/if}
 		<label for="public" class="text-sm">Share</label>
 		{#if updatingPublic}
-			<Spinner class="loadin size-6" />
+			<Spinner class="size-6" />
 		{:else}
 			<Checkbox
 				id="public"

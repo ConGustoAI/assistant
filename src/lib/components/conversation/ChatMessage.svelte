@@ -17,7 +17,7 @@
 	import 'katex/dist/katex.min.css';
 	import { Computer, CirclePlus, Smile, StepForward } from '@lucide/svelte';
 
-	import { ChatMessageControls, Notification } from '$lib/components';
+	import { ChatMessageControls, Divider, Notification } from '$lib/components';
 	import { handleDataTransfer, uploadConversationMedia } from '$lib/utils/media_utils.svelte';
 	import { isPublicPage, trimLineLength } from '$lib/utils/utils';
 	import dbg from 'debug';
@@ -190,7 +190,7 @@
 </script>
 
 {#if shouldShowDivider()}
-	<div class="flex w-full grow-0 items-center" style="margin: 0;"></div>
+	<Divider class="grow-0" />
 {/if}
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->

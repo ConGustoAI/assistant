@@ -34,25 +34,25 @@
 	</DropdownMenu.Trigger>
 
 	<DropdownMenu.Content class="flex w-fit flex-col gap-1 p-2">
-		<button
+		<DropdownMenu.Item
 			class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'rounded-md bg-primary text-nowrap')}
-			onclick={async () => {
+			onSelect={async () => {
 				disabled = true;
 				deleting = true;
 				await deleteAction();
 				disabled = false;
 				deleting = false;
-			}}>Delete message</button>
+			}}>Delete message</DropdownMenu.Item>
 		{#if deleteWithMediaAction}
-			<button
+			<DropdownMenu.Item
 				class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'rounded-md bg-primary text-nowrap')}
-				onclick={async () => {
+				onSelect={async () => {
 					disabled = true;
 					deleting = true;
 					await deleteWithMediaAction();
 					disabled = false;
 					deleting = false;
-				}}>Delete message and media</button>
+				}}>Delete message and media</DropdownMenu.Item>
 		{/if}
 	</DropdownMenu.Content>
 </DropdownMenu.Root>
