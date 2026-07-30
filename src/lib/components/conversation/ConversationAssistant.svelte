@@ -6,7 +6,7 @@
 {#if A.conversation}
 	{#if !A.conversation.id || A.user?.hacker}
 		<select
-			class="h-8 rounded-none border border-input bg-base-100 px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50"
+			class="h-8 rounded-none border border-input bg-base-100 px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:bg-base-200 disabled:text-base-content/40"
 			bind:value={A.conversation.assistantID}
 			name="select-assistant"
 			aria-label="Select assistant">
