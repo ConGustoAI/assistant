@@ -21,7 +21,7 @@
 			<li><a class="block px-4 py-2" class:font-bold={selected} href={item.href}>{item.title}</a></li>
 		{/each}
 		{#if adminItems.length}
-			<li class="px-4 py-2 pl-12 text-base">Admin</li>
+			<li class="px-4 py-2 pl-12">Admin</li>
 		{/if}
 		{#each adminItems as item}
 			{@const selected = $page.route.id == item.href}

@@ -317,7 +317,7 @@
 <Divider class="grow-0"
 	><button
 		aria-label="Search options"
-		class="mx-0 flex h-4 w-fit items-center rounded-full border border-input px-4"
+		class="mx-0 flex h-4 w-fit items-center rounded-full border border-base-content px-4"
 		disabled={searchAMPdisabled}
 		class:btn-disabled={searchAMPdisabled}
 		class:rotate-180={searchOptionsOpen}
