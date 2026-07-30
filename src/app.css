@@ -21,6 +21,8 @@
 	--base-200: #171717;
 	--base-300: #0d0d0d;
 	--base-content: oklch(0.746477 0.0216 264.436);
+	/* daisyUI's neutral: what a disabled control was tinted with. */
+	--neutral: oklch(0.313815 0.021108 254.139);
 
 	--info: #8be9fd;
 	--success: #50fa7b;
@@ -77,6 +79,7 @@
 	--base-200: #f9f9f9;
 	--base-300: #f4f4f4;
 	--base-content: oklch(0.278 0.0296 256.848);
+	--neutral: oklch(0.321785 0.02476 255.702);
 
 	--info: #8be9fd;
 	--success: #50fa7b;
@@ -332,6 +335,7 @@ input.tab:checked + .tab-content,
 	--color-base-200: var(--base-200);
 	--color-base-300: var(--base-300);
 	--color-base-content: var(--base-content);
+	--color-neutral: var(--neutral);
 	--color-info: var(--info);
 	--color-success: var(--success);
 	--color-warning: var(--warning);
