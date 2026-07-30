@@ -203,7 +203,7 @@
 	spellcheck="false"
 	disabled={!edit} />
 <select
-	class="h-12 w-full rounded-none border border-input bg-base-100 px-4 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:bg-base-200 disabled:text-base-content/40"
+	class="h-12 w-full rounded-none border border-input bg-base-100 px-4 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:border-base-200 disabled:bg-base-200 disabled:text-base-content/40"
 	bind:value={provider.type}
 	onchange={() => {
 		status = 'changed';
