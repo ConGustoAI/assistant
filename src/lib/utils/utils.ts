@@ -1,6 +1,5 @@
-import { clsx } from 'clsx';
+import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import type { ClassValue } from 'tailwind-variants';
 import { defaultsUUID } from '../db/schema';
 import { APIupsertMessage } from '$lib/api';
 import { A } from '$lib/appstate.svelte';
@@ -213,3 +212,11 @@ export function secondstoMMSS(seconds: number) {
 	const remainingSeconds = Math.round((seconds % 60) * 10) / 10;
 	return `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds.toFixed(1).padStart(4, '0')}`;
 }
+
+// Used by shadcn-svelte components.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type WithoutChild<T> = T extends { child?: any } ? Omit<T, 'child'> : T;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type WithoutChildren<T> = T extends { children?: any } ? Omit<T, 'children'> : T;
+export type WithoutChildrenOrChild<T> = WithoutChildren<WithoutChild<T>>;
+export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & { ref?: U | null };

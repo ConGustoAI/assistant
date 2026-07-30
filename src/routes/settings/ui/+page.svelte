@@ -2,16 +2,14 @@
 	import Sun from 'lucide-svelte/icons/sun';
 	import Moon from 'lucide-svelte/icons/moon';
 
-	import { mode, theme, setTheme } from 'mode-watcher';
-	import { toggleMode } from 'mode-watcher';
+	import { mode, setMode, setTheme, theme } from 'mode-watcher';
 	import { A } from '$lib/appstate.svelte';
 	import { APIupdateUser } from '$lib/api';
 
 	function cycleTheme() {
-		toggleMode();
-		const theme = $mode === 'dark' ? 'dark' : 'light';
-		setTheme(theme);
-		document.documentElement.setAttribute('data-theme', theme);
+		const next = $mode === 'dark' ? 'light' : 'dark';
+		setMode(next);
+		setTheme(next);
 	}
 
 	let updatingUser = $state(false);

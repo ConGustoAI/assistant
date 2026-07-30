@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import GitHub from '$lib/components/icons/GitHub.svelte';
 	import Google from '$lib/components/icons/Google.svelte';
+	import { Button } from '$lib/components/ui/button';
 
 	let { form } = $props();
 	$inspect(form);
@@ -109,9 +110,10 @@
 <form method="POST" action="?/loginProvider">
 	<div class="flex flex-col gap-2">
 		{#if !env.PUBLIC_DISABLE_GOOGLE_LOGIN}
-			<button
+			<Button
+				variant="outline"
+				size="lg"
 				formaction="?/google"
-				class="btn btn-outline text-xl"
 				onclick={() => {
 					loginGoogleSpinning = true;
 				}}>
@@ -121,12 +123,13 @@
 					<Google />
 				{/if}
 				{isLogin ? 'Log in' : 'Sign Up'} with Google
-			</button>
+			</Button>
 		{/if}
 		{#if !env.PUBLIC_DISABLE_GITHUB_LOGIN}
-			<button
+			<Button
+				variant="outline"
+				size="lg"
 				formaction="?/github"
-				class="btn btn-outline text-xl"
 				onclick={() => {
 					loginGithubSpinning = true;
 				}}>
@@ -136,7 +139,7 @@
 					<GitHub />
 				{/if}
 				{isLogin ? 'Log in' : 'Sign Up'} with GitHub
-			</button>
+			</Button>
 		{/if}
 
 		{#if env.PUBLIC_DISABLE_EMAIL_LOGIN && env.PUBLIC_DISABLE_GOOGLE_LOGIN && env.PUBLIC_DISABLE_GITHUB_LOGIN}

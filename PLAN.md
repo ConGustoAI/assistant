@@ -25,10 +25,12 @@
 
 ### shadcn-svelte port
 
-- [ ] `shadcn-svelte init` (bits-ui, `components.json`, `src/lib/components/ui/`), wire its CSS variables
-      alongside the daisyUI themes.
+- [x] `shadcn-svelte init` with the vega preset, its CSS variables reconciled against daisyUI's,
+      and the theme sources unified. Login buttons ported as the first real component.
 - [ ] Port route by route, deleting daisyUI classes as each component moves. Baseline screenshots for
       comparison live in `.claude/scratch/baseline/`.
+      Suggested order: settings pages (simple forms) -> sidebar/history -> chat header -> chat input
+      -> media editor (heaviest).
 - [ ] Drop daisyUI, `tailwind.config.js`, and the `@config` shim once nothing references them.
 - [ ] Fold in the dead-class cleanup while porting: `input-bordered`, `textarea-bordered`,
       `select-bordered` compile to nothing under daisyUI 5.
