@@ -12,6 +12,11 @@
   bg-base-*, text-base-content, text-error ... utilities the components use.
 */
 [data-theme='dark'] {
+	/* Native popups, selects and scrollbars follow this, as they did under daisyUI. */
+	color-scheme: dark;
+	/* currentColor does not resolve inside a data: URI, so the arrow is per theme. */
+	--select-arrow: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1h10L6 7z' fill='%23a6adbb'/%3E%3C/svg%3E");
+
 	--base-100: #212121;
 	--base-200: #171717;
 	--base-300: #0d0d0d;
@@ -65,6 +70,9 @@
 }
 
 [data-theme='light'] {
+	color-scheme: light;
+	--select-arrow: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1h10L6 7z' fill='%23384152'/%3E%3C/svg%3E");
+
 	--base-100: #ffffff;
 	--base-200: #f9f9f9;
 	--base-300: #f4f4f4;
@@ -100,13 +108,13 @@
 	}
 }
 
-/* Native selects: keep the chevron the app had, instead of the platform arrow. */
+/* Native selects: the filled chevron the app had, instead of the platform arrow. */
 select {
 	appearance: none;
-	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+	background-image: var(--select-arrow);
 	background-repeat: no-repeat;
-	background-position: right 0.75rem center;
-	background-size: 0.75rem;
+	background-position: right 0.7rem center;
+	background-size: 0.7rem;
 	padding-inline-end: 2rem;
 }
 
