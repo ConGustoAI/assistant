@@ -29,7 +29,7 @@
 		{#if deleting}
 			<Spinner class="size-5" />
 		{:else}
-			<Trash2 class="h-full w-auto" />
+			<Trash2 class="h-full max-h-6 w-auto" />
 		{/if}
 	</DropdownMenu.Trigger>
 
