@@ -14,8 +14,13 @@
 - The two systems overlap in `app.css` and need care:
   - daisyUI reads `--border` as a border _width_, shadcn ships it as a colour, so shadcn's is
     renamed to `--border-color` and `@theme inline` maps `--color-border` to it.
-  - Colour names like `--color-primary` are shared; `@theme inline` means shadcn's palette wins,
-    so daisyUI components drift toward shadcn's colours until they are ported.
+  - Colour names like `--color-primary` are shared and `@theme inline` makes shadcn's palette win,
+    so shadcn's surface variables are pinned to the daisyUI palette rather than the other way round.
+  - A block of overrides near the end of `app.css` pins daisyUI 5 back to 4.x metrics
+    (`base-content` tone, control heights, menu rhythm, input border strength, square selectors)
+    so the port does not change how the app looks. They go away with daisyUI.
+  - Those overrides are unlayered, so they outrank Tailwind utilities: keep them off any property
+    a component sets with a utility class (`padding-inline` vs `pl-*`, for instance).
   - `app.html` pins `class="dark" data-theme="dark"`, and the root layout mirrors `mode-watcher`'s
     mode into `data-theme`, so the `.dark` class and daisyUI's theme never disagree.
     A stored `system` preference is migrated to explicit dark: there is no working light default yet.

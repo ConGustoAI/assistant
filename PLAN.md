@@ -27,8 +27,11 @@
 
 - [x] `shadcn-svelte init` with the vega preset, its CSS variables reconciled against daisyUI's,
       and the theme sources unified. Login buttons ported as the first real component.
-- [ ] Port route by route, deleting daisyUI classes as each component moves. Baseline screenshots for
-      comparison live in `.claude/scratch/baseline/`.
+- [x] Pin the look to the pre-migration app: daisyUI 5 metrics and shadcn's palette both restored to
+      the 4.x appearance, verified against the original running side by side.
+- [ ] Port route by route, deleting daisyUI classes as each component moves.
+      Compare against the original: a worktree of `4c25f11` lives in `.claude/orig`, run it with
+      `bunx vite dev --port 5174` and diff computed styles rather than eyeballing screenshots.
       Suggested order: settings pages (simple forms) -> sidebar/history -> chat header -> chat input
       -> media editor (heaviest).
 - [ ] Drop daisyUI, `tailwind.config.js`, and the `@config` shim once nothing references them.
