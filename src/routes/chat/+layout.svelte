@@ -10,7 +10,7 @@
 	import { defaultsUUID } from '$lib/db/schema';
 	import { abortController, submitConversationClientSide } from '$lib/utils/chat.svelte.js';
 	import { addMessage, assert, newConversation } from '$lib/utils/utils.js';
-	import { ChevronUp, Plus, Star } from 'lucide-svelte';
+	import { ChevronUp, Plus, Star } from '@lucide/svelte';
 
 	import GitHub from '$lib/components/icons/GitHub.svelte';
 	import MediaEditor from '$lib/components/media/MediaEditor.svelte';

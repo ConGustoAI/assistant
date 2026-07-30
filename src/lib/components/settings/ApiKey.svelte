@@ -8,7 +8,7 @@
 	import { DeleteButton } from '$lib/components';
 	import { A } from '$lib/appstate.svelte';
 	import { assert } from '$lib/utils/utils';
-	import { Check } from 'lucide-svelte';
+	import { Check } from '@lucide/svelte';
 	import dbg from 'debug';
 	const debug = dbg('app:lib:components:ApiKey');
 

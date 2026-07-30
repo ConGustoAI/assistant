@@ -23,9 +23,7 @@
 		"db:seed": "tsx ./src/scripts/seed.ts"
 	},
 	"devDependencies": {
-		"@fontsource-variable/inter": "^5.3.0",
-		"@internationalized/date": "^3.12.0",
-		"@lucide/svelte": "^1.27.0",
+		"@lucide/svelte": "^1.28.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.4",
 		"@tailwindcss/postcss": "^4.3.3",
 		"@tailwindcss/typography": "^0.5.19",
@@ -86,7 +84,6 @@
 		"hast-util-is-element": "^3.0.0",
 		"katex": "^0.16.27",
 		"lowlight": "^3.3.0",
-		"lucide-svelte": "^0.454.0",
 		"mode-watcher": "^0.4.1",
 		"pdfjs-dist": "^4.10.38",
 		"pg": "^8.17.2",

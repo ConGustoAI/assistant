@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/utils';
 	import { buttonVariants } from '$lib/components/ui/button';
-	import { ArrowLeftSquare, ArrowRightSquare } from 'lucide-svelte';
+	import { SquareArrowLeft, SquareArrowRight } from '@lucide/svelte';
 	import { A } from '$lib/appstate.svelte';
 </script>
 

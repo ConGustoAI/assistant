@@ -2,7 +2,7 @@
 	import { buttonVariants } from '$lib/components/ui/button';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { cn } from '$lib/utils/utils';
-	import { Info } from 'lucide-svelte';
+	import { Info } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 
 	let { class: clas, title, children }: { class?: string; title: string; children?: Snippet } = $props();

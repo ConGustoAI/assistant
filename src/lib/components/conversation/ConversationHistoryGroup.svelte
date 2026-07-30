@@ -2,7 +2,7 @@
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import Divider from '$lib/components/Divider.svelte';
 	import { A } from '$lib/appstate.svelte';
-	import { Star, Link } from 'lucide-svelte';
+	import { Star, Link } from '@lucide/svelte';
 
 	let {
 		title,

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { A } from '$lib/appstate.svelte';
 	import { SidebarNav } from '$lib/components';
-	import { ArrowLeftCircle } from 'lucide-svelte';
+	import { CircleArrowLeft } from '@lucide/svelte';
 
 	import dbg from 'debug';
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars

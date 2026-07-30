@@ -10,7 +10,7 @@
 	import { DeleteButton } from '$lib/components';
 	import { A } from '$lib/appstate.svelte';
 	import { assert } from '$lib/utils/utils';
-	import { Check, Eye, EyeOff } from 'lucide-svelte';
+	import { Check, Eye, EyeOff } from '@lucide/svelte';
 	import dbg from 'debug';
 	const debug = dbg('app:lib:components:Model');
 

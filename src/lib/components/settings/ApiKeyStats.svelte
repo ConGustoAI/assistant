@@ -7,7 +7,7 @@
 	import { APIupsertKey } from '$lib/api';
 	import { assert, fixNumberInput } from '$lib/utils/utils';
 	import dbg from 'debug';
-	import { Check } from 'lucide-svelte';
+	import { Check } from '@lucide/svelte';
 	const debug = dbg('app:lib:components:ApiKeyStatus');
 
 	let { apiKey = $bindable(), provider }: { apiKey: ApiKeyInterface; provider: string } = $props();

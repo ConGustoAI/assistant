@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Switch } from '$lib/components/ui/switch';
 	import { Spinner } from '$lib/components/ui/spinner';
-	import Sun from 'lucide-svelte/icons/sun';
-	import Moon from 'lucide-svelte/icons/moon';
+	import Sun from '@lucide/svelte/icons/sun';
+	import Moon from '@lucide/svelte/icons/moon';
 
 	import { mode, setMode, setTheme, theme } from 'mode-watcher';
 	import { A } from '$lib/appstate.svelte';

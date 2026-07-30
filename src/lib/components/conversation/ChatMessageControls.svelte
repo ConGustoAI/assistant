@@ -9,7 +9,7 @@
 	import { deleteMedia } from '$lib/utils/media_utils.svelte';
 	import { addMessage, assert, isPublicPage, updateMessage } from '$lib/utils/utils';
 	import dbg from 'debug';
-	import { Copy, Edit, Menu, Repeat } from 'lucide-svelte';
+	import { Copy, SquarePen, Menu, Repeat } from '@lucide/svelte';
 
 	const debug = dbg('app:ui:components:ChatMessageControls');
 
