@@ -108,7 +108,7 @@
 							statusChanged();
 						}
 					}>
-					<Select.Trigger class="w-full min-w-48">{assistantName}</Select.Trigger>
+					<Select.Trigger class="w-full min-w-[12.625rem]">{assistantName}</Select.Trigger>
 					<Select.Content>
 						<Select.Item value={defaultsUUID}>Last one used</Select.Item>
 						{#each Object.values(A.assistants) as assistant}
