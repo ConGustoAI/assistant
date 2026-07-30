@@ -6,8 +6,13 @@
 	import { defaultsUUID } from '$lib/db/schema';
 	import { Check } from 'lucide-svelte';
 
-	import { InfoPopup } from '$lib/components';
+	import { Divider, InfoPopup } from '$lib/components';
 	import ApiKeyStats from '$lib/components/settings/ApiKeyStats.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import { Checkbox } from '$lib/components/ui/checkbox';
+	import { Input } from '$lib/components/ui/input';
+	import * as Select from '$lib/components/ui/select';
+	import { Spinner } from '$lib/components/ui/spinner';
 	import dbg from 'debug';
 	const debug = dbg('app:ui:settings:page');
 
@@ -59,6 +64,12 @@
 		debug('statusChanged, previously', $state.snapshot(status));
 		status = 'changed';
 	}
+
+	let assistantName = $derived(
+		!A.user?.assistant || A.user.assistant === defaultsUUID
+			? 'Last one used'
+			: (A.assistants[A.user.assistant]?.name ?? 'Last one used')
+	);
 </script>
 
 {#if A.user}
@@ -67,10 +78,10 @@
 			<div class="flex flex-col gap-4">
 				<h2 class="text-2xl font-bold">User Profile</h2>
 				<p>{A.user.email}</p>
-				<p class="btn btn-disabled btn-outline" data-sveltekit-reload>Change Password</p>
+				<Button variant="outline" disabled data-sveltekit-reload>Change Password</Button>
 			</div>
 			<div class="relative self-start">
-				<div class="loading absolute top-1" class:hidden={status !== 'saving'}></div>
+				<div class="absolute top-1" class:hidden={status !== 'saving'}><Spinner /></div>
 				<div class="absolute" class:hidden={status !== 'saved'}>
 					<Check />
 				</div>
@@ -83,43 +94,46 @@
 		<div class="flex gap-4">
 			<div class="flex flex-col">
 				<span class="text-sm">Name</span>
-				<input
-					type="text"
-					class="input input-bordered w-full"
-					bind:value={A.user.name}
-					oninput={statusChanged}
-					spellcheck="false" />
+				<Input type="text" class="w-full" bind:value={A.user.name} oninput={statusChanged} spellcheck="false" />
 			</div>
 
 			<label class="flex flex-col">
 				<span class="text-sm">Default Assistant</span>
-				<select class="select select-bordered w-full" bind:value={A.user.assistant} onchange={statusChanged}>
-					<option value={defaultsUUID}>Last one used</option>
-					{#each Object.values(A.assistants) as assistant}
-						<option value={assistant.id}>{assistant.name}</option>
-					{/each}
-				</select>
+				<Select.Root
+					type="single"
+					bind:value={
+						() => A.user?.assistant ?? defaultsUUID,
+						(v) => {
+							if (A.user) A.user.assistant = v;
+							statusChanged();
+						}
+					}>
+					<Select.Trigger class="w-full">{assistantName}</Select.Trigger>
+					<Select.Content>
+						<Select.Item value={defaultsUUID}>Last one used</Select.Item>
+						{#each Object.values(A.assistants) as assistant}
+							<Select.Item value={assistant.id!}>{assistant.name}</Select.Item>
+						{/each}
+					</Select.Content>
+				</Select.Root>
 			</label>
 		</div>
 
-		<div class="divider w-full">Information for the Assistant</div>
+		<Divider>Information for the Assistant</Divider>
 		<div class="flex flex-col">
 			<span class="text-sm">About you</span>
-			<GrowInput
-				class="textarea-bordered whitespace-pre-wrap text-wrap"
-				bind:value={A.user.aboutUser}
-				oninput={statusChanged} />
+			<GrowInput class="whitespace-pre-wrap text-wrap" bind:value={A.user.aboutUser} oninput={statusChanged} />
 		</div>
 
 		<div class="flex flex-col">
 			<span class="text-sm">Instructions</span>
 			<GrowInput
-				class="textarea-bordered whitespace-pre-wrap text-wrap"
+				class="whitespace-pre-wrap text-wrap"
 				bind:value={A.user.assistantInstructions}
 				oninput={statusChanged} />
 		</div>
 
-		<div class="divider w-full">Message Information</div>
+		<Divider>Message Information</Divider>
 
 		<div
 			class="grid w-full grid-cols-[max-content_max-content_max-content_max-content_max-content] items-center gap-4 gap-y-2">
@@ -129,34 +143,22 @@
 			<div class="text-warning flex items-center">Show cost above</div>
 			<div class="text-error flex items-center">Show cost above</div>
 
-			<input type="checkbox" class="checkbox" bind:checked={A.user.showEstimate} onchange={statusChanged} />
-			<input type="checkbox" class="checkbox" bind:checked={A.user.showInfo} onchange={statusChanged} />
+			<Checkbox
+				bind:checked={() => A.user?.showEstimate ?? false, (v) => A.user && (A.user.showEstimate = v)}
+				onCheckedChange={statusChanged}
+				aria-label="Token estimate" />
+			<Checkbox
+				bind:checked={() => A.user?.showInfo ?? false, (v) => A.user && (A.user.showInfo = v)}
+				onCheckedChange={statusChanged}
+				aria-label="Message info" />
 
-			<input
-				type="number"
-				class="input input-sm input-bordered w-32"
-				bind:value={A.user.costShow}
-				oninput={statusChanged}
-				min="0"
-				step="0.01" />
-			<input
-				type="number"
-				class="input input-sm input-bordered w-32"
-				bind:value={A.user.costWarn1}
-				oninput={statusChanged}
-				min="0"
-				step="0.01" />
-			<input
-				type="number"
-				class="input input-sm input-bordered w-32"
-				bind:value={A.user.costWarn2}
-				oninput={statusChanged}
-				min="0"
-				step="0.01" />
+			<Input type="number" class="h-8 w-32" bind:value={A.user.costShow} oninput={statusChanged} min="0" step="0.01" />
+			<Input type="number" class="h-8 w-32" bind:value={A.user.costWarn1} oninput={statusChanged} min="0" step="0.01" />
+			<Input type="number" class="h-8 w-32" bind:value={A.user.costWarn2} oninput={statusChanged} min="0" step="0.01" />
 		</div>
 
 		<div class="flex w-fit flex-col">
-			<div class="divider w-full">Ussage statistics</div>
+			<Divider>Ussage statistics</Divider>
 			<div class="grid grid-cols-[auto_max-content_max-content_4rem] items-center gap-4 gap-y-2">
 				<div class="font-bold">API Key</div>
 				<div class="font-bold">$ Usage</div>
@@ -182,5 +184,5 @@
 		</div>
 	</section>
 {:else}
-	<a class="btn btn-outline" href="/login">Log in</a>
+	<Button variant="outline" href="/login">Log in</Button>
 {/if}
