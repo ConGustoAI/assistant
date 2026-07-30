@@ -6,11 +6,19 @@
 - `@sveltejs/adapter-node` builds the production server. PostgreSQL via Drizzle ORM.
 - Vercel AI SDK streams models **from the browser** with the user's own API keys (OpenAI, Anthropic, Google).
   The server stores data and hands out file URLs; it never proxies model traffic.
-- Tailwind CSS 4 + daisyUI 5, mid-migration to shadcn-svelte (see `PLAN.md`).
-  Tailwind is CSS-first in `src/app.css`; `tailwind.config.js` survives only via `@config` for the
-  four theme colour aliases. daisyUI and its theme overrides are declared in `app.css`.
-  The dark theme is bound to `:root` because nothing sets `data-theme` until the user flips the
-  toggle in `/settings/ui`, which means light is effectively opt-in.
+- Tailwind CSS 4, with daisyUI 5 and shadcn-svelte side by side while components are ported
+  (see `PLAN.md`). Tailwind is CSS-first in `src/app.css`; `tailwind.config.js` survives only via
+  `@config` for the four theme colour aliases.
+  shadcn components are vendored under `src/lib/components/ui/` by its CLI, configured in
+  `components.json`, and excluded from ESLint.
+- The two systems overlap in `app.css` and need care:
+  - daisyUI reads `--border` as a border _width_, shadcn ships it as a colour, so shadcn's is
+    renamed to `--border-color` and `@theme inline` maps `--color-border` to it.
+  - Colour names like `--color-primary` are shared; `@theme inline` means shadcn's palette wins,
+    so daisyUI components drift toward shadcn's colours until they are ported.
+  - `app.html` pins `class="dark" data-theme="dark"`, and the root layout mirrors `mode-watcher`'s
+    mode into `data-theme`, so the `.dark` class and daisyUI's theme never disagree.
+    A stored `system` preference is migrated to explicit dark: there is no working light default yet.
 - Domain types are ambient globals in `src/app.d.ts` (`*Interface`), never imported.
   One interface covers DB columns plus client-only fields; comments mark what is not persisted.
 

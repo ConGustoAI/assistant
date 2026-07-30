@@ -2,7 +2,14 @@
 	import '../app.css';
 
 	import { A } from '$lib/appstate.svelte';
-	import { ModeWatcher, mode } from 'mode-watcher';
+	import { ModeWatcher, mode, setMode, setTheme, userPrefersMode } from 'mode-watcher';
+
+	// There is no usable light default yet, so 'system' becomes an explicit dark preference.
+	// setTheme keeps daisyUI's data-theme in step with the .dark class shadcn-svelte reads.
+	$effect(() => {
+		if ($userPrefersMode === 'system') setMode('dark');
+		setTheme($mode === 'light' ? 'light' : 'dark');
+	});
 
 	$effect(() => {
 		if ($mode === 'light') {
@@ -57,6 +64,7 @@
 	});
 </script>
 
-<ModeWatcher />
+<!-- defaultTheme keeps daisyUI's data-theme in step with the .dark class shadcn-svelte reads. -->
+<ModeWatcher defaultMode="dark" defaultTheme="dark" />
 
 {@render children()}
