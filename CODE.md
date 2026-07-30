@@ -112,6 +112,9 @@ pages. `DEV_LOGIN_USER` mints a fake admin session for local development.
   `.rgignore` keeps Lovely Docs and useful `.pi` files searchable.
 - `bunx vite build` builds without DB scripts. Full `bun run build` also copies the pdf.js worker into
   `static/`, migrates, and seeds the configured database.
+- `.claude/scratch/uidiff.sh <route>` and `fontdiff.sh <route>` compare the app against a worktree of
+  the pre-migration commit running on port 5174: the first crops and zooms every differing region,
+  the second diffs computed typography. Both are agent-local, not committed.
 - UI changes are checked in a real browser with `agent-browser` against a dev server on port 5173.
   Three traps: pages render client-side only (`ssr = false`), so screenshots need a wait on real
   content; screenshot paths must live inside the repo when the agent runs sandboxed; and a browser
