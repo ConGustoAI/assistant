@@ -23,10 +23,7 @@
 </script>
 
 <DropdownMenu.Root>
-	<DropdownMenu.Trigger
-		class={cn(disabled && 'pointer-events-none opacity-50', btnClass, className)}
-		{title}
-		{disabled}>
+	<DropdownMenu.Trigger class={cn(disabled && 'pointer-events-none', btnClass, className)} {title} {disabled}>
 		{#if deleting}
 			<Spinner class="size-5" />
 		{:else}
