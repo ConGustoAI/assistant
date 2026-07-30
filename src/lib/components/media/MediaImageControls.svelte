@@ -55,9 +55,9 @@
 			<div class="flex items-center justify-between gap-2">
 				<p class="label">Resolution</p>
 				<div class="flex w-48 items-baseline justify-between gap-2">
-					<Input type="number" class="h-8 w-full shrink" placeholder="W" bind:value={resizeWidth} />
+					<Input type="number" class="h-8 w-full shrink px-3 text-sm" placeholder="W" bind:value={resizeWidth} />
 					x
-					<Input type="number" class="h-8 w-full" placeholder="H" bind:value={resizeHeight} />
+					<Input type="number" class="h-8 w-full px-3 text-sm" placeholder="H" bind:value={resizeHeight} />
 				</div>
 			</div>
 			<button

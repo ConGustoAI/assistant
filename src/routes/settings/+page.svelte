@@ -108,7 +108,7 @@
 							statusChanged();
 						}
 					}>
-					<Select.Trigger class="w-full">{assistantName}</Select.Trigger>
+					<Select.Trigger class="w-full min-w-48">{assistantName}</Select.Trigger>
 					<Select.Content>
 						<Select.Item value={defaultsUUID}>Last one used</Select.Item>
 						{#each Object.values(A.assistants) as assistant}
@@ -152,9 +152,27 @@
 				onCheckedChange={statusChanged}
 				aria-label="Message info" />
 
-			<Input type="number" class="h-8 w-32" bind:value={A.user.costShow} oninput={statusChanged} min="0" step="0.01" />
-			<Input type="number" class="h-8 w-32" bind:value={A.user.costWarn1} oninput={statusChanged} min="0" step="0.01" />
-			<Input type="number" class="h-8 w-32" bind:value={A.user.costWarn2} oninput={statusChanged} min="0" step="0.01" />
+			<Input
+				type="number"
+				class="h-8 w-32 px-3 text-sm"
+				bind:value={A.user.costShow}
+				oninput={statusChanged}
+				min="0"
+				step="0.01" />
+			<Input
+				type="number"
+				class="h-8 w-32 px-3 text-sm"
+				bind:value={A.user.costWarn1}
+				oninput={statusChanged}
+				min="0"
+				step="0.01" />
+			<Input
+				type="number"
+				class="h-8 w-32 px-3 text-sm"
+				bind:value={A.user.costWarn2}
+				oninput={statusChanged}
+				min="0"
+				step="0.01" />
 		</div>
 
 		<div class="flex w-fit flex-col">

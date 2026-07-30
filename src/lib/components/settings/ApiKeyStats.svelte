@@ -50,7 +50,7 @@
 
 <Input
 	type="number"
-	class="no-spinner h-8 w-fit"
+	class="no-spinner h-8 w-fit px-3 text-sm"
 	bind:value={apiKey.usage}
 	onchange={(e) => {
 		status = 'changed';
@@ -64,7 +64,7 @@
 
 <Input
 	type="number"
-	class="no-spinner h-8 w-fit"
+	class="no-spinner h-8 w-fit px-3 text-sm"
 	bind:value={apiKey.remainder}
 	oninput={(e) => {
 		status = 'changed';
