@@ -25,7 +25,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	// For public messages, we want them to look the way they would look to an
 	// anonymous user, even if the user is logged in
-	if (!event.url.password.startsWith('/public/')) {
+	if (!event.url.pathname.startsWith('/public/')) {
 		const sessionCookie = getSessionTokenCookie(event);
 
 		if (sessionCookie) {
