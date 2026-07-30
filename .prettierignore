@@ -10,6 +10,7 @@ lovely-docs/
 .windsurf/
 archive/
 AGENTS.md
+CLAUDE.md
 migrations/meta/
 test/gemini-flash-thinking/
 test/mock-server/
