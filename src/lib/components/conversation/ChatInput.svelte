@@ -201,16 +201,14 @@
 
 	{#if uploadEnabled && (A.conversationUploadOpen || A.conversationDragging)}
 		<div
-			class="bg-base-200 absolute bottom-full flex max-h-[80vh] w-full flex-col overflow-visible"
+			class="absolute bottom-full flex max-h-[80vh] w-full flex-col overflow-visible bg-base-200"
 			transition:slide={{ duration: 200 }}>
 			<MediaCarousel />
 		</div>
 	{/if}
 
 	<div class="grid grid-cols-[min-content_auto] items-center gap-0.5">
-		<div
-			class="tooltip-right z-200 relative"
-			data-tip={prefillAvailable ? null : 'Prefill not available for this assistant'}>
+		<div class="relative z-200" data-tip={prefillAvailable ? null : 'Prefill not available for this assistant'}>
 			<button
 				aria-label="Prefill Assistant message"
 				class="row-span-2 w-6 p-0"
@@ -237,14 +235,14 @@
 
 					{#if !prefillEnabled}
 						{#if A.user?.advancedInput}
-							<div class="absolute -bottom-4 right-2 z-20 text-xs">
+							<div class="absolute right-2 -bottom-4 z-20 text-xs">
 								<span class="text-xs"
 									><p>
 										Ctrl-Enter - send, Shift-Enter - add without saving, Ctrl-Shift-Enter - add as assistant message
 									</p></span>
 							</div>
 						{:else}
-							<div class="absolute -bottom-4 right-2 z-20 text-xs">
+							<div class="absolute right-2 -bottom-4 z-20 text-xs">
 								<span class="text-xs"><p>Shift-Enter - add new line</p></span>
 							</div>
 						{/if}
@@ -261,7 +259,7 @@
 				placeholder="User message"
 				autofocus
 				arialabel="Start chatting"
-				class="h-fit max-h-96 w-full whitespace-pre-wrap text-wrap break-all px-12" />
+				class="h-fit max-h-96 w-full px-12 text-wrap break-all whitespace-pre-wrap" />
 			<div class="absolute bottom-1 left-2">
 				<button
 					aria-label="Upload media"
@@ -282,11 +280,11 @@
 						<Spinner class="absolute size-6 h-full w-full" />
 					{/if}
 					{#if A.mediaUploading}
-						<Spinner class="text-success absolute size-6 h-full w-full" />
+						<Spinner class="absolute size-6 h-full w-full text-success" />
 					{/if}
 				</button>
 			</div>
-			<div class="absolute bottom-1 right-2">
+			<div class="absolute right-2 bottom-1">
 				{#if A.chatStreaming}
 					<div class="relative">
 						<button aria-label="Cancel" class={buttonVariants({ size: 'sm' })} onclick={cancelConversation}>
@@ -327,7 +325,7 @@
 					disabled={A.chatStreaming}
 					placeholder="Start Assistant message"
 					arialabel="Prefill Assistant message"
-					class="h-fit max-h-96 w-full whitespace-pre-wrap text-wrap" />
+					class="h-fit max-h-96 w-full text-wrap whitespace-pre-wrap" />
 			</div>
 		{/if}
 	</div>

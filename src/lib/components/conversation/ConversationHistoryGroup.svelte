@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Checkbox } from '$lib/components/ui/checkbox';
-	import { Divider } from '$lib/components';
+	import Divider from '$lib/components/Divider.svelte';
 	import { A } from '$lib/appstate.svelte';
 	import { Star, Link } from 'lucide-svelte';
 
@@ -32,7 +32,7 @@
 		title={A.conversations[c]?.summary}
 		class:bg-base-300={A.conversation?.id === c}>
 		<Checkbox
-			class="absolute left-1 top-1/2 z-10 m-0 -translate-y-1/2 transform p-0"
+			class="absolute top-1/2 left-1 z-10 m-0 -translate-y-1/2 transform p-0"
 			aria-label="Select conversation"
 			name="selectedConversations"
 			checked={selectedConversations.includes(c)}
@@ -40,7 +40,7 @@
 
 		<a
 			href={'/chat/' + c}
-			class="w-full pl-9"
+			class="flex w-full items-center gap-2 overflow-hidden py-2 pr-4 pl-9 text-nowrap"
 			onclick={() => {
 				if (A.isMobile) A.sidebarOpen = false;
 			}}>

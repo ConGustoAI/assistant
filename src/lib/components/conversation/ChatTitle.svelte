@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { Input } from '$lib/components/ui/input';
 	import { Spinner } from '$lib/components/ui/spinner';
 	import { cn } from '$lib/utils/utils';
@@ -145,11 +146,11 @@
 </script>
 
 <div
-	class="border-base-content bg-base-200 mx-0 flex min-h-12 min-h-16 w-full min-w-0 items-center gap-2 gap-4 border-b p-2">
+	class="mx-0 flex min-h-12 min-h-16 w-full min-w-0 items-center gap-2 gap-4 border-b border-base-content bg-base-200 p-2">
 	<!-- navbar-start -->
 	<div class="flex min-w-0 shrink-0 gap-2">
 		{#if isPublicPage()}
-			<a class="flex gap-2 text-ellipsis text-nowrap underline" href="/chat">
+			<a class="flex gap-2 text-nowrap text-ellipsis underline" href="/chat">
 				<ArrowLeftCircle />Congusto Chat
 			</a>
 		{/if}
@@ -162,20 +163,22 @@
 			{#if updatingLike}
 				<Spinner class="size-4" />
 			{:else}
-				<label class="swap" aria-label="Star conversation">
-					<input
-						aria-label="Star conversation"
-						type="checkbox"
-						bind:checked={A.conversation.like}
-						onchange={updateLike} />
-					<div class="swap-on"><Star color="var(--star)" fill="var(--star)" /></div>
-					<div class="swap-off"><Star color="var(--star)" /></div>
-				</label>
+				<button
+					type="button"
+					aria-label="Star conversation"
+					aria-pressed={!!A.conversation.like}
+					onclick={() => {
+						if (!A.conversation) return;
+						A.conversation.like = !A.conversation.like;
+						updateLike();
+					}}>
+					<Star color="var(--star)" fill={A.conversation.like ? 'var(--star)' : 'none'} />
+				</button>
 			{/if}
 		{/if}
 		{#if A.conversation?.id}
 			<button
-				class={cn(buttonVariants({ size: 'sm' }), 'bg-base-100 rounded-md p-1')}
+				class={cn(buttonVariants({ size: 'sm' }), 'rounded-md bg-base-100 p-1')}
 				title="Clone conversation"
 				onclick={async () => await cloneConversation()}>
 				{#if cloningConversation}
@@ -191,10 +194,10 @@
 		{/if}
 	</div>
 	<!-- navbar-center -->
-	<div class="shrink-2 flex min-w-0 grow overflow-hidden">
+	<div class="flex min-w-0 shrink-2 grow overflow-hidden">
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
-			class="flex w-full text-ellipsis text-center text-xl font-bold"
+			class="flex w-full text-center text-xl font-bold text-ellipsis"
 			onmouseenter={() => {
 				summaryHovered = true;
 			}}
@@ -258,16 +261,15 @@
 
 		<Cost total={(A.conversation?.tokensInCost ?? 0) + (A.conversation?.tokensOutCost ?? 0)} />
 
-		<details class="dropdown-botton dropdown dropdown-end hidden sm:block" bind:open={detailsOpen}>
-			<summary class="mt-auto block text-center"><Info /></summary>
-			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div
-				class="dropdown-content max-w-(--breakpoint-md) z-30 flex max-h-dvh w-max whitespace-pre-line p-2 pb-20"
-				onkeydown={handleKeydown}
-				tabindex="-1">
+		<DropdownMenu.Root bind:open={detailsOpen}>
+			<DropdownMenu.Trigger class="mt-auto hidden text-center sm:block"><Info /></DropdownMenu.Trigger>
+			<DropdownMenu.Content
+				align="end"
+				class="z-30 flex max-h-dvh w-max max-w-(--breakpoint-md) p-2 pb-20 whitespace-pre-line"
+				onkeydown={handleKeydown}>
 				<ConversationInfo />
-			</div>
-		</details>
+			</DropdownMenu.Content>
+		</DropdownMenu.Root>
 		{#if detailsOpen}
 			<button class="fixed inset-0 z-20" onclick={closeDetails} aria-label="Close modal"></button>
 		{/if}

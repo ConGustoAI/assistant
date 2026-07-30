@@ -36,7 +36,7 @@
 
 	<DropdownMenu.Content class="w-fit p-2">
 		<button
-			class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'bg-primary text-nowrap rounded-md')}
+			class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'rounded-md bg-primary text-nowrap')}
 			onclick={async () => {
 				disabled = true;
 				deleting = true;

@@ -309,7 +309,7 @@
 </button>
 
 <DeleteButton
-	btnClass="btn btn-outline h-full w-full"
+	btnClass={cn(buttonVariants({ variant: 'outline' }), 'h-full w-full')}
 	deleteAction={async () => {
 		status = 'deleting';
 		await deleteModel(model);
@@ -323,6 +323,6 @@
 		<Check />
 	</div>
 </div>
-<div class="text-error col-span-full" class:hidden={status !== 'error'}>
+<div class="col-span-full text-error" class:hidden={status !== 'error'}>
 	<span>{errorMessage}</span>
 </div>

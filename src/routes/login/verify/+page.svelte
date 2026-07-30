@@ -11,7 +11,7 @@
 		</h2>
 		<p>Please check your inbox and follow the link</p>
 
-		<div class="card-actioins">
+		<div class="flex items-center gap-2">
 			<a href="/login" class={cn(buttonVariants({ variant: 'outline' }), 'mt-4 w-fit')}> Ok </a>
 		</div>
 	</div>

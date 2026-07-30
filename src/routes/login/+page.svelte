@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Spinner } from '$lib/components/ui/spinner';
-	import { Divider } from '$lib/components';
+	import Divider from '$lib/components/Divider.svelte';
 	import { env } from '$env/dynamic/public';
 	import { A } from '$lib/appstate.svelte';
 	import { goto } from '$app/navigation';
@@ -84,7 +84,7 @@
 		</div>
 		{#if isLogin}
 			<div class="mt-2 text-center">
-				<button formaction="?/recover" class="link-hover underline"> Forgot password? </button>
+				<button formaction="?/recover" class="hover:underline"> Forgot password? </button>
 			</div>
 			{#if form?.pwresetSent}
 				<Notification messageType="success" bind:message={form.pwresetSent} />

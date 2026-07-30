@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Spinner } from '$lib/components/ui/spinner';
-	import { Divider } from '$lib/components';
+	import Divider from '$lib/components/Divider.svelte';
 	import { APIupsertMedia } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
 	import { addImageToSkip, removeImageFromSkip } from '$lib/utils/media_utils.svelte';
@@ -82,7 +82,7 @@
 			<div class="col-start-2 w-48 text-sm opacity-70">Browser cannot extract frames from this format.</div>
 		{/if}
 		{#if A.mediaEditing.videoAsImages && currentAssistant && !currentAssistant.images}
-			<div class="text-error col-start-2 w-full">
+			<div class="col-start-2 w-full text-error">
 				<p>Assistant does not support images</p>
 			</div>
 		{/if}
@@ -106,7 +106,7 @@
 			{/if}
 		</div>
 		{#if A.mediaEditing.videoAsFile && currentAssistant && !currentAssistant.video}
-			<div class="text-error col-start-2 w-full">
+			<div class="col-start-2 w-full text-error">
 				<p>Assistant does not support video</p>
 			</div>
 		{/if}

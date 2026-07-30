@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Divider } from '$lib/components';
+	import Divider from '$lib/components/Divider.svelte';
 	import { page } from '$app/stores';
 	import { APIfetchPublicConversation } from '$lib/api';
 	import { ChatMessage, ChatTitle } from '$lib/components';
@@ -62,7 +62,7 @@
 	<div class="mx-0 flex h-full w-full shrink flex-col overflow-hidden bg-inherit">
 		<ChatTitle />
 		{#if !A.chatDataLoading}
-			<div class="g-transparent mb-auto w-full grow overflow-auto bg-opacity-10">
+			<div class="g-transparent bg-opacity-10 mb-auto w-full grow overflow-auto">
 				{#if A.conversation?.messages}
 					{#each A.conversation.messages as _, i}
 						<ChatMessage message={A.conversation.messages[i]} submitConversation={async () => {}} />
@@ -71,20 +71,20 @@
 				{:else}
 					<div class="flex h-full flex-col items-center">
 						{#if !A.conversation}
-							<p class="w-fit text-nowrap text-[2vw]">Conversation does not exist or is not public</p>
+							<p class="w-fit text-[2vw] text-nowrap">Conversation does not exist or is not public</p>
 							<a
 								href="/chat"
-								class="m-auto flex h-full w-1/3 select-none flex-col items-center justify-center gap-6 justify-self-center font-bold"
+								class="m-auto flex h-full w-1/3 flex-col items-center justify-center gap-6 justify-self-center font-bold select-none"
 								style="opacity:0.1">
 								<img class="w-[50%]" src="/favicon.png" alt="Congusto" />
-								<p class="w-fit text-nowrap text-[3vw]">Congusto Chat</p>
+								<p class="w-fit text-[3vw] text-nowrap">Congusto Chat</p>
 							</a>
 						{:else}
 							<div
-								class="pointer-events-none m-auto flex h-full w-1/3 select-none flex-col items-center justify-center gap-6 justify-self-center font-bold grayscale"
+								class="pointer-events-none m-auto flex h-full w-1/3 flex-col items-center justify-center gap-6 justify-self-center font-bold grayscale select-none"
 								style="opacity:0.05">
 								<img class="w-[50%]" src="/favicon.png" alt="Congusto" />
-								<p class="w-fit text-nowrap text-[3vw]">Congusto Chat</p>
+								<p class="w-fit text-[3vw] text-nowrap">Congusto Chat</p>
 							</div>
 						{/if}
 					</div>

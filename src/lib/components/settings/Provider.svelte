@@ -4,7 +4,7 @@
 	import { Spinner } from '$lib/components/ui/spinner';
 	import { cn } from '$lib/utils/utils';
 	import { buttonVariants } from '$lib/components/ui/button';
-	import { Divider } from '$lib/components';
+	import Divider from '$lib/components/Divider.svelte';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import { APIdeleteProvider, APIhideItem, APIunhideItem, APIupsertModel, APIupsertProvider } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
@@ -203,7 +203,7 @@
 	spellcheck="false"
 	disabled={!edit} />
 <select
-	class="border-input bg-background shadow-xs focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-12 w-full rounded-none border px-3 text-base outline-none disabled:opacity-50"
+	class="h-12 w-full rounded-none border border-input bg-background px-3 text-base shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50"
 	bind:value={provider.type}
 	onchange={() => {
 		status = 'changed';
@@ -267,7 +267,7 @@
 </button>
 
 <DeleteButton
-	btnClass="btn btn-outline h-full w-full p-2.5"
+	btnClass={cn(buttonVariants({ variant: 'outline' }), 'h-full w-full p-2.5')}
 	deleteAction={async () => {
 		status = 'deleting';
 		await deleteProvider(provider);
@@ -281,7 +281,7 @@
 		<Check />
 	</div>
 </div>
-<div class="text-error col-span-full" class:hidden={status !== 'error'}>
+<div class="col-span-full text-error" class:hidden={status !== 'error'}>
 	<span>{errorMessage}</span>
 </div>
 
@@ -302,7 +302,7 @@
 			<Divider class="col-span-full">{provider.name}: Default models</Divider>
 			{#if editDefaultChildren}
 				<Divider
-					><span class="bg-warning w-fit rounded-2xl px-4 py-0 text-black"
+					><span class="w-fit rounded-2xl bg-warning px-4 py-0 text-black"
 						>Changes made here will be visible to and will affect all users</span
 					></Divider>
 			{/if}
@@ -330,7 +330,7 @@
 			<Divider>{provider.name}: Default API Keys</Divider>
 			{#if editDefaultChildren}
 				<Divider
-					><span class="bg-error w-fit rounded-2xl px-4 py-0 text-black"
+					><span class="w-fit rounded-2xl bg-error px-4 py-0 text-black"
 						>Only admins can see default keys, but any user can make requests with them</span
 					></Divider>
 			{/if}

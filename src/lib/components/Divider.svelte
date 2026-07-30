@@ -9,7 +9,7 @@
 <div class={cn('flex w-full items-center gap-4 py-2', className)}>
 	<Separator class="shrink grow basis-0" />
 	{#if children}
-		<span class="whitespace-nowrap text-sm">{@render children()}</span>
+		<span class="text-sm whitespace-nowrap">{@render children()}</span>
 		<Separator class="shrink grow basis-0" />
 	{/if}
 </div>

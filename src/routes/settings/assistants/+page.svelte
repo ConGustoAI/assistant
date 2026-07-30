@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Divider } from '$lib/components';
+	import Divider from '$lib/components/Divider.svelte';
 	import { AssistantGrid } from '$lib/components';
 	import { A } from '$lib/appstate.svelte';
 	import dbg from 'debug';
@@ -8,7 +8,7 @@
 	$inspect(A.assistants).with((t, c) => debug('A.assistants', { t, c }));
 </script>
 
-<div class="max-w-(--breakpoint-xl) flex flex-col gap-4">
+<div class="flex max-w-(--breakpoint-xl) flex-col gap-4">
 	<h2 class="text-xl font-bold">Assistants</h2>
 
 	<div class="w-full">

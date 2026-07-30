@@ -1,7 +1,8 @@
 <script lang="ts">
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { cn } from '$lib/utils/utils';
 	import { buttonVariants } from '$lib/components/ui/button';
-	import { Divider } from '$lib/components';
+	import Divider from '$lib/components/Divider.svelte';
 	import { goto } from '$app/navigation';
 	import { APIdeleteConversations, APIfetchConversations } from '$lib/api';
 	import { A } from '$lib/appstate.svelte.js';
@@ -65,10 +66,10 @@
 		debug('A.user: %s %o', type, value);
 	});
 
-	let assistantSelectDropdown: HTMLDetailsElement | null = $state(null);
+	let assistantSelectOpen = $state(false);
 
 	async function NewChat(assistantId?: string) {
-		if (assistantSelectDropdown) assistantSelectDropdown.open = false;
+		assistantSelectOpen = false;
 		if (A.isMobile) A.sidebarOpen = false;
 		// debug('NewChat', { assistantId, assistants: A.assistants });
 
@@ -129,16 +130,16 @@
 <main class="relative m-0 flex h-full max-h-full w-full flex-col sm:flex-row">
 	{#if A.sidebarOpen}
 		<div
-			class="bg-base-200 flex h-full w-full shrink-0 flex-col items-center justify-start gap-2 p-2 sm:w-56"
+			class="flex h-full w-full shrink-0 flex-col items-center justify-start gap-2 bg-base-200 p-2 sm:w-56"
 			transition:slide={{ duration: 100, axis: 'x' }}>
 			<div class="flex w-full">
 				<button
 					class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'join-item h-full grow')}
 					onclick={async () => await NewChat()}>New chat</button>
-				<details class="dropdown dropdown-end my-0 h-full" bind:this={assistantSelectDropdown}>
-					<summary class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'join-item h-full px-1')}
-						><ChevronUp class="rotate-180" /></summary>
-					<ul class="dropdown-content bg-base-300 z-20 flex w-52 flex-col p-2 text-sm shadow-sm">
+				<DropdownMenu.Root bind:open={assistantSelectOpen}>
+					<DropdownMenu.Trigger class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'h-full px-1')}
+						><ChevronUp class="rotate-180" /></DropdownMenu.Trigger>
+					<DropdownMenu.Content align="end" class="z-20 flex w-52 flex-col bg-base-300 p-2 text-sm shadow-sm">
 						<Divider class="py-2">Your assistants</Divider>
 						{#each Object.entries(A.assistants).filter(([_, ass]) => ass.userID !== defaultsUUID) as [id, assistant]}
 							{#if !A.hiddenItems.has(id) || A.user?.assistant === id}
@@ -155,15 +156,15 @@
 									onclick={async () => await NewChat(assistant.id)}>{assistant.name}</button>
 							{/if}
 						{/each}
-					</ul>
-				</details>
+					</DropdownMenu.Content>
+				</DropdownMenu.Root>
 			</div>
 
 			<ChatHistory {deleteConversations} />
 		</div>
 	{/if}
 
-	<div class="divider-horizontal flex hidden w-1 items-center sm:block" class:hidden={!A.sidebarOpen}></div>
+	<div class="hidden w-1 sm:block" class:hidden={!A.sidebarOpen}></div>
 
 	<div
 		role="document"
@@ -175,7 +176,7 @@
 		bind:this={conversationDragArea}>
 		<ChatTitle />
 		<div
-			class="mb-auto flex w-full grow flex-col justify-start overflow-y-auto bg-transparent bg-opacity-10 contain-paint [content-visibility:auto]">
+			class="bg-opacity-10 mb-auto flex w-full grow flex-col justify-start overflow-y-auto bg-transparent contain-paint [content-visibility:auto]">
 			{#if A.conversation?.messages}
 				{#each A.conversation.messages as _, i}
 					<ChatMessage
@@ -186,11 +187,13 @@
 			{/if}
 
 			{#if !A.conversation?.messages?.length}
-				<div class="dropdown dropdown-end m-2 self-end">
-					<button class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'rounded-md p-1')} title="Add messages">
-						<Plus size="fit-h" />
-					</button>
-					<ul class="dropdown-content bg-base-200 z-20 flex w-32 flex-col text-nowrap p-2 text-sm">
+				<DropdownMenu.Root>
+					<DropdownMenu.Trigger
+						class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'm-2 self-end rounded-md p-1')}
+						title="Add messages">
+						<Plus class="h-full w-auto" />
+					</DropdownMenu.Trigger>
+					<DropdownMenu.Content align="end" class="z-20 flex w-32 flex-col bg-base-200 p-2 text-sm text-nowrap">
 						<li>
 							<button
 								class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
@@ -209,8 +212,8 @@
 									await addMessage({ role: 'user', above: false, editing: true });
 								}}>user</button>
 						</li>
-					</ul>
-				</div>
+					</DropdownMenu.Content>
+				</DropdownMenu.Root>
 			{/if}
 
 			{#if A.conversation?.messages}
@@ -218,10 +221,10 @@
 			{/if}
 			{#if !A.conversation?.messages && !A.conversation?.id}
 				<div
-					class="m-auto flex w-full grow select-none flex-col items-center justify-center gap-6 justify-self-center lg:w-1/3">
+					class="m-auto flex w-full grow flex-col items-center justify-center gap-6 justify-self-center select-none lg:w-1/3">
 					<div class="pointer-events-none flex flex-col font-bold grayscale" style="opacity:0.05">
 						<img class="w-[50%] max-w-[200px] self-center" src="/favicon.png" alt="Congusto" />
-						<p class="w-fit text-nowrap text-[5vw] md:text-[3vw]">Congusto Chat</p>
+						<p class="w-fit text-[5vw] text-nowrap md:text-[3vw]">Congusto Chat</p>
 					</div>
 					<a href="https://congusto.ai" class="flex text-2xl opacity-50" target="_blank" rel="noopener noreferrer">
 						<p class="mx-2 opacity-50">Made with ❤️ by</p>

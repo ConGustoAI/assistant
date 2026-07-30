@@ -13,7 +13,7 @@
 {#if A.conversation?.id}
 	<div class="hidden items-center justify-end gap-2 sm:flex">
 		{#if A.conversation.public}
-			<a href={'/public/' + A.conversation.id} class={cn(buttonVariants({ size: 'sm' }), 'bg-base-300 rounded-md')}
+			<a href={'/public/' + A.conversation.id} class={cn(buttonVariants({ size: 'sm' }), 'rounded-md bg-base-300')}
 				><Link size={18} /></a>
 		{/if}
 		<label for="public" class="text-sm">Share</label>

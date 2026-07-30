@@ -37,7 +37,7 @@
 		{/if}
 	</DropdownMenu.Trigger>
 
-	<DropdownMenu.Content align="end" class="bg-base-200 flex w-fit flex-col gap-1 p-2 text-sm">
+	<DropdownMenu.Content align="end" class="flex w-fit flex-col gap-1 bg-base-200 p-2 text-sm">
 		<button
 			class={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'justify-start text-nowrap')}
 			onclick={gotoSettings}>Settings</button>

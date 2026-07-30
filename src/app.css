@@ -4,33 +4,23 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@config '../tailwind.config.js';
-
-@plugin 'daisyui' {
-	themes:
-		dark --default,
-		light;
-}
+@plugin '@tailwindcss/typography';
 
 /*
-  daisyUI theme overrides. app.html pins data-theme and the matching .dark class,
-  so daisyUI and shadcn-svelte always agree on which theme is active.
+  App palette. data-theme is pinned
+  in app.html and mirrored from mode-watcher; @theme inline turns these into the
+  bg-base-*, text-base-content, text-error ... utilities the components use.
 */
 [data-theme='dark'] {
-	--color-primary: #212121;
-	--color-base-100: #212121;
-	--color-base-200: #171717;
-	--color-base-300: #0d0d0d;
-	/* daisyUI 5's dark base-content is much brighter than 4's; keep the old tone. */
-	--color-base-content: oklch(0.746477 0.0216 264.436);
+	--base-100: #212121;
+	--base-200: #171717;
+	--base-300: #0d0d0d;
+	--base-content: oklch(0.746477 0.0216 264.436);
 
-	--color-info: #8be9fd;
-	--color-success: #50fa7b;
-	--color-warning: #f1fa8c;
-	--color-error: #ff5555;
-
-	--radius-field: 0;
-	--radius-selector: 0;
+	--info: #8be9fd;
+	--success: #50fa7b;
+	--warning: #f1fa8c;
+	--error: #ff5555;
 
 	--debug: #00d9ff;
 	--star: #ffff00;
@@ -55,8 +45,7 @@
 	--accent: oklch(0.97 0 0);
 	--accent-foreground: oklch(0.205 0 0);
 	--destructive: oklch(0.577 0.245 27.325);
-	/* Renamed from shadcn's --border: daisyUI 5 uses --border as a border *width*. */
-	--border-color: oklch(0.922 0 0);
+	--border: oklch(0.922 0 0);
 	--input: oklch(0.922 0 0);
 	--ring: oklch(0.708 0 0);
 	--chart-1: oklch(0.87 0 0);
@@ -76,15 +65,15 @@
 }
 
 [data-theme='light'] {
-	--color-primary: #ffffff;
-	--color-base-100: #ffffff;
-	--color-base-200: #f9f9f9;
-	--color-base-300: #f4f4f4;
+	--base-100: #ffffff;
+	--base-200: #f9f9f9;
+	--base-300: #f4f4f4;
+	--base-content: oklch(0.278 0.0296 256.848);
 
-	--color-info: #8be9fd;
-	--color-success: #50fa7b;
-	--color-warning: #f1fa8c;
-	--color-error: #ff5555;
+	--info: #8be9fd;
+	--success: #50fa7b;
+	--warning: #f1fa8c;
+	--error: #ff5555;
 
 	--debug: #00d9ff;
 	--star: #444444;
@@ -133,35 +122,6 @@
 	background-color: currentColor;
 }
 
-/* daisyUI 5 draws input borders at full strength; 4.x used 20% of base-content. */
-.input,
-.textarea,
-.select,
-.file-input {
-	--input-color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
-}
-
-/*
-  daisyUI 5 shrank controls: default height went 3rem -> 2.5rem and the small
-  variants lost a step of type. --size-field restores the default, then xs/sm are
-  pinned back to their 4.x absolute sizes (the 4.x scale was not linear).
-*/
-[data-theme='dark'],
-[data-theme='light'] {
-	--size-field: 0.3rem;
-}
-
-.btn-sm,
-.input-sm,
-.select-sm {
-	--size: 2rem;
-	--fontsize: 0.875rem;
-}
-.btn-xs {
-	--size: 1.5rem;
-	--fontsize: 0.75rem;
-}
-
 [data-theme='light'] .hljs {
 	background: #edf2f7 !important;
 }
@@ -198,6 +158,24 @@
 
 .prose {
 	max-width: inherit;
+
+	/* daisyUI used to theme @tailwindcss/typography; keep rendered markdown on the app palette. */
+	--tw-prose-body: var(--color-base-content);
+	--tw-prose-headings: var(--color-base-content);
+	--tw-prose-lead: var(--color-base-content);
+	--tw-prose-bold: var(--color-base-content);
+	--tw-prose-counters: var(--color-base-content);
+	--tw-prose-bullets: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+	--tw-prose-hr: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+	--tw-prose-quotes: var(--color-base-content);
+	--tw-prose-quote-borders: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+	--tw-prose-captions: var(--color-base-content);
+	--tw-prose-code: var(--color-base-content);
+	--tw-prose-pre-code: var(--color-base-content);
+	--tw-prose-pre-bg: transparent;
+	--tw-prose-th-borders: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+	--tw-prose-td-borders: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+	--tw-prose-links: var(--color-info);
 }
 
 .prose :where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
@@ -300,8 +278,7 @@ input.tab:checked + .tab-content,
   ---break---
 */
 /*
-  Surfaces and text are pinned to the daisyUI palette so ported shadcn components
-  sit on the same colours as the daisyUI ones they replace.
+  Surfaces and text keep the palette the app had before the shadcn port.
 */
 .dark {
 	--background: #212121;
@@ -310,7 +287,6 @@ input.tab:checked + .tab-content,
 	--card-foreground: var(--foreground);
 	--popover: #171717;
 	--popover-foreground: var(--foreground);
-	/* daisyUI's primary and its plain-button surface, so ported buttons keep their colours. */
 	--primary: #212121;
 	--primary-foreground: var(--foreground);
 	--secondary: #171717;
@@ -320,8 +296,8 @@ input.tab:checked + .tab-content,
 	--accent: oklch(0.269 0 0);
 	--accent-foreground: oklch(0.985 0 0);
 	--destructive: #ff5555;
-	--border-color: color-mix(in oklab, var(--foreground) 20%, transparent);
-	--input: var(--border-color);
+	--border: color-mix(in oklab, var(--foreground) 20%, transparent);
+	--input: var(--border);
 	--ring: oklch(0.556 0 0);
 	--chart-1: oklch(0.87 0 0);
 	--chart-2: oklch(0.556 0 0);
@@ -341,7 +317,19 @@ input.tab:checked + .tab-content,
   ---break---
 */
 @theme inline {
-	/* The stack the daisyUI 4 themes used, kept so the type does not shift. */
+	--color-base-100: var(--base-100);
+	--color-base-200: var(--base-200);
+	--color-base-300: var(--base-300);
+	--color-base-content: var(--base-content);
+	--color-info: var(--info);
+	--color-success: var(--success);
+	--color-warning: var(--warning);
+	--color-error: var(--error);
+	--color-base-usermessage: var(--base-usermessage);
+	--color-message: var(--message);
+	--color-star: var(--star);
+	--color-debug: var(--debug);
+
 	--font-sans:
 		ui-sans-serif, -apple-system, system-ui, 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
 		'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -360,7 +348,7 @@ input.tab:checked + .tab-content,
 	--color-chart-1: var(--chart-1);
 	--color-ring: var(--ring);
 	--color-input: var(--input);
-	--color-border: var(--border-color);
+	--color-border: var(--border);
 	--color-destructive: var(--destructive);
 	--color-accent-foreground: var(--accent-foreground);
 	--color-accent: var(--accent);
