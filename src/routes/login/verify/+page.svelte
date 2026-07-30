@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { page } from '$app/stores';
 </script>
 
@@ -10,7 +12,7 @@
 		<p class="">Please check your inbox and follow the link</p>
 
 		<div class="card-actioins">
-			<a href="/login" class="btn btn-outline mt-4 w-fit"> Ok </a>
+			<a href="/login" class={cn(buttonVariants({ variant: 'outline' }), 'mt-4 w-fit')}> Ok </a>
 		</div>
 	</div>
 </div>

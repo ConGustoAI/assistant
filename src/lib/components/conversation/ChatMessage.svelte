@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { goto } from '$app/navigation';
 	import { APIdeleteMessages, APIupsertConversation, APIupsertMessage } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
@@ -205,7 +208,7 @@
 				aria-label="Image upload area">
 				{#if (message.editing || dragging) && message.role === 'user'}
 					<button
-						class="btn btn-outline h-12 w-12 p-2"
+						class={cn(buttonVariants({ variant: 'outline' }), 'h-12 w-12 p-2')}
 						onclick={() => {
 							message.uploadOpen = !message.uploadOpen;
 							if (message.uploadOpen) {
@@ -235,7 +238,7 @@
 	<div class="relative flex items-start pt-2 text-message" class:bg-base-usermessage={message.role == 'user'}>
 		<div class="div text-base-content items-start px-3 py-3">
 			{#if loading}
-				<div class="loading loading-ring loading-md"></div>
+				<Spinner class="size-6" />
 			{:else if message.role == 'user'}
 				<Smile size="24" />
 			{:else}
@@ -285,7 +288,7 @@
 						autofocus={true} />
 					<div class="mt-2 flex w-full items-start justify-start gap-2">
 						<button
-							class="btn btn-outline btn-sm"
+							class={buttonVariants({ variant: 'outline', size: 'sm' })}
 							onclick={async () => {
 								message.editing = false;
 								await sendEditedMessage();
@@ -293,7 +296,7 @@
 							Save & Send
 						</button>
 						<button
-							class="btn btn-outline btn-sm"
+							class={buttonVariants({ variant: 'outline', size: 'sm' })}
 							disabled={savingMessage}
 							onclick={async () => {
 								savingMessage = true;
@@ -303,13 +306,13 @@
 								message.editing = false;
 							}}>
 							{#if savingMessage}
-								<div class="loading"></div>
+								<Spinner class="size-6" />
 							{:else}
 								Save
 							{/if}
 						</button>
 						<button
-							class="btn btn-outline btn-sm"
+							class={buttonVariants({ variant: 'outline', size: 'sm' })}
 							onclick={() => {
 								message.text = message.originalText ?? '';
 								message.editing = false;
@@ -333,7 +336,10 @@
 
 				{#if A.conversation?.messages?.at(-1) === message && message.role === 'assistant' && message.finishReason !== 'stop' && !isPublicPage() && !A.chatStreaming}
 					<button
-						class="btn btn-ghost btn-xs absolute bottom-2 right-2 rounded-md p-0 px-1"
+						class={cn(
+							buttonVariants({ variant: 'ghost', size: 'xs' }),
+							'absolute bottom-2 right-2 rounded-md p-0 px-1'
+						)}
 						title="Continue generating"
 						onclick={submitConversation}>
 						<StepForward size={15} />

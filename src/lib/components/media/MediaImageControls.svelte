@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { Input } from '$lib/components/ui/input';
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { A } from '$lib/appstate.svelte';
 	import { mediaResizeFromPreset, resizePresets } from '$lib/utils/media_utils.svelte';
 	import { assert, isPublicPage } from '$lib/utils/utils';
@@ -52,17 +55,13 @@
 			<div class="flex items-center justify-between gap-2">
 				<p class="label">Resolution</p>
 				<div class="flex w-48 items-baseline justify-between gap-2">
-					<input
-						type="number"
-						class="input input-sm input-bordered w-full shrink"
-						placeholder="W"
-						bind:value={resizeWidth} />
+					<Input type="number" class="h-8 w-full shrink" placeholder="W" bind:value={resizeWidth} />
 					x
-					<input type="number" class="input input-sm input-bordered w-full" placeholder="H" bind:value={resizeHeight} />
+					<Input type="number" class="h-8 w-full" placeholder="H" bind:value={resizeHeight} />
 				</div>
 			</div>
 			<button
-				class="align-self-end btn btn-outline btn-sm w-fit"
+				class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'align-self-end w-fit')}
 				onclick={async () => {
 					assert(A.mediaEditing);
 					await mediaResizeFromPreset(A.mediaEditing, selectedResizePreset, resizeHeight, resizeHeight);

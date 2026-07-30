@@ -304,10 +304,11 @@ input.tab:checked + .tab-content,
 	--card-foreground: var(--foreground);
 	--popover: #171717;
 	--popover-foreground: var(--foreground);
-	--primary: oklch(0.922 0 0);
-	--primary-foreground: oklch(0.205 0 0);
-	--secondary: oklch(0.269 0 0);
-	--secondary-foreground: oklch(0.985 0 0);
+	/* daisyUI's primary and its plain-button surface, so ported buttons keep their colours. */
+	--primary: #212121;
+	--primary-foreground: var(--foreground);
+	--secondary: #171717;
+	--secondary-foreground: var(--foreground);
 	--muted: oklch(0.269 0 0);
 	--muted-foreground: oklch(0.708 0 0);
 	--accent: oklch(0.269 0 0);

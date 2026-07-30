@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { Input } from '$lib/components/ui/input';
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { goto } from '$app/navigation';
 	import { APIupsertConversation, APIupsertMedia, APIupsertMessage } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
@@ -144,18 +148,18 @@
 	<!-- navbar-start -->
 	<div class="flex min-w-0 shrink-0 gap-2">
 		{#if isPublicPage()}
-			<a class="link flex gap-2 text-ellipsis text-nowrap" href="/chat">
+			<a class="flex gap-2 text-ellipsis text-nowrap underline" href="/chat">
 				<ArrowLeftCircle />Congusto Chat
 			</a>
 		{/if}
 
 		{#if A.conversation?.id && !A.sidebarOpen}
-			<a href={'/chat/'} class="link"><Edit /></a>
+			<a href={'/chat/'} class="underline"><Edit /></a>
 		{/if}
 
 		{#if A.conversation?.id && !isPublicPage() && !A.isMobile}
 			{#if updatingLike}
-				<span class="loading loading-spinner loading-xs"></span>
+				<Spinner class="size-4" />
 			{:else}
 				<label class="swap" aria-label="Star conversation">
 					<input
@@ -170,11 +174,11 @@
 		{/if}
 		{#if A.conversation?.id}
 			<button
-				class="btn btn-sm bg-base-100 rounded-md p-1"
+				class={cn(buttonVariants({ size: 'sm' }), 'bg-base-100 rounded-md p-1')}
 				title="Clone conversation"
 				onclick={async () => await cloneConversation()}>
 				{#if cloningConversation}
-					<span class="loading loading-spinner loading-xs"></span>
+					<Spinner class="size-4" />
 				{:else}
 					<CopyPlus />
 				{/if}
@@ -199,10 +203,10 @@
 			{#if !A.chatDataLoading}
 				{#if A.conversation}
 					{#if editingSummary}
-						<input
+						<Input
 							aria-label="Conversation summary"
 							type="text"
-							class="input input-sm input-bordered w-full grow"
+							class="h-8 w-full grow"
 							bind:value={A.conversation.summary}
 							onblur={async () => {
 								await updateSummary();
@@ -230,7 +234,7 @@
 							</p>
 							{#if summaryHovered && !isPublicPage()}
 								<button
-									class="btn btn-ghost btn-xs shrink-0 rounded-md p-0"
+									class={cn(buttonVariants({ variant: 'ghost', size: 'xs' }), 'shrink-0 rounded-md p-0')}
 									onclick={() => {
 										savedSummary = A.conversation!.summary ?? '';
 										editingSummary = true;
@@ -240,7 +244,7 @@
 					{/if}
 				{/if}
 			{:else}
-				<div class="loading"></div>
+				<Spinner class="size-6" />
 			{/if}
 		</div>
 	</div>

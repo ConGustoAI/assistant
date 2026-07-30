@@ -1,4 +1,9 @@
 <script lang="ts">
+	import { Input } from '$lib/components/ui/input';
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
+	import { Divider } from '$lib/components';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import { APIhideItem, APIunhideItem, APIupsertAssistant } from '$lib/api';
 	import { AssistantDetails, AssistantPrompt, DeleteButton } from '$lib/components';
@@ -125,7 +130,7 @@
 </script>
 
 <button
-	class="btn btn-outline"
+	class={buttonVariants({ variant: 'outline' })}
 	onclick={async () => {
 		status = 'copying';
 		await copyAssistant(assistant);
@@ -133,15 +138,15 @@
 	}}
 	disabled={status === 'copying'}>
 	{#if status === 'copying'}
-		<div class="loading"></div>
+		<Spinner class="size-6" />
 	{:else}
 		<Copy />
 	{/if}
 </button>
 
-<input
+<Input
 	type="text"
-	class="input input-bordered w-full"
+	class="w-full"
 	bind:value={assistant.name}
 	oninput={statusChanged}
 	onblur={() => {
@@ -209,9 +214,9 @@
 	{/if}
 </select>
 
-<input
+<Input
 	type="text"
-	class="input input-bordered w-full"
+	class="w-full"
 	bind:value={assistant.about}
 	spellcheck="false"
 	oninput={statusChanged}
@@ -222,14 +227,14 @@
 	disabled={!edit} />
 
 <button
-	class="btn btn-outline w-full"
+	class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
 	onclick={() => (detailsToggled = !detailsToggled)}
 	class:btn-active={detailsToggled}>
 	Details
 </button>
 
 <button
-	class="btn btn-outline p-2"
+	class={cn(buttonVariants({ variant: 'outline' }), 'p-2')}
 	disabled={status === 'hiding' || !allowHiding}
 	onclick={async () => {
 		status = 'hiding';
@@ -237,7 +242,7 @@
 		status = null;
 	}}>
 	{#if status === 'hiding'}
-		<div class="loading"></div>
+		<Spinner class="size-6" />
 	{:else if A.hiddenItems.has(assistant.id ?? '') && allowHiding}
 		<EyeOff />
 	{:else}
@@ -255,7 +260,7 @@
 	disabled={!edit || status === 'deleting'} />
 
 <div class="relative self-center">
-	<div class="loading absolute top-1" class:hidden={status !== 'saving'}></div>
+	<Spinner class={cn('absolute top-1 size-6', status !== 'saving' && 'hidden')} />
 	<div class="absolute" class:hidden={status !== 'saved'}>
 		<Check />
 	</div>
@@ -266,14 +271,15 @@
 
 {#if detailsToggled && model && provider}
 	<div class="col-span-full col-start-2 w-full">
-		<div class="divider">{assistant.name}: Details</div>
+		<Divider>{assistant.name}: Details</Divider>
 	</div>
 
 	<div class="col-span-full col-start-2 mb-6 flex w-full flex-col gap-2">
 		{#if showDefault && edit}
-			<div class="divider w-full">
-				<div class="alert alert-warning w-fit py-0">Changes made here will be visible to and will affect all users</div>
-			</div>
+			<Divider
+				><span class="bg-warning w-fit rounded-2xl px-4 py-0 text-black"
+					>Changes made here will be visible to and will affect all users</span
+				></Divider>
 		{/if}
 
 		<AssistantDetails bind:assistant {edit} onchange={statusChanged} {model} {provider} />

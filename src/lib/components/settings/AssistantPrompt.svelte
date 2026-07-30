@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Checkbox } from '$lib/components/ui/checkbox';
 	import { A } from '$lib/appstate.svelte';
 	import { GrowInput } from '$lib/components';
 
@@ -16,13 +17,12 @@
 
 		<div class="flex items-center gap-2">
 			{#if assistant.aboutUserFromUser}
-				<a href="/settings" class="link text-sm">Edit your profile</a>
+				<a href="/settings" class="text-sm underline">Edit your profile</a>
 			{/if}
 			<label for="aboutUserFromUser" class="cursor-pointer text-sm">From my profile</label>
-			<input
-				type="checkbox"
-				class="checkbox checkbox-xs"
-				bind:checked={assistant.aboutUserFromUser}
+			<Checkbox
+				class="size-4 [&>span>svg]:size-3"
+				bind:checked={() => assistant.aboutUserFromUser ?? false, (v) => (assistant.aboutUserFromUser = v)}
 				id="aboutUserFromUser"
 				disabled={!edit} />
 		</div>
@@ -42,15 +42,16 @@
 
 		<div class="flex items-center gap-2">
 			{#if assistant.assistantInstructionsFromUser}
-				<a href="/settings" class="link text-sm">Edit your profile</a>
+				<a href="/settings" class="text-sm underline">Edit your profile</a>
 			{/if}
 			<label for="instructionsFromUser" class="cursor-pointer text-sm">From my profile</label>
-			<input
-				type="checkbox"
-				class="checkbox checkbox-xs"
-				bind:checked={assistant.assistantInstructionsFromUser}
+			<Checkbox
+				class="size-4 [&>span>svg]:size-3"
+				bind:checked={
+					() => assistant.assistantInstructionsFromUser ?? false, (v) => (assistant.assistantInstructionsFromUser = v)
+				}
 				id="instructionsFromUser"
-				onchange={oninput}
+				onCheckedChange={() => oninput(new Event('change'))}
 				disabled={!edit} />
 		</div>
 	</div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Spinner } from '$lib/components/ui/spinner';
 	import { APIupsertMessage } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
 	import { DeleteButton } from '$lib/components';
@@ -269,7 +270,7 @@
 
 			{#if media.thumbnail}
 				{#await media.thumbnail}
-					<div class="loading m-auto"></div>
+					<Spinner class="m-auto size-6" />
 				{:then thumbnail}
 					{#if thumbnail.status === 'progress'}
 						<progress class="progress progress-success h-1 rounded-none" value={thumbnail.uploadProgress} max={100}>

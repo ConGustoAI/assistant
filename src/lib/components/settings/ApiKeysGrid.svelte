@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { goto } from '$app/navigation';
 	import { APIdeleteKey, APIupsertKey } from '$lib/api';
 	import { ApiKey } from '$lib/components';
@@ -72,12 +75,12 @@
 	</div>
 	{#if edit}
 		<button
-			class="btn btn-outline min-h-fit w-fit"
+			class={cn(buttonVariants({ variant: 'outline' }), 'min-h-fit w-fit')}
 			onclick={async () => {
 				await addKey();
 			}}>
 			{#if addingKey}
-				<div class="loading"></div>
+				<Spinner class="size-6" />
 			{:else}
 				<Plus />
 			{/if}

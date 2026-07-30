@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
+	import { Divider } from '$lib/components';
 	import { APIdeleteMessages, APIupsertMessage } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
 	import { Cost, DeleteMessageButton } from '$lib/components';
@@ -143,13 +146,15 @@
 		{/if}
 		<!-- {message.order} -->
 		{#if message.role == 'assistant' && !isPublicPage()}
-			<button class="btn btn-ghost btn-xs rounded-md p-0 px-1" title="Generate a new response" onclick={reGenerate}
-				><Repeat size={15} /></button>
+			<button
+				class={cn(buttonVariants({ variant: 'ghost', size: 'xs' }), 'rounded-md p-0 px-1')}
+				title="Generate a new response"
+				onclick={reGenerate}><Repeat size={15} /></button>
 		{/if}
 		{#if (message.role !== 'assistant' || !A.user || A.user.hacker) && !isPublicPage()}
 			<button
 				title="Edit message"
-				class="btn btn-ghost btn-xs rounded-md p-0 px-1"
+				class={cn(buttonVariants({ variant: 'ghost', size: 'xs' }), 'rounded-md p-0 px-1')}
 				onclick={() => {
 					message.editing = !message.editing;
 					if (message.editing) {
@@ -159,7 +164,7 @@
 		{/if}
 		<button
 			title="Copy message to clipboard"
-			class="btn btn-ghost btn-xs rounded-md p-0"
+			class={cn(buttonVariants({ variant: 'ghost', size: 'xs' }), 'rounded-md p-0')}
 			onclick={() => {
 				navigator.clipboard.writeText(message.text);
 			}}><Copy size={15} /></button>
@@ -174,7 +179,7 @@
 		{#if !A.user || A.user.hacker || isPublicPage()}
 			<button
 				title="Toggle markdown"
-				class="btn btn-ghost btn-outline btn-xs h-5 min-h-4 rounded-md p-0 px-1"
+				class={cn(buttonVariants({ variant: 'outline', size: 'xs' }), 'h-5 min-h-4 rounded-md p-0 px-1')}
 				class:ml-1={markdown}
 				onclick={() => {
 					markdown = !markdown;
@@ -182,13 +187,13 @@
 		{/if}
 		{#if A.user?.hacker && !isPublicPage()}
 			<div class="dropdown dropdown-end">
-				<button class="btn btn-ghost btn-xs rounded-md p-1" title="More options">
+				<button class={cn(buttonVariants({ variant: 'ghost', size: 'xs' }), 'rounded-md p-1')} title="More options">
 					<Menu size="fit-h" />
 				</button>
 				<ul class="menu dropdown-content bg-base-200 z-20 w-64 text-nowrap p-2">
 					<li>
 						<button
-							class="btn btn-ghost btn-sm justify-end"
+							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
 							onclick={async (e: Event) => {
 								message.role = message.role === 'assistant' ? 'user' : 'assistant';
 								const target = e.target as HTMLButtonElement;
@@ -198,10 +203,10 @@
 								savingMessage = false;
 							}}>Change role to {message.role === 'assistant' ? 'user' : 'assistant'}</button>
 					</li>
-					<div class="divider w-full">Add message above</div>
+					<Divider>Add message above</Divider>
 					<li>
 						<button
-							class="btn btn-ghost btn-sm justify-end"
+							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
 							onclick={async (e) => {
 								const target = e.target as HTMLButtonElement;
 								target.blur();
@@ -210,17 +215,17 @@
 					</li>
 					<li>
 						<button
-							class="btn btn-ghost btn-sm justify-end"
+							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
 							onclick={async (e) => {
 								const target = e.target as HTMLButtonElement;
 								target.blur();
 								await addMessage({ parent: message, role: 'user', above: true, editing: true });
 							}}>user</button>
 					</li>
-					<div class="divider w-full">Add message below</div>
+					<Divider>Add message below</Divider>
 					<li>
 						<button
-							class="btn btn-ghost btn-sm justify-end"
+							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
 							onclick={async (e) => {
 								const target = e.target as HTMLButtonElement;
 								target.blur();
@@ -229,7 +234,7 @@
 					</li>
 					<li>
 						<button
-							class="btn btn-ghost btn-sm justify-end"
+							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
 							onclick={async (e) => {
 								const target = e.target as HTMLButtonElement;
 								target.blur();

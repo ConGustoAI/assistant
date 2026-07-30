@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Divider } from '$lib/components';
 	import { AssistantGrid } from '$lib/components';
 	import { A } from '$lib/appstate.svelte';
 	import dbg from 'debug';
@@ -11,10 +12,10 @@
 	<h2 class="text-xl font-bold">Assistants</h2>
 
 	<div class="w-full">
-		<div class="divider w-full">Your assistants</div>
+		<Divider>Your assistants</Divider>
 		<AssistantGrid edit={true} newItemUserID={A.user?.id} />
 
-		<div class="divider w-full">Default assistants</div>
+		<Divider>Default assistants</Divider>
 		<AssistantGrid showDefault={true} edit={false} newItemUserID={A.user?.id} />
 	</div>
 </div>

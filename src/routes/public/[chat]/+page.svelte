@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Divider } from '$lib/components';
 	import { page } from '$app/stores';
 	import { APIfetchPublicConversation } from '$lib/api';
 	import { ChatMessage, ChatTitle } from '$lib/components';
@@ -89,7 +90,7 @@
 					</div>
 				{/if}
 			</div>
-			<div class="divider w-full"></div>
+			<Divider />
 		{/if}
 	</div>
 	<MediaEditor />

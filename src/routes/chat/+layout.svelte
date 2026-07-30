@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
+	import { Divider } from '$lib/components';
 	import { goto } from '$app/navigation';
 	import { APIdeleteConversations, APIfetchConversations } from '$lib/api';
 	import { A } from '$lib/appstate.svelte.js';
@@ -129,23 +132,27 @@
 			class="bg-base-200 flex h-full w-full shrink-0 flex-col items-center justify-start gap-2 p-2 sm:w-56"
 			transition:slide={{ duration: 100, axis: 'x' }}>
 			<div class="join flex w-full">
-				<button class="btn btn-outline join-item btn-sm h-full grow" onclick={async () => await NewChat()}
-					>New chat</button>
+				<button
+					class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'join-item h-full grow')}
+					onclick={async () => await NewChat()}>New chat</button>
 				<details class="dropdown dropdown-end join-item my-0 h-full" bind:this={assistantSelectDropdown}>
-					<summary class="btn btn-outline join-item btn-sm h-full px-1"><ChevronUp class="rotate-180" /></summary>
+					<summary class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'join-item h-full px-1')}
+						><ChevronUp class="rotate-180" /></summary>
 					<ul class="menu dropdown-content bg-base-300 z-20 w-52 p-2 shadow-sm">
-						<div class="divider w-full py-2">Your assistants</div>
+						<Divider class="py-2">Your assistants</Divider>
 						{#each Object.entries(A.assistants).filter(([_, ass]) => ass.userID !== defaultsUUID) as [id, assistant]}
 							{#if !A.hiddenItems.has(id) || A.user?.assistant === id}
-								<button class="btn-base-300 btn btn-outline w-full" onclick={async () => await NewChat(assistant.id)}
-									>{assistant.name}</button>
+								<button
+									class={cn(buttonVariants({ variant: 'outline' }), 'btn-base-300 w-full')}
+									onclick={async () => await NewChat(assistant.id)}>{assistant.name}</button>
 							{/if}
 						{/each}
-						<div class="divider w-full py-2">Default assistants</div>
+						<Divider class="py-2">Default assistants</Divider>
 						{#each Object.entries(A.assistants).filter(([_, ass]) => ass.userID === defaultsUUID) as [id, assistant]}
 							{#if !A.hiddenItems.has(id) || A.user?.assistant === id}
-								<button class="btn-base-300 btn btn-outline w-full" onclick={async () => await NewChat(assistant.id)}
-									>{assistant.name}</button>
+								<button
+									class={cn(buttonVariants({ variant: 'outline' }), 'btn-base-300 w-full')}
+									onclick={async () => await NewChat(assistant.id)}>{assistant.name}</button>
 							{/if}
 						{/each}
 					</ul>
@@ -180,13 +187,13 @@
 
 			{#if !A.conversation?.messages?.length}
 				<div class="dropdown dropdown-end m-2 self-end">
-					<button class="btn btn-ghost btn-outline btn-sm rounded-md p-1" title="Add messages">
+					<button class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'rounded-md p-1')} title="Add messages">
 						<Plus size="fit-h" />
 					</button>
 					<ul class="menu dropdown-content bg-base-200 z-20 w-32 text-nowrap p-2">
 						<li>
 							<button
-								class="btn btn-ghost btn-sm justify-end"
+								class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
 								onclick={async (e) => {
 									const target = e.target as HTMLButtonElement;
 									target.blur();
@@ -195,7 +202,7 @@
 						</li>
 						<li>
 							<button
-								class="btn btn-ghost btn-sm justify-end"
+								class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
 								onclick={async (e) => {
 									const target = e.target as HTMLButtonElement;
 									target.blur();
@@ -218,7 +225,7 @@
 					</div>
 					<a href="https://congusto.ai" class="flex text-2xl opacity-50" target="_blank" rel="noopener noreferrer">
 						<p class="mx-2 opacity-50">Made with ❤️ by</p>
-						<span class="link opacity-100">Congusto.ai</span>
+						<span class="underline opacity-100">Congusto.ai</span>
 					</a>
 					<a
 						href="https://github.com/congustoAI/chat"
@@ -228,13 +235,13 @@
 						<p class=" mx-2 flex items-center opacity-50">
 							Give us a <Star class="mx-1" color="yellow" fill="yellow" /> on
 						</p>
-						<span class="link flex items-center opacity-100">
+						<span class="flex items-center underline opacity-100">
 							<GitHub />
 							GitHub
 						</span>
 					</a>
 					{#if !A.user}
-						<a href="/login" class="btn btn-outline mt-16 text-xl">
+						<a href="/login" class={cn(buttonVariants({ variant: 'outline' }), 'mt-16 text-xl')}>
 							<p class="mx-2">Login to start chatting</p>
 						</a>
 					{/if}
@@ -242,12 +249,12 @@
 			{/if}
 		</div>
 
-		<div class="divider w-full"></div>
+		<Divider />
 
 		<div class="navbar m-2 h-fit shrink-0 grow-0 py-0">
 			<div class="navbar-start max-w-fit">
 				{#if !A.sidebarOpen}
-					<div class="btn btn-circle sm:hidden" style="visibility: hidden;"></div>
+					<div class={cn(buttonVariants({ size: 'icon' }), 'rounded-full sm:hidden')} style="visibility: hidden;"></div>
 				{/if}
 			</div>
 			<div class="navbar-center mx-auto h-fit max-w-full grow p-0 md:max-w-[95%]">

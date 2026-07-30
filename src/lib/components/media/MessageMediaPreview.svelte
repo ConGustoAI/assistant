@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Spinner } from '$lib/components/ui/spinner';
 	import { APIupsertMessage } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
 	import { assert, isPublicPage } from '$lib/utils/utils';
@@ -206,7 +207,7 @@
 	</div>
 
 	{#if media.processing}
-		<div class="loading absolute left-1 top-1 m-auto"></div>
+		<Spinner class="absolute left-1 top-1 m-auto size-6" />
 	{/if}
 	<!-- {/if} -->
 

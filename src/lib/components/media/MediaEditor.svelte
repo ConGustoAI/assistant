@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { Input } from '$lib/components/ui/input';
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { APIupsertMedia } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
 	import {
@@ -110,7 +114,7 @@
 				</div>
 			{:else if A.mediaEditing.processingError}
 				<div class="flex h-full grow items-center justify-center p-6">
-					<div class="alert alert-error max-w-xl text-left">
+					<div class="bg-error max-w-xl rounded-2xl px-4 text-left text-black">
 						<AlertTriangle size={18} />
 						<span>{A.mediaEditing.processingError}</span>
 					</div>
@@ -202,13 +206,13 @@
 				<div class="flex items-baseline gap-2">
 					<p class="label mr-auto">Title:</p>
 					{#if titleUpdating}
-						<span class="loading loading-sm"></span>
+						<Spinner class="size-5" />
 					{/if}
 
 					{#if !isPublicPage()}
-						<input
+						<Input
 							type="text"
-							class="input input-sm input-bordered w-48 justify-self-end"
+							class="h-8 w-48 justify-self-end"
 							bind:value={A.mediaEditing.title}
 							onchange={async () => {
 								titleUpdating = true;
@@ -231,7 +235,7 @@
 				{:else if A.mediaEditing.type === 'text'}
 					{#if !isPublicPage()}
 						<button
-							class="btn btn-outline btn-sm mb-auto"
+							class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'mb-auto')}
 							disabled={!textNeedsSave}
 							onclick={async () => {
 								assert(A.mediaEditing);
@@ -242,7 +246,7 @@
 					{/if}
 				{/if}
 				<button
-					class="btn btn-outline btn-sm bg-base-200 justify-self-end p-1"
+					class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'bg-base-200 justify-self-end p-1')}
 					onclick={() => (A.mediaEditing = undefined)}>Close</button>
 			</div>
 		{/if}

@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { Checkbox } from '$lib/components/ui/checkbox';
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { APIupsertConversation } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
 	import { Link } from 'lucide-svelte';
@@ -9,18 +13,17 @@
 {#if A.conversation?.id}
 	<div class="hidden items-center justify-end gap-2 sm:flex">
 		{#if A.conversation.public}
-			<a href={'/public/' + A.conversation.id} class="btn btn-sm bg-base-300 rounded-md"><Link size={18} /></a>
+			<a href={'/public/' + A.conversation.id} class={cn(buttonVariants({ size: 'sm' }), 'bg-base-300 rounded-md')}
+				><Link size={18} /></a>
 		{/if}
 		<label for="public" class="text-sm">Share</label>
 		{#if updatingPublic}
-			<span class="loadin loading loading-spinner"></span>
+			<Spinner class="loadin size-6" />
 		{:else}
-			<input
+			<Checkbox
 				id="public"
-				type="checkbox"
-				class="checkbox"
-				bind:checked={A.conversation.public}
-				onchange={async () => {
+				bind:checked={() => A.conversation?.public ?? false, (v) => A.conversation && (A.conversation.public = v)}
+				onCheckedChange={async () => {
 					if (!A.conversation) throw new Error('Conversation missing');
 					updatingPublic = true;
 					Object.assign(A.conversation, await APIupsertConversation(A.conversation));

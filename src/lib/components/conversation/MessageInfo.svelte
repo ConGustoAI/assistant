@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { A } from '$lib/appstate.svelte';
 	import { TokenStats } from '$lib/components';
 	import { assert, isPublicPage } from '$lib/utils/utils';
@@ -85,7 +87,7 @@
 		<span><strong>Assistant:</strong></span>
 		{#if message.assistantName}
 			{#if A.assistants[message.assistantID ?? 'unknown']}
-				<a class="link" href="/settings/assistants/#{message.assistantID}">{message.assistantName}</a>
+				<a class="underline" href="/settings/assistants/#{message.assistantID}">{message.assistantName}</a>
 			{:else}
 				{message.assistantName}
 			{/if}
@@ -97,7 +99,7 @@
 		<span><strong>Model:</strong></span>
 		{#if message.modelName}
 			{#if provider}
-				<a class="link" href="/settings/providers/#{provider.id}-{message.modelID}"
+				<a class="underline" href="/settings/providers/#{provider.id}-{message.modelID}"
 					>{provider.name} / {message.modelName}</a>
 			{:else}
 				{message.modelName}
@@ -142,7 +144,7 @@
 						<strong class="mr-auto self-start">Sent</strong>
 						<button
 							aria-label="Copy to clipboard"
-							class="btn btn-ghost z-50 size-5 min-h-fit rounded-md p-0"
+							class={cn(buttonVariants({ variant: 'ghost' }), 'z-50 size-5 min-h-fit rounded-md p-0')}
 							title="Copy to clipboard"
 							onclick={() => {
 								assert(message.messagesSent);
@@ -153,7 +155,7 @@
 
 						<button
 							aria-label="Download as JSON"
-							class="btn btn-ghost z-50 size-5 min-h-fit rounded-md p-0"
+							class={cn(buttonVariants({ variant: 'ghost' }), 'z-50 size-5 min-h-fit rounded-md p-0')}
 							title="Download as JSON"
 							onclick={() => {
 								assert(message.messagesSent);
@@ -181,7 +183,7 @@
 						<strong class="mr-auto self-start">Received</strong>
 						<button
 							aria-label="Copy to clipboard"
-							class="btn btn-ghost z-50 size-5 min-h-fit rounded-md p-0"
+							class={cn(buttonVariants({ variant: 'ghost' }), 'z-50 size-5 min-h-fit rounded-md p-0')}
 							title="Copy to clipboard"
 							onclick={() => {
 								assert(message.result);
@@ -192,7 +194,7 @@
 
 						<button
 							aria-label="Download as JSON"
-							class="btn btn-ghost z-50 size-5 min-h-fit rounded-md p-0"
+							class={cn(buttonVariants({ variant: 'ghost' }), 'z-50 size-5 min-h-fit rounded-md p-0')}
 							title="Download as JSON"
 							onclick={() => {
 								assert(message.result);

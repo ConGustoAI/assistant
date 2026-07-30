@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { APIupsertProvider } from '$lib/api';
 	import { InfoPopup, Provider } from '$lib/components';
 	import { defaultsUUID } from '$lib/db/schema';
@@ -98,13 +101,13 @@
 
 		{#if edit}
 			<button
-				class="btn btn-outline col-start-2 w-fit"
+				class={cn(buttonVariants({ variant: 'outline' }), 'col-start-2 w-fit')}
 				disabled={addingProvider || !edit}
 				onclick={async () => {
 					await addProvider();
 				}}>
 				{#if addingProvider}
-					<div class="loading"></div>
+					<Spinner class="size-6" />
 				{:else}
 					<Plus />
 				{/if}
