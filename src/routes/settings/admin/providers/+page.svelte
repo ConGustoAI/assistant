@@ -12,8 +12,7 @@
 	<div class="flex gap-4">
 		<div class="flex w-fit items-center gap-4 font-bold text-nowrap">
 			<span class="text-xl">Default API providers</span>
-			<span class="rounded-2xl bg-warning px-4 py-0 text-black"
-				>Changes made here will be visible to and will affect all users</span>
+			<span class="badge bg-warning">Changes made here will be visible to and will affect all users</span>
 		</div>
 	</div>
 

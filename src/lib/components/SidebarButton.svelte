@@ -6,7 +6,7 @@
 </script>
 
 <button
-	class={cn(buttonVariants({ size: 'icon' }), 'rounded-full rounded-xl')}
+	class={cn(buttonVariants({ size: 'icon' }), 'rounded-xl')}
 	aria-label={A.sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
 	onclick={() => (A.sidebarOpen = !A.sidebarOpen)}>
 	{#if A.sidebarOpen}

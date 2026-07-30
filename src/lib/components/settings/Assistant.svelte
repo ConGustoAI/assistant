@@ -157,7 +157,7 @@
 	disabled={!edit} />
 
 <select
-	class="h-12 w-full rounded-none border border-input bg-base-100 px-4 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:border-base-200 disabled:bg-base-200 disabled:text-base-content/40"
+	class="field h-12 w-full px-4 text-sm"
 	bind:value={assistant.modelID}
 	onchange={statusChanged}
 	onblur={() => {
@@ -189,7 +189,7 @@
 </select>
 
 <select
-	class="h-12 rounded-none border border-input bg-base-100 px-4 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:border-base-200 disabled:bg-base-200 disabled:text-base-content/40"
+	class="field h-12 px-4 text-sm"
 	bind:value={assistant.apiKeyID}
 	onchange={statusChanged}
 	onblur={() => {
@@ -277,9 +277,7 @@
 	<div class="col-span-full col-start-2 mb-6 flex w-full flex-col gap-2">
 		{#if showDefault && edit}
 			<Divider
-				><span class="w-fit rounded-2xl bg-warning px-4 py-0 text-black"
-					>Changes made here will be visible to and will affect all users</span
-				></Divider>
+				><span class="badge bg-warning">Changes made here will be visible to and will affect all users</span></Divider>
 		{/if}
 
 		<AssistantDetails bind:assistant {edit} onchange={statusChanged} {model} {provider} />

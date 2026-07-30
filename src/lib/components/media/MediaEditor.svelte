@@ -115,8 +115,8 @@
 				</div>
 			{:else if A.mediaEditing.processingError}
 				<div class="flex h-full grow items-center justify-center p-6">
-					<div class="max-w-xl rounded-2xl bg-error px-4 text-left text-black">
-						<AlertTriangle size={18} />
+					<div class="badge max-w-xl px-4 text-left">
+						<TriangleAlert size={18} />
 						<span>{A.mediaEditing.processingError}</span>
 					</div>
 				</div>

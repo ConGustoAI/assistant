@@ -203,7 +203,7 @@
 	spellcheck="false"
 	disabled={!edit} />
 <select
-	class="h-12 w-full rounded-none border border-input bg-base-100 px-4 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:border-base-200 disabled:bg-base-200 disabled:text-base-content/40"
+	class="field h-12 w-full px-4 text-sm"
 	bind:value={provider.type}
 	onchange={() => {
 		status = 'changed';
@@ -302,8 +302,7 @@
 			<Divider class="col-span-full">{provider.name}: Default models</Divider>
 			{#if editDefaultChildren}
 				<Divider
-					><span class="w-fit rounded-2xl bg-warning px-4 py-0 text-black"
-						>Changes made here will be visible to and will affect all users</span
+					><span class="badge bg-warning">Changes made here will be visible to and will affect all users</span
 					></Divider>
 			{/if}
 
@@ -330,8 +329,7 @@
 			<Divider>{provider.name}: Default API Keys</Divider>
 			{#if editDefaultChildren}
 				<Divider
-					><span class="w-fit rounded-2xl bg-error px-4 py-0 text-black"
-						>Only admins can see default keys, but any user can make requests with them</span
+					><span class="badge bg-error">Only admins can see default keys, but any user can make requests with them</span
 					></Divider>
 			{/if}
 
