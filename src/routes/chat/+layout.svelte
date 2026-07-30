@@ -134,10 +134,11 @@
 			transition:slide={{ duration: 100, axis: 'x' }}>
 			<div class="flex w-full">
 				<button
-					class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'grow')}
+					class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'h-[2.125rem] grow')}
 					onclick={async () => await NewChat()}>New chat</button>
 				<DropdownMenu.Root bind:open={assistantSelectOpen}>
-					<DropdownMenu.Trigger class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), '-ml-px px-1')}
+					<DropdownMenu.Trigger
+						class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), '-ml-px h-[2.125rem] px-1')}
 						><ChevronUp class="rotate-180" /></DropdownMenu.Trigger>
 					<DropdownMenu.Content align="end" class="z-20 flex w-52 flex-col bg-base-300 p-2 text-sm shadow-sm">
 						<Divider class="py-2">Your assistants</Divider>
