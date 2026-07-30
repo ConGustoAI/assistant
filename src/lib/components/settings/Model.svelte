@@ -310,7 +310,6 @@
 
 <DeleteButton
 	btnClass="btn btn-outline h-full w-full"
-	class=""
 	deleteAction={async () => {
 		status = 'deleting';
 		await deleteModel(model);

@@ -12,7 +12,7 @@
 
 <div class="col-span-full flex flex-col">
 	<div class="flex w-full items-center justify-between">
-		<span class=" px-1 py-2 text-sm"
+		<span class="px-1 py-2 text-sm"
 			>About user. Include into system prompt with <code class="font-bold">{'{profile}'}</code></span>
 
 		<div class="flex items-center gap-2">
@@ -29,9 +29,9 @@
 	</div>
 
 	{#if assistant.aboutUserFromUser}
-		<GrowInput class="textarea-bordered w-full" value={A.user?.aboutUser ?? ''} disabled={true} />
+		<GrowInput class="w-full" value={A.user?.aboutUser ?? ''} disabled={true} />
 	{:else}
-		<GrowInput class="textarea-bordered" bind:value={assistant.aboutUser} {oninput} />
+		<GrowInput bind:value={assistant.aboutUser} {oninput} />
 	{/if}
 </div>
 
@@ -57,13 +57,9 @@
 	</div>
 
 	{#if assistant.assistantInstructionsFromUser}
-		<GrowInput class="textarea-bordered w-full" value={A.user?.assistantInstructions ?? ''} disabled={true} />
+		<GrowInput class="w-full" value={A.user?.assistantInstructions ?? ''} disabled={true} />
 	{:else}
-		<GrowInput
-			class="textarea-bordered w-full"
-			bind:value={assistant.assistantInstructions}
-			{oninput}
-			disabled={!edit} />
+		<GrowInput class="w-full" bind:value={assistant.assistantInstructions} {oninput} disabled={!edit} />
 	{/if}
 </div>
 
@@ -72,5 +68,5 @@
 		<span class="px-1 py-2 text-sm">System Prompt</span>
 	</div>
 
-	<GrowInput class="textarea-bordered" bind:value={assistant.systemPrompt} {oninput} disabled={!edit} />
+	<GrowInput bind:value={assistant.systemPrompt} {oninput} disabled={!edit} />
 </div>

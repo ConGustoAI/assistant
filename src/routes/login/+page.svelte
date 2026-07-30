@@ -22,7 +22,7 @@
 	let loginGithubSpinning = $state(false);
 </script>
 
-<h2 class="card-title justify-center">{isLogin ? 'Login' : 'Sign Up'}</h2>
+<h2 class="flex items-center justify-center gap-2 text-xl font-semibold">{isLogin ? 'Login' : 'Sign Up'}</h2>
 <!-- {#if !env.PUBLIC_DISABLE_EMAIL_LOGIN}
 	<form
 		method="POST"

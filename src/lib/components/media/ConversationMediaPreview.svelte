@@ -198,7 +198,7 @@
 			</video>
 			<progress
 				bind:this={mediaPlaybackProgressBar}
-				class="progress progress-error absolute bottom-0 z-20 h-1 rounded-none"
+				class="media-progress text-error absolute bottom-0 z-20 h-1 rounded-none"
 				value="0"
 				max={100}></progress>
 		{:else if media.type === 'audio'}
@@ -226,7 +226,7 @@
 				</audio>
 				<progress
 					bind:this={mediaPlaybackProgressBar}
-					class="progress progress-error absolute bottom-0 z-20 h-1 rounded-none"
+					class="media-progress text-error absolute bottom-0 z-20 h-1 rounded-none"
 					value="0"
 					max={100}></progress>
 			</div>
@@ -261,11 +261,14 @@
 
 		<div class="absolute bottom-1 mr-2 flex h-fit w-full flex-col gap-0.5">
 			{#if media.original?.status === 'progress'}
-				<progress class="progress progress-success h-1 rounded-none" value={media.original.uploadProgress} max={100}>
+				<progress
+					class="media-progress progress-success h-1 rounded-none"
+					value={media.original.uploadProgress}
+					max={100}>
 					{media.original.uploadProgress}%
 				</progress>
 			{:else if media.original?.status === 'failed'}
-				<p class=" text-error text-xs">Upload error: {media.original.uploadError}</p>
+				<p class="text-error text-xs">Upload error: {media.original.uploadError}</p>
 			{/if}
 
 			{#if media.thumbnail}
@@ -273,11 +276,14 @@
 					<Spinner class="m-auto size-6" />
 				{:then thumbnail}
 					{#if thumbnail.status === 'progress'}
-						<progress class="progress progress-success h-1 rounded-none" value={thumbnail.uploadProgress} max={100}>
+						<progress
+							class="media-progress progress-success h-1 rounded-none"
+							value={thumbnail.uploadProgress}
+							max={100}>
 							{thumbnail.uploadProgress}%
 						</progress>
 					{:else if thumbnail.status === 'failed'}
-						<p class=" text-error text-xs">Upload error: {thumbnail?.uploadError}</p>
+						<p class="text-error text-xs">Upload error: {thumbnail?.uploadError}</p>
 					{/if}
 				{/await}
 			{/if}
@@ -323,16 +329,16 @@
 
 			<DeleteButton
 				btnClass="btn btn-xs p-0 text-error"
-				class="dropdown-bottom  text-error "
+				class="dropdown-bottom text-error"
 				deleteAction={async () => await deleteMedia(media)}
 				title="Delete file" />
 			{#if !A.user || A.user.hacker}
 				<label
 					class="swap swap-rotate btn-xs p-0.5"
 					title={media.repeat ? 'Send the file for every chat turn' : 'Send the file once'}>
-					<input type="checkbox" class="" bind:checked={media.repeat} />
+					<input type="checkbox" bind:checked={media.repeat} />
 					<RefreshCcwIcon class="swap-on" size="fit-h" />
-					<RefreshCwOff class="swap-off " size="fit-h" />
+					<RefreshCwOff class="swap-off" size="fit-h" />
 				</label>
 			{/if}
 		</div>

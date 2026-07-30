@@ -447,7 +447,7 @@
 	</div>
 {/if}
 
-<ul class="base-200 no-scrollbar menu flex w-full flex-nowrap overflow-y-auto p-0">
+<ul class="base-200 no-scrollbar flex w-full flex-col flex-nowrap overflow-y-auto p-0 p-2 text-sm">
 	{#if datedConversation.today.length}
 		<ConversationHistoryGroup
 			title="Today"

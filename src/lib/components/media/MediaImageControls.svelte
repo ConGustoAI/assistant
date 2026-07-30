@@ -39,7 +39,7 @@
 		<div class="flex items-baseline gap-2">
 			<p class="label">Size</p>
 			<select
-				class="select select-bordered select-sm w-48"
+				class="border-input bg-background shadow-xs focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 h-12 h-8 w-48 rounded-none border px-3 text-base text-sm outline-none disabled:opacity-50"
 				bind:value={selectedResizePreset}
 				onchange={async () => {
 					debug('resizePreset', selectedResizePreset);
@@ -73,7 +73,7 @@
 		<div class="flex h-32 w-32 flex-col items-center border">
 			<img src={thumbnailURL} alt="preview" class="bg-checkered shrink grow overflow-hidden object-contain" />
 		</div>
-		<p class="">{A.mediaEditing.filename}</p>
+		<p>{A.mediaEditing.filename}</p>
 		<p>Original: {A.mediaEditing.originalWidth}x{A.mediaEditing.originalHeight}</p>
 		{#if A.mediaEditing.resizedWidth && A.mediaEditing.resizedHeight}
 			<p>Resized: {A.mediaEditing.resizedWidth}x{A.mediaEditing.resizedHeight}</p>

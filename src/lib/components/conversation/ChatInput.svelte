@@ -209,7 +209,7 @@
 
 	<div class="grid grid-cols-[min-content_auto] items-center gap-0.5">
 		<div
-			class="tooltip tooltip-right z-200"
+			class="tooltip-right z-200 relative"
 			data-tip={prefillAvailable ? null : 'Prefill not available for this assistant'}>
 			<button
 				aria-label="Prefill Assistant message"
@@ -261,7 +261,7 @@
 				placeholder="User message"
 				autofocus
 				arialabel="Start chatting"
-				class="textarea-bordered h-fit max-h-96 w-full whitespace-pre-wrap text-wrap break-all px-12" />
+				class="h-fit max-h-96 w-full whitespace-pre-wrap text-wrap break-all px-12" />
 			<div class="absolute bottom-1 left-2">
 				<button
 					aria-label="Upload media"
@@ -327,7 +327,7 @@
 					disabled={A.chatStreaming}
 					placeholder="Start Assistant message"
 					arialabel="Prefill Assistant message"
-					class="textarea-bordered h-fit max-h-96 w-full whitespace-pre-wrap text-wrap" />
+					class="h-fit max-h-96 w-full whitespace-pre-wrap text-wrap" />
 			</div>
 		{/if}
 	</div>

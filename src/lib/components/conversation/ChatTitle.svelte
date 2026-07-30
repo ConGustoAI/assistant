@@ -144,7 +144,8 @@
 	let savedSummary: string;
 </script>
 
-<div class="navbar border-base-content bg-base-200 mx-0 min-h-12 w-full min-w-0 items-center gap-4 border-b">
+<div
+	class="border-base-content bg-base-200 mx-0 flex min-h-12 min-h-16 w-full min-w-0 items-center gap-2 gap-4 border-b p-2">
 	<!-- navbar-start -->
 	<div class="flex min-w-0 shrink-0 gap-2">
 		{#if isPublicPage()}

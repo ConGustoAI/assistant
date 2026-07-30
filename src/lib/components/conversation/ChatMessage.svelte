@@ -190,7 +190,7 @@
 </script>
 
 {#if shouldShowDivider()}
-	<div class="divider w-full grow-0" style="margin: 0;"></div>
+	<div class="flex w-full grow-0 items-center" style="margin: 0;"></div>
 {/if}
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -279,7 +279,7 @@
 					{/if}
 
 					<GrowInput
-						class="textarea-bordered h-fit min-h-10 w-full"
+						class="h-fit min-h-10 w-full"
 						placeholder={message.role === 'user' ? 'User message' : 'Start Assistant message'}
 						bind:focused={inputFocus}
 						bind:value={message.text}
@@ -320,7 +320,7 @@
 							Cancel
 						</button>
 
-						<div class=" ml-auto text-sm">Ctrl/⌘ + Enter ⇒ Save & Send</div>
+						<div class="ml-auto text-sm">Ctrl/⌘ + Enter ⇒ Save & Send</div>
 					</div>
 				</div>
 			{:else}

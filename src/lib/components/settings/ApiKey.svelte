@@ -93,7 +93,6 @@
 	disabled={!edit || status === 'deleting'} />
 
 <DeleteButton
-	class=""
 	btnClass="btn btn-outline p-2 h-full w-full"
 	deleteAction={async () => {
 		status = 'deleting';

@@ -190,7 +190,7 @@
 				<button class={cn(buttonVariants({ variant: 'ghost', size: 'xs' }), 'rounded-md p-1')} title="More options">
 					<Menu size="fit-h" />
 				</button>
-				<ul class="menu dropdown-content bg-base-200 z-20 w-64 text-nowrap p-2">
+				<ul class="dropdown-content bg-base-200 z-20 flex w-64 flex-col text-nowrap p-2 text-sm">
 					<li>
 						<button
 							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
