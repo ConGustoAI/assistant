@@ -200,33 +200,33 @@
 		class="size-5 [&>span>svg]:size-4"
 		bind:checked={() => assistant.prefill ?? false, (v) => (assistant.prefill = v)}
 		disabled={!model?.prefill || !edit}
-		{onchange} />
+		onCheckedChange={onchange} />
 
 	<Checkbox
 		id="imagesCheckbox-{assistant.id}"
 		class="size-5 [&>span>svg]:size-4"
 		bind:checked={() => assistant.images ?? false, (v) => (assistant.images = v)}
 		disabled={!model?.images || !edit}
-		{onchange} />
+		onCheckedChange={onchange} />
 	<Checkbox
 		id="audioCheckbox-{assistant.id}"
 		class="size-5 [&>span>svg]:size-4"
 		bind:checked={() => assistant.audio ?? false, (v) => (assistant.audio = v)}
 		disabled={!model?.audio || !edit}
-		{onchange} />
+		onCheckedChange={onchange} />
 	<Checkbox
 		id="videoCheckbox-{assistant.id}"
 		class="size-5 [&>span>svg]:size-4"
 		bind:checked={() => assistant.video ?? false, (v) => (assistant.video = v)}
 		disabled={!model?.video || !edit}
-		{onchange} />
+		onCheckedChange={onchange} />
 
 	<Checkbox
 		id="pdfCheckbox-{assistant.id}"
 		class="size-5 [&>span>svg]:size-4"
 		bind:checked={() => assistant.pdf ?? false, (v) => (assistant.pdf = v)}
 		disabled={!model?.pdf || !edit}
-		{onchange} />
+		onCheckedChange={onchange} />
 
 	{#if provider.type === 'google'}
 		<div class="mt-4 w-full">
