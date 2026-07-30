@@ -112,7 +112,7 @@
 </script>
 
 {#if A.conversation?.id}
-	<div class="card w-full overflow-auto rounded-none bg-base-300 p-4 shadow-xl">
+	<div class="card bg-base-300 w-full overflow-auto rounded-none p-4 shadow-xl">
 		<!-- <h3 class="card-title text-base">Conversation Stats</h3> -->
 		{#if A.conversation.createdAt}
 			<div>
@@ -131,7 +131,7 @@
 		<div class="card-body w-full p-0">
 			{#if info.length}
 				{#if !compareStats(statsFromMessages, statsFromConversation) && (statsFromConversation.tokensIn || statsFromConversation.tokensOut) && !isPublicPage()}
-					<div class="grid w-fit grid-cols-[1fr,1fr]">
+					<div class="grid w-fit grid-cols-[1fr_1fr]">
 						<div class="font-bold">Conversatoin tokens</div>
 						<div class="font-bold">With deleted messages</div>
 						<TokenStats stats={statsFromMessages} />

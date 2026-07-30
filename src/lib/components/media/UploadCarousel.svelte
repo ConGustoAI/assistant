@@ -104,7 +104,7 @@
 
 		<div class="flex flex-col gap-1.5">
 			<button
-				class="btn carousel-item btn-outline relative h-9 min-h-8 w-14 items-center justify-center rounded-sm p-0"
+				class="btn carousel-item btn-outline rounded-xs relative h-9 min-h-8 w-14 items-center justify-center p-0"
 				onclick={() => document.getElementById('fileInput')?.click()}
 				title="Upload one or more files">
 				<FilePlus size={32} />
@@ -114,7 +114,7 @@
 			</button>
 
 			<button
-				class="btn carousel-item btn-outline relative h-9 min-h-8 items-center justify-center rounded-sm p-0"
+				class="btn carousel-item btn-outline rounded-xs relative h-9 min-h-8 items-center justify-center p-0"
 				title="Upload one of more directory"
 				onclick={() => document.getElementById('directoryInput')?.click()}>
 				<FolderPlus size={32} />
@@ -124,7 +124,7 @@
 			</button>
 
 			<button
-				class="btn btn-disabled carousel-item btn-outline relative h-9 min-h-8 w-14 items-center justify-center rounded-sm p-0"
+				class="btn btn-disabled carousel-item btn-outline rounded-xs relative h-9 min-h-8 w-14 items-center justify-center p-0"
 				class:btn-disabled={!meidaNeedsUpload || !!A.mediaProcessing || totalUploadProgress !== undefined}
 				disabled={!meidaNeedsUpload || !!A.mediaProcessing || totalUploadProgress !== undefined}
 				onclick={async () => {

@@ -12,7 +12,7 @@
 	</div>
 
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-	<div tabindex="0" class="card dropdown-content compact z-[1] w-fit rounded-box bg-base-300 shadow">
+	<div tabindex="0" class="card dropdown-content compact z-1 rounded-box bg-base-300 w-fit shadow-sm">
 		<div tabindex="0" class="card-body min-w-96">
 			<h2 class="card-title text-nowrap">{title}</h2>
 			{@render children?.()}

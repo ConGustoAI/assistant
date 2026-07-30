@@ -62,7 +62,7 @@
 </script>
 
 {#if A.user}
-	<section class="flex max-w-screen-md flex-col gap-2">
+	<section class="max-w-(--breakpoint-md) flex flex-col gap-2">
 		<div class="flex items-end gap-4">
 			<div class="flex flex-col gap-4">
 				<h2 class="text-2xl font-bold">User Profile</h2>
@@ -122,12 +122,12 @@
 		<div class="divider w-full">Message Information</div>
 
 		<div
-			class="grid w-full grid-cols-[max-content,max-content,max-content,max-content,max-content] items-center gap-4 gap-y-2">
+			class="grid w-full grid-cols-[max-content_max-content_max-content_max-content_max-content] items-center gap-4 gap-y-2">
 			<div class="flex items-center">Token estimate</div>
 			<div class="flex items-center">Message info</div>
 			<div class="flex items-center">Show cost above</div>
-			<div class="flex items-center text-warning">Show cost above</div>
-			<div class="flex items-center text-error">Show cost above</div>
+			<div class="text-warning flex items-center">Show cost above</div>
+			<div class="text-error flex items-center">Show cost above</div>
 
 			<input type="checkbox" class="checkbox" bind:checked={A.user.showEstimate} onchange={statusChanged} />
 			<input type="checkbox" class="checkbox" bind:checked={A.user.showInfo} onchange={statusChanged} />
@@ -157,7 +157,7 @@
 
 		<div class="flex w-fit flex-col">
 			<div class="divider w-full">Ussage statistics</div>
-			<div class="grid grid-cols-[auto,max-content,max-content,4rem] items-center gap-4 gap-y-2">
+			<div class="grid grid-cols-[auto_max-content_max-content_4rem] items-center gap-4 gap-y-2">
 				<div class="font-bold">API Key</div>
 				<div class="font-bold">$ Usage</div>
 				<div class="relative font-bold">

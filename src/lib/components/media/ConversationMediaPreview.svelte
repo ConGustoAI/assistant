@@ -148,7 +148,7 @@
 <div
 	role="group"
 	aria-label={media.filename}
-	class="relative flex h-full w-full flex-col justify-between gap-0.5 rounded-md bg-base-300 p-1"
+	class="bg-base-300 relative flex h-full w-full flex-col justify-between gap-0.5 rounded-md p-1"
 	draggable="false"
 	class:opacity-50={!media.active}
 	onmouseenter={() => (isHovered = true)}
@@ -156,18 +156,18 @@
 	<!-- {:else if media.type === 'audio'}
 		TODO: Audio
 	{:else} -->
-	<div class="relative flex h-full w-full flex-col overflow-hidden bg-base-100">
+	<div class="bg-base-100 relative flex h-full w-full flex-col overflow-hidden">
 		{#if media.type === 'video' && media.videoPreviewUnsupported}
 			<div class="flex h-full flex-col items-center justify-center p-2 text-center">
 				<p class="text-sm font-medium">Video</p>
 				<p class="text-xs opacity-70">Preview unavailable</p>
 				{#if media.processingError}
-					<p class="mt-1 text-xs text-error">{media.processingError}</p>
+					<p class="text-error mt-1 text-xs">{media.processingError}</p>
 				{/if}
 			</div>
 		{:else if media.processingError}
 			<div class="flex h-full items-center justify-center p-2">
-				<p class="text-left text-xs text-error">{media.processingError}</p>
+				<p class="text-error text-left text-xs">{media.processingError}</p>
 			</div>
 		{:else if media.type === 'image'}
 			<img
@@ -178,7 +178,7 @@
 
 			{#if media.originalWidth != undefined}
 				<div
-					class="absolute bottom-0 right-0 rounded-none bg-black bg-opacity-50 px-1 text-center text-sm text-primary-content">
+					class="text-primary-content absolute bottom-0 right-0 rounded-none bg-black bg-opacity-50 px-1 text-center text-sm">
 					{media.originalWidth}x{media.originalHeight}
 					{#if media.transformed}
 						<span>↓</span>
@@ -234,7 +234,7 @@
 		{:else if media.type === 'text'}
 			<pre class="tab-size-2 m-0 line-clamp-5 overflow-hidden text-sm">{thumbnailText ?? ''}</pre>
 			<div
-				class="absolute bottom-0 right-0 rounded-none bg-black bg-opacity-50 px-1 text-end text-sm text-primary-content">
+				class="text-primary-content absolute bottom-0 right-0 rounded-none bg-black bg-opacity-50 px-1 text-end text-sm">
 				<p>
 					{#if numWords != undefined}
 						W: {numWords}
@@ -245,14 +245,14 @@
 				</p>
 			</div>
 		{:else}
-			<div class="flex flex-grow items-center justify-center">
+			<div class="flex grow items-center justify-center">
 				<p class="text-center">Unsupported media type</p>
 			</div>
 		{/if}
 
 		{#if !(mediaSupported === true)}
 			<div class="pointer-events-none absolute left-0 top-0 size-full p-5">
-				<div class="pointer-events-auto rounded-md bg-black bg-opacity-50 text-error">
+				<div class="text-error pointer-events-auto rounded-md bg-black bg-opacity-50">
 					<AlertTriangle size="fit-h" />
 				</div>
 			</div>
@@ -264,7 +264,7 @@
 					{media.original.uploadProgress}%
 				</progress>
 			{:else if media.original?.status === 'failed'}
-				<p class=" text-xs text-error">Upload error: {media.original.uploadError}</p>
+				<p class=" text-error text-xs">Upload error: {media.original.uploadError}</p>
 			{/if}
 
 			{#if media.thumbnail}
@@ -276,7 +276,7 @@
 							{thumbnail.uploadProgress}%
 						</progress>
 					{:else if thumbnail.status === 'failed'}
-						<p class=" text-xs text-error">Upload error: {thumbnail?.uploadError}</p>
+						<p class=" text-error text-xs">Upload error: {thumbnail?.uploadError}</p>
 					{/if}
 				{/await}
 			{/if}
@@ -284,7 +284,7 @@
 
 		<!-- {#await media.thumbnail then thumbnail} -->
 		{#if (!media.original || media.original.status === 'ok') && (!media.thumbnail || media.thumbnail.status === 'ok')}
-			<div class="absolute bottom-0.5 left-0 z-30 text-success">
+			<div class="text-success absolute bottom-0.5 left-0 z-30">
 				<Upload size={14} strokeWidth={3} />
 			</div>
 		{/if}
@@ -293,7 +293,7 @@
 
 	<div class="mx-1 flex w-full shrink-0 flex-col items-start text-nowrap text-sm" title={media.title}>
 		{#if isHovered}
-			<div class="z-20 overflow-visible rounded-md border bg-base-300 px-1">
+			<div class="bg-base-300 z-20 overflow-visible rounded-md border px-1">
 				{media.title}
 			</div>
 		{:else}
@@ -305,7 +305,7 @@
 
 	{#if isHovered}
 		<div
-			class="absolute -right-2 -top-4 z-10 flex items-start gap-2 rounded-md bg-primary p-1"
+			class="bg-primary absolute -right-2 -top-4 z-10 flex items-start gap-2 rounded-md p-1"
 			transition:fade={{ duration: 100 }}>
 			<!-- <button
 				class="btn-xs p-0"
@@ -321,7 +321,7 @@
 			</button> -->
 
 			<DeleteButton
-				btnClass="btn-xs p-0 text-error"
+				btnClass="btn btn-xs p-0 text-error"
 				class="dropdown-bottom  text-error "
 				deleteAction={async () => await deleteMedia(media)}
 				title="Delete file" />
@@ -338,7 +338,7 @@
 
 		{#if message}
 			<div class="pointer-events-none absolute left-0 top-0 h-full w-full p-10">
-				<button class="pointer-events-auto bg-black bg-opacity-50 text-success" onclick={addMediaToMessage}>
+				<button class="text-success pointer-events-auto bg-black bg-opacity-50" onclick={addMediaToMessage}>
 					<Plus size="fit-h" />
 				</button>
 			</div>

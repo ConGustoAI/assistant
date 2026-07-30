@@ -38,6 +38,7 @@ export default [
 			'dist/',
 			'static/',
 			'.pi/',
+			'.claude/',
 			'lovely-docs/',
 			'.windsurf/',
 			'archive/',

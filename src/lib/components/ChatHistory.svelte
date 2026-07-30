@@ -323,7 +323,9 @@
 </div>
 
 {#if searchOptionsOpen}
-	<div class="relative mx-2 flex flex-col gap-2 rounded-md bg-base-100 p-2 shadow" transition:slide={{ duration: 20 }}>
+	<div
+		class="bg-base-100 relative mx-2 flex flex-col gap-2 rounded-md p-2 shadow-sm"
+		transition:slide={{ duration: 20 }}>
 		<div class="dropdown dropdown-right">
 			<input
 				type="text"
@@ -336,7 +338,7 @@
 				bind:value={searchAMP} />
 
 			<div
-				class="dropdown-content left-full top-2 z-40 ml-1 flex w-fit flex-col justify-start rounded-md bg-base-200 shadow-lg">
+				class="dropdown-content bg-base-200 left-full top-2 z-40 ml-1 flex w-fit flex-col justify-start rounded-md shadow-lg">
 				{#if historyAMPOptions.assistants.length}
 					<div class="divider w-full py-0">Assistants</div>
 				{/if}

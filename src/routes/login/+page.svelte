@@ -35,7 +35,7 @@
 		}}>
 		<div class="flex flex-col">
 			<label class="label" for="email">
-				<span class="label-text">Email</span>
+				<span class="text-sm">Email</span>
 			</label>
 			<input
 				id="email"
@@ -51,7 +51,7 @@
 		</div>
 		<div class="mt-4 flex flex-col">
 			<label class="label" for="password">
-				<span class="label-text">Password</span>
+				<span class="text-sm">Password</span>
 			</label>
 			<input
 				id="password"

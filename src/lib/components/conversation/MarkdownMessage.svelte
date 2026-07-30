@@ -210,7 +210,7 @@
 				const newPre = h('pre', { ...node.properties }, [...node.children]);
 				node.children = [
 					h('div', { className: ['flex', 'justify-start', 'w-full', 'min-w-0', 'shrink'] }, [
-						[h('div .max-w-32 .min-w-0 .shrink-1 .grow'), newPre]
+						[h('div .max-w-32 .min-w-0 .shrink .grow'), newPre]
 					])
 				];
 				return newPre;

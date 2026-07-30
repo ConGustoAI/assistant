@@ -66,7 +66,7 @@
 	let resultDropdown: HTMLInputElement | undefined = $state();
 </script>
 
-<div class="flex w-max max-w-md flex-col rounded-sm bg-base-300 p-2 lg:max-w-screen-md">
+<div class="rounded-xs bg-base-300 lg:max-w-(--breakpoint-md) flex w-max max-w-md flex-col p-2">
 	{#if message.createdAt}
 		<div>
 			<span><strong>Created at:</strong></span>
@@ -133,11 +133,11 @@
 </pre>
 		{/if}
 	</div>
-	<div class="wrap flex w-full flex-col gap-2 break-words">
+	<div class="wrap wrap-break-word flex w-full flex-col gap-2">
 		{#if message.messagesSent && (A.user?.hacker || isPublicPage())}
-			<div class="collapse rounded-none bg-base-200 p-0">
+			<div class="bg-base-200 collapse rounded-none p-0">
 				<input bind:this={messagesSentDropdown} type="checkbox" class="peer min-h-0" />
-				<div class="collapse-title min-h-0 bg-base-200 p-2 text-primary-content peer-checked:bg-base-100">
+				<div class="collapse-title bg-base-200 text-primary-content peer-checked:bg-base-100 min-h-0 p-2">
 					<div class="flex justify-end gap-2">
 						<strong class="mr-auto self-start">Sent</strong>
 						<button
@@ -165,7 +165,7 @@
 				</div>
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div
-					class="collapse-content break-all bg-primary text-primary-content"
+					class="collapse-content bg-primary text-primary-content break-all"
 					onkeydown={handleKeydownSelectAll}
 					tabindex="-1">
 					<JsonView json={JSON.parse(message.messagesSent)} depth={3} />
@@ -174,9 +174,9 @@
 		{/if}
 
 		{#if message.result && (A.user?.hacker || isPublicPage())}
-			<div class="collapse rounded-none bg-base-200">
+			<div class="bg-base-200 collapse rounded-none">
 				<input bind:this={resultDropdown} type="checkbox" class="peer min-h-0" />
-				<div class="collapse-title min-h-0 bg-base-200 p-2 text-primary-content peer-checked:bg-base-100">
+				<div class="collapse-title bg-base-200 text-primary-content peer-checked:bg-base-100 min-h-0 p-2">
 					<div class="flex justify-end gap-2">
 						<strong class="mr-auto self-start">Received</strong>
 						<button
@@ -204,7 +204,7 @@
 				</div>
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div
-					class="collapse-content break-all bg-primary text-primary-content"
+					class="collapse-content bg-primary text-primary-content break-all"
 					onkeydown={handleKeydownSelectAll}
 					tabindex="-1">
 					<JsonView json={JSON.parse(message.result)} depth={2} />

@@ -34,7 +34,7 @@
 		<li>
 			<button
 				bind:this={button}
-				class="btn btn-outline btn-sm text-nowrap rounded-md bg-primary"
+				class="btn btn-outline btn-sm bg-primary text-nowrap rounded-md"
 				onclick={async () => {
 					console.log('click');
 					disabled = true;

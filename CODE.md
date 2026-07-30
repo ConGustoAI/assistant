@@ -6,7 +6,11 @@
 - `@sveltejs/adapter-node` builds the production server. PostgreSQL via Drizzle ORM.
 - Vercel AI SDK streams models **from the browser** with the user's own API keys (OpenAI, Anthropic, Google).
   The server stores data and hands out file URLs; it never proxies model traffic.
-- Tailwind CSS + daisyUI.
+- Tailwind CSS 4 + daisyUI 5, mid-migration to shadcn-svelte (see `PLAN.md`).
+  Tailwind is CSS-first in `src/app.css`; `tailwind.config.js` survives only via `@config` for the
+  four theme colour aliases. daisyUI and its theme overrides are declared in `app.css`.
+  The dark theme is bound to `:root` because nothing sets `data-theme` until the user flips the
+  toggle in `/settings/ui`, which means light is effectively opt-in.
 - Domain types are ambient globals in `src/app.d.ts` (`*Interface`), never imported.
   One interface covers DB columns plus client-only fields; comments mark what is not persisted.
 
@@ -99,3 +103,6 @@ pages. `DEV_LOGIN_USER` mints a fake admin session for local development.
   `.rgignore` keeps Lovely Docs and useful `.pi` files searchable.
 - `bunx vite build` builds without DB scripts. Full `bun run build` also copies the pdf.js worker into
   `static/`, migrates, and seeds the configured database.
+- UI changes are checked in a real browser with `agent-browser` against a dev server on port 5173.
+  Two traps: pages render client-side only (`ssr = false`), so screenshots need a wait on real content,
+  and screenshot paths must live inside the repo when the agent runs sandboxed.

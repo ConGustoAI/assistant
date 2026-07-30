@@ -108,22 +108,22 @@
 <div
 	role="group"
 	aria-label={media.filename}
-	class="relative flex h-full w-full flex-col justify-between gap-0.5 rounded-md bg-base-300 p-1"
+	class="bg-base-300 relative flex h-full w-full flex-col justify-between gap-0.5 rounded-md p-1"
 	class:opacity-50={!media.active && !isPublicPage()}
 	onmouseenter={() => (isHovered = true)}
 	onmouseleave={() => (isHovered = false)}>
-	<div class="flex h-full w-full flex-col overflow-hidden bg-base-100">
+	<div class="bg-base-100 flex h-full w-full flex-col overflow-hidden">
 		{#if media.type === 'video' && media.videoPreviewUnsupported}
 			<div class="flex h-full flex-col items-center justify-center p-2 text-center">
 				<p class="text-sm font-medium">Video</p>
 				<p class="text-xs opacity-70">Preview unavailable</p>
 				{#if media.processingError}
-					<p class="mt-1 text-xs text-error">{media.processingError}</p>
+					<p class="text-error mt-1 text-xs">{media.processingError}</p>
 				{/if}
 			</div>
 		{:else if media.processingError}
 			<div class="flex h-full items-center justify-center p-2">
-				<p class="text-left text-xs text-error">{media.processingError}</p>
+				<p class="text-error text-left text-xs">{media.processingError}</p>
 			</div>
 		{:else if media.type === 'image' || media.type === 'video'}
 			<img
@@ -180,7 +180,7 @@
 
 	<div class="mx-1 flex w-full shrink-0 flex-col items-start text-nowrap text-sm" title={media.title}>
 		{#if isHovered}
-			<div class="z-20 overflow-visible rounded-md border bg-base-300 px-1">
+			<div class="bg-base-300 z-20 overflow-visible rounded-md border px-1">
 				{media.title}
 			</div>
 		{:else}
@@ -197,11 +197,11 @@
 
 	<div class="absolute bottom-1 left-1 right-1 flex flex-col gap-0.5">
 		{#if media.original?.status === 'failed'}
-			<p class="text-xs text-error">Upload error: {media.original.uploadError}</p>
+			<p class="text-error text-xs">Upload error: {media.original.uploadError}</p>
 		{/if}
 
 		{#if media.thumbnail?.status === 'failed'}
-			<p class="text-xs text-error">Upload error: {media.thumbnail.uploadError}</p>
+			<p class="text-error text-xs">Upload error: {media.thumbnail.uploadError}</p>
 		{/if}
 	</div>
 
@@ -213,7 +213,7 @@
 	{#if isHovered}
 		{#if !isPublicPage()}
 			<div
-				class="absolute right-0 top-0 flex items-start gap-1 rounded-md bg-primary bg-opacity-30 p-1"
+				class="bg-primary absolute right-0 top-0 flex items-start gap-1 rounded-md bg-opacity-30 p-1"
 				transition:fade={{ duration: 100 }}>
 				{#if !A.user || A.user.hacker}
 					<label
@@ -228,7 +228,7 @@
 
 			{#if message.editing}
 				<div class="absolute left-0 top-0 size-full p-6">
-					<button class="rounded-md bg-black bg-opacity-50 text-error" onclick={unlinkMedia}>
+					<button class="text-error rounded-md bg-black bg-opacity-50" onclick={unlinkMedia}>
 						<X size="fit-h" />
 					</button>
 				</div>

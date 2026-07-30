@@ -108,7 +108,7 @@
 </script>
 
 <div class="absolute right-0 top-0 flex flex-col pr-2">
-	<div class="flex w-full items-center justify-end gap-2 text-base-content">
+	<div class="text-base-content flex w-full items-center justify-end gap-2">
 		{#if message.createdAt && message.role !== 'assistant'}
 			{new Date(message.createdAt).toLocaleString('en-GB', {
 				day: '2-digit',
@@ -120,7 +120,7 @@
 			})}
 		{/if}
 		{#if A.user?.showInfo && message.role == 'assistant' && message.id}
-			<div class="mr-2 flex gap-4 text-xs text-base-content">
+			<div class="text-base-content mr-2 flex gap-4 text-xs">
 				{#if shouldShowAssistantInfo()}
 					<span>
 						{#if message.assistantName}
@@ -167,7 +167,7 @@
 			<DeleteMessageButton
 				title="Delete message"
 				class="dropdown-end"
-				btnClass="btn-xs btn-ghost rounded-md p-1"
+				btnClass="btn btn-xs btn-ghost rounded-md p-1"
 				deleteAction={deleteMessage}
 				deleteWithMediaAction={message.role === 'user' && message.media?.length ? deleteMessageWithMedia : undefined} />
 		{/if}
@@ -185,7 +185,7 @@
 				<button class="btn btn-ghost btn-xs rounded-md p-1" title="More options">
 					<Menu size="fit-h" />
 				</button>
-				<ul class="menu dropdown-content z-20 w-64 text-nowrap bg-base-200 p-2">
+				<ul class="menu dropdown-content bg-base-200 z-20 w-64 text-nowrap p-2">
 					<li>
 						<button
 							class="btn btn-ghost btn-sm justify-end"

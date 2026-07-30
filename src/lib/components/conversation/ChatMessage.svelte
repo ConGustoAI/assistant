@@ -219,7 +219,7 @@
 				{/if}
 				{#each message.media ?? [] as media}
 					<!-- {@const media = A.conversation?.media?.find((m) => m.id === mediaID)} -->
-					<div class="carousel-item flex h-24 w-24 items-center justify-center bg-base-300">
+					<div class="carousel-item bg-base-300 flex h-24 w-24 items-center justify-center">
 						<MessageMediaPreview {media} bind:message />
 					</div>
 				{/each}
@@ -233,7 +233,7 @@
 	{/if}
 
 	<div class="relative flex items-start pt-2 text-message" class:bg-base-usermessage={message.role == 'user'}>
-		<div class="div items-start px-3 py-3 text-base-content">
+		<div class="div text-base-content items-start px-3 py-3">
 			{#if loading}
 				<div class="loading loading-ring loading-md"></div>
 			{:else if message.role == 'user'}
@@ -326,7 +326,7 @@
 						<MarkdownMessage bind:message />
 					</div>
 				{:else}
-					<div class="w-full whitespace-pre-wrap break-words py-2 contain-paint [content-visibility:auto]">
+					<div class="wrap-break-word w-full whitespace-pre-wrap py-2 contain-paint [content-visibility:auto]">
 						{message.text}
 					</div>
 				{/if}
