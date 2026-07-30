@@ -7,7 +7,7 @@
 	import { assert, isPublicPage } from '$lib/utils/utils';
 
 	import dbg from 'debug';
-	import { Check } from 'lucide-svelte';
+	import { Check } from '@lucide/svelte';
 	const debug = dbg('app:ui:components:MediaImageControls');
 
 	// Bound to the rezie control elements.

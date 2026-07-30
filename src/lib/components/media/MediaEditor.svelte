@@ -18,7 +18,7 @@
 	import { assert, isPublicPage } from '$lib/utils/utils';
 
 	import dbg from 'debug';
-	import { AlertTriangle } from 'lucide-svelte';
+	import { TriangleAlert } from '@lucide/svelte';
 	import MediaVideoControls from './MediaVideoControls.svelte';
 	import VideoImageViewer from './VideoImageViewer.svelte';
 	const debug = dbg('app:ui:components:MediaEditor');

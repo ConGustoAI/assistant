@@ -5,7 +5,7 @@
 	import { buttonVariants } from '$lib/components/ui/button';
 	import { APIupsertConversation } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
-	import { Link } from 'lucide-svelte';
+	import { Link } from '@lucide/svelte';
 
 	let updatingPublic = $state(false);
 </script>

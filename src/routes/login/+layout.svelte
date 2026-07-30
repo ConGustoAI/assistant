@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowLeftCircle } from 'lucide-svelte';
+	import { CircleArrowLeft } from '@lucide/svelte';
 	let { children } = $props();
 </script>
 

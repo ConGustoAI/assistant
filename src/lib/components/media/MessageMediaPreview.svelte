@@ -4,7 +4,7 @@
 	import { A } from '$lib/appstate.svelte';
 	import { assert, isPublicPage } from '$lib/utils/utils';
 	import dbg from 'debug';
-	import { RefreshCcwIcon, RefreshCwOff, X, Edit, Eye, AudioLines, Volume1, Volume2 } from 'lucide-svelte';
+	import { RefreshCcw, RefreshCwOff, X, SquarePen, Eye, AudioLines, Volume1, Volume2 } from '@lucide/svelte';
 	import { fade } from 'svelte/transition';
 	const debug = dbg('app:ui:components:MessageMediaPreview');
 

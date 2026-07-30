@@ -11,7 +11,7 @@
 	import { ApiKeysGrid, DeleteButton, ModelsGrid } from '$lib/components';
 	import { defaultsUUID, providerTypes } from '$lib/db/schema';
 	import { assert, capitalize } from '$lib/utils/utils';
-	import { Check, Copy, Eye, EyeOff } from 'lucide-svelte';
+	import { Check, Copy, Eye, EyeOff } from '@lucide/svelte';
 
 	import { page } from '$app/stores';
 	import dbg from 'debug';

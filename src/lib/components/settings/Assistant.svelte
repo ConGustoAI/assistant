@@ -11,7 +11,7 @@
 	import { A } from '$lib/appstate.svelte';
 	import { assert } from '$lib/utils/utils';
 	import dbg from 'debug';
-	import { Check, Copy, Eye, EyeOff } from 'lucide-svelte';
+	import { Check, Copy, Eye, EyeOff } from '@lucide/svelte';
 	const debug = dbg('app:ui:components:Assistant');
 
 	let {

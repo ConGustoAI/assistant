@@ -2,7 +2,7 @@
 	import { cn } from '$lib/utils/utils';
 	import { buttonVariants } from '$lib/components/ui/button';
 	import { A } from '$lib/appstate.svelte';
-	import { CloudUpload, FilePlus, FolderPlus } from 'lucide-svelte';
+	import { CloudUpload, FilePlus, FolderPlus } from '@lucide/svelte';
 	import { ConversationMediaPreview } from '.';
 
 	import { goto } from '$app/navigation';

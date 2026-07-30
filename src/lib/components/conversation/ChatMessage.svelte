@@ -15,7 +15,7 @@
 	} from '$lib/components';
 	import 'highlight.js/styles/github-dark.min.css';
 	import 'katex/dist/katex.min.css';
-	import { Computer, CirclePlus, Smile, StepForward } from 'lucide-svelte';
+	import { Computer, CirclePlus, Smile, StepForward } from '@lucide/svelte';
 
 	import { ChatMessageControls, Notification } from '$lib/components';
 	import { handleDataTransfer, uploadConversationMedia } from '$lib/utils/media_utils.svelte';

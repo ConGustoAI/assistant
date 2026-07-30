@@ -6,7 +6,7 @@
 	import { InfoPopup, Model } from '$lib/components';
 	import { defaultsUUID } from '$lib/db/schema';
 	import { A } from '$lib/appstate.svelte';
-	import { Plus } from 'lucide-svelte';
+	import { Plus } from '@lucide/svelte';
 	import dbg from 'debug';
 	import { goto } from '$app/navigation';
 

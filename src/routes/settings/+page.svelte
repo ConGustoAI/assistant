@@ -4,7 +4,7 @@
 	import { A } from '$lib/appstate.svelte';
 	import GrowInput from '$lib/components/GrowInput.svelte';
 	import { defaultsUUID } from '$lib/db/schema';
-	import { Check } from 'lucide-svelte';
+	import { Check } from '@lucide/svelte';
 
 	import { Divider, InfoPopup } from '$lib/components';
 	import ApiKeyStats from '$lib/components/settings/ApiKeyStats.svelte';

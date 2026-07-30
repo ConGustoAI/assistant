@@ -18,7 +18,7 @@
 		Upload,
 		Volume1,
 		Volume2
-	} from 'lucide-svelte';
+	} from '@lucide/svelte';
 	import { fade } from 'svelte/transition';
 	const debug = dbg('app:ui:components:ConversatoinMediaPreview');
 

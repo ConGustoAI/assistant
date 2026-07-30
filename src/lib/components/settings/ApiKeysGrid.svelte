@@ -8,7 +8,7 @@
 	import { defaultsUUID } from '$lib/db/schema';
 	import { A } from '$lib/appstate.svelte';
 	import dbg from 'debug';
-	import { Plus } from 'lucide-svelte';
+	import { Plus } from '@lucide/svelte';
 
 	const debug = dbg('app:ui:components:ApiKeysGrid');
 

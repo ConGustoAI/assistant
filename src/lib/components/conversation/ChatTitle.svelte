@@ -12,7 +12,7 @@
 	import { sanityCheckConversationMedia } from '$lib/utils/sanity-check.svelte';
 	import { assert, isPublicPage, trimLineLength } from '$lib/utils/utils';
 	import dbg from 'debug';
-	import { ArrowLeftCircle, CopyPlus, Edit, Info, Star } from 'lucide-svelte';
+	import { CircleArrowLeft, CopyPlus, SquarePen, Info, Star } from '@lucide/svelte';
 
 	const debug = dbg('app:ui:conponents:ChatTitle');
 

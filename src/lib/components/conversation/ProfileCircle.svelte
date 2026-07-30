@@ -6,7 +6,7 @@
 	import { goto } from '$app/navigation';
 	import { APIupdateUser } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
-	import { UserCircle } from 'lucide-svelte';
+	import { CircleUser } from '@lucide/svelte';
 
 	async function setHacker() {
 		if (!A.user) return;

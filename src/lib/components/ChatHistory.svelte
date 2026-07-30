@@ -9,7 +9,7 @@
 	import { A } from '$lib/appstate.svelte';
 	import { ConversationHistoryGroup, DeleteButton } from '$lib/components';
 	import dbg from 'debug';
-	import { ChevronDown, Link, Star } from 'lucide-svelte';
+	import { ChevronDown, Link, Star } from '@lucide/svelte';
 	import { slide } from 'svelte/transition';
 	const debug = dbg('app:ui:components:ChatHistory');
 

@@ -9,7 +9,7 @@
 	import { handleDataTransfer } from '$lib/utils/media_utils.svelte';
 	import { trimLineLength } from '$lib/utils/utils';
 	import dbg from 'debug';
-	import { ChevronDown, Send, CircleStop, Upload } from 'lucide-svelte';
+	import { ChevronDown, Send, CircleStop, Upload } from '@lucide/svelte';
 	import { fade, slide } from 'svelte/transition';
 
 	const debug = dbg('app:ui:components:ChatInput');
