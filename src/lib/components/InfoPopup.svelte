@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { cn } from '$lib/utils/utils';
 	import { Info } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
@@ -7,7 +8,10 @@
 </script>
 
 <div class={cn('dropdown dropdown-end', clas)}>
-	<div tabindex="0" role="button" class="btn btn-circle btn-ghost btn-xs text-info">
+	<div
+		tabindex="0"
+		role="button"
+		class={cn(buttonVariants({ variant: 'ghost', size: 'xs' }), 'text-info rounded-full')}>
 		<Info tabindex={0} class="h-4 w-4 stroke-current" />
 	</div>
 

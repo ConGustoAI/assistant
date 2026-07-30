@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { APIdeleteAssistant, APIupsertAssistant } from '$lib/api';
 	import { Assistant } from '$lib/components';
 	import { defaultsUUID } from '$lib/db/schema';
@@ -95,13 +98,13 @@
 		{/each}
 		{#if edit}
 			<button
-				class="btn btn-outline col-start-2 w-fit"
+				class={cn(buttonVariants({ variant: 'outline' }), 'col-start-2 w-fit')}
 				disabled={addingAssistant}
 				onclick={async () => {
 					await addAssistant();
 				}}>
 				{#if addingAssistant}
-					<div class="loading"></div>
+					<Spinner class="size-6" />
 				{:else}
 					<Plus />
 				{/if}

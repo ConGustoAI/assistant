@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Divider } from '$lib/components';
 	import { page } from '$app/stores';
 	import type { Snippet } from 'svelte';
 
@@ -22,7 +23,7 @@
 			<li><a class:font-bold={selected} href={item.href}>{item.title}</a></li>
 		{/each}
 		{#if adminItems.length}
-			<div class="divider mx-0 px-0">Admin</div>
+			<Divider class="mx-0 px-0">Admin</Divider>
 		{/if}
 		{#each adminItems as item}
 			{@const selected = $page.route.id == item.href}

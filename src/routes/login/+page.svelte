@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { Divider } from '$lib/components';
 	import { env } from '$env/dynamic/public';
 	import { A } from '$lib/appstate.svelte';
 	import { goto } from '$app/navigation';
@@ -38,14 +40,14 @@
 			<label class="label" for="email">
 				<span class="text-sm">Email</span>
 			</label>
-			<input
+			<Input
 				id="email"
 				name="email"
 				type="email"
 				placeholder="email@example.com"
 				autocomplete="email"
 				value={form?.email ?? ''}
-				class="input input-bordered" />
+				 />
 			{#if form?.emailMissing}
 				<Notification messageType="error" bind:message={form.emailMissing} />
 			{/if}
@@ -54,11 +56,11 @@
 			<label class="label" for="password">
 				<span class="text-sm">Password</span>
 			</label>
-			<input
+			<Input
 				id="password"
 				name="password"
 				value={form?.password ?? ''}
-				class="input input-bordered"
+				
 				type="password"
 				autocomplete={isLogin ? 'current-password' : 'new-password'} />
 			{#if form?.pwresetError}
@@ -70,19 +72,19 @@
 		{/if}
 		<div class="mt-6 flex flex-col">
 			<button
-				class="btn btn-outline"
+				class={buttonVariants({ variant: 'outline' })}
 				on:click={() => {
 					EmailSpinning = true;
 				}}>
 				{#if EmailSpinning}
-					<div class="loading"></div>
+					<Spinner class="size-6" />
 				{/if}
 				{isLogin ? 'Login' : 'Sign Up'}
 			</button>
 		</div>
 		{#if isLogin}
 			<div class="mt-2 text-center">
-				<button formaction="?/recover" class="link-hover link"> Forgot password? </button>
+				<button formaction="?/recover" class="link-hover underline"> Forgot password? </button>
 			</div>
 			{#if form?.pwresetSent}
 				<Notification messageType="success" bind:message={form.pwresetSent} />
@@ -97,7 +99,7 @@
 		{/if}
 		<div class="mt-4 text-center">
 			<span>{isLogin ? "Don't have an account?" : 'Already have an account?'}</span>
-			<a href={null} class="link ml-1" on:click={toggleMode}>
+			<a href={null} class="underline ml-1" on:click={toggleMode}>
 				{isLogin ? 'Sign up' : 'Login'}
 			</a>
 		</div>
@@ -105,7 +107,7 @@
 {/if} -->
 
 {#if !env.PUBLIC_DISABLE_EMAIL_LOGIN && (!env.PUBLIC_DISABLE_GOOGLE_LOGIN || !env.PUBLIC_DISABLE_GITHUB_LOGIN)}
-	<div class="divider">OR</div>
+	<Divider>OR</Divider>
 {/if}
 <form method="POST" action="?/loginProvider">
 	<div class="flex flex-col gap-2">
@@ -118,7 +120,7 @@
 					loginGoogleSpinning = true;
 				}}>
 				{#if loginGoogleSpinning}
-					<div class="loading"></div>
+					<Spinner class="size-6" />
 				{:else}
 					<Google />
 				{/if}
@@ -134,7 +136,7 @@
 					loginGithubSpinning = true;
 				}}>
 				{#if loginGithubSpinning}
-					<div class="loading"></div>
+					<Spinner class="size-6" />
 				{:else}
 					<GitHub />
 				{/if}

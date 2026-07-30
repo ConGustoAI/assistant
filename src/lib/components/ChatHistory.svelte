@@ -1,4 +1,10 @@
 <script lang="ts">
+	import { Checkbox } from '$lib/components/ui/checkbox';
+	import { Input } from '$lib/components/ui/input';
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
+	import { Divider } from '$lib/components';
 	import { APISearchConversations } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
 	import { ConversationHistoryGroup, DeleteButton } from '$lib/components';
@@ -209,9 +215,8 @@
 	let selectedConversations: string[] = $state([]);
 	let deleting = $state(false);
 
-	function selectAll(e: Event) {
-		const target = e.target as HTMLInputElement;
-		if (target.checked) {
+	function selectAll(checked: boolean) {
+		if (checked) {
 			selectedConversations = datedConversation.allFiltered;
 		} else {
 			selectedConversations = [];
@@ -260,17 +265,16 @@
 
 <div>
 	<div class="relative w-full">
-		<input
+		<Checkbox
 			aria-label="Select all conversations"
-			type="checkbox"
-			class="checkbox absolute left-3 top-1/2 z-10 -translate-y-1/2 transform"
+			class="absolute left-3 top-1/2 z-10 -translate-y-1/2 transform"
 			name="selectAll"
-			onchange={(e) => selectAll(e)}
+			onCheckedChange={selectAll}
 			checked={!!selectedConversations.length &&
 				selectedConversations.length === datedConversation.allFiltered.length} />
 		{#if selectedConversations.length}
 			{#if deleting}
-				<span class="loading loading-spinner absolute right-3 top-1/2 -translate-y-1/2 transform"></span>
+				<Spinner class="absolute right-3 top-1/2 size-6 -translate-y-1/2 transform" />
 			{:else}
 				<DeleteButton
 					class="dropdown-right absolute right-3 top-1/2 z-10 -translate-y-1/2"
@@ -279,10 +283,10 @@
 			{/if}
 		{/if}
 
-		<input
+		<Input
 			type="text"
 			placeholder="Search chats..."
-			class="input input-bordered min-h-12 w-full pl-12"
+			class="min-h-12 w-full pl-12"
 			name="search-chats"
 			bind:value={search}
 			onfocus={() => {
@@ -302,7 +306,7 @@
 	{#if searchFocused || search?.length}
 		<div class="w-full pt-0.5 text-right text-sm">
 			{#if eagerSearchGoing}
-				<span class="loading loading-spinner loading-xs"></span>
+				<Spinner class="size-4" />
 			{:else}
 				<p>Enter ⇒ search in messages</p>
 			{/if}
@@ -310,8 +314,8 @@
 	{/if}
 </div>
 
-<div class="divider w-full grow-0">
-	<button
+<Divider class="grow-0"
+	><button
 		aria-label="Search options"
 		class="btn-outline mx-0 flex h-4 w-fit items-center rounded-full border px-4"
 		disabled={searchAMPdisabled}
@@ -319,33 +323,35 @@
 		class:rotate-180={searchOptionsOpen}
 		onclick={() => (searchOptionsOpen = !searchOptionsOpen)}>
 		<ChevronDown size={12} />
-	</button>
-</div>
+	</button></Divider>
 
 {#if searchOptionsOpen}
 	<div
 		class="bg-base-100 relative mx-2 flex flex-col gap-2 rounded-md p-2 shadow-sm"
 		transition:slide={{ duration: 20 }}>
 		<div class="dropdown dropdown-right">
-			<input
+			<Input
 				type="text"
 				role="button"
-				tabindex="0"
-				class="input input-sm input-bordered"
+				tabindex={0}
+				class="h-8"
 				placeholder="Assistant/Provider/Model"
 				onkeydown={handleKeyDown}
-				bind:this={searchAMPInput}
+				bind:ref={searchAMPInput}
 				bind:value={searchAMP} />
 
 			<div
 				class="dropdown-content bg-base-200 left-full top-2 z-40 ml-1 flex w-fit flex-col justify-start rounded-md shadow-lg">
 				{#if historyAMPOptions.assistants.length}
-					<div class="divider w-full py-0">Assistants</div>
+					<Divider class="py-0">Assistants</Divider>
 				{/if}
 
 				{#each historyAMPOptions.assistants as option}
 					<button
-						class="ampoption btn btn-ghost btn-xs cursor-pointer justify-start text-nowrap px-4 py-0 text-sm"
+						class={cn(
+							buttonVariants({ variant: 'ghost', size: 'xs' }),
+							'ampoption cursor-pointer justify-start text-nowrap px-4 py-0 text-sm'
+						)}
 						tabindex="0"
 						onclick={() => {
 							searchAMP = option;
@@ -357,12 +363,15 @@
 				{/each}
 
 				{#if historyAMPOptions.providers.length}
-					<div class="divider w-full py-0">Providers</div>
+					<Divider class="py-0">Providers</Divider>
 				{/if}
 
 				{#each historyAMPOptions.providers as option}
 					<button
-						class="ampoption btn btn-ghost btn-xs cursor-pointer justify-start text-nowrap px-4 py-0 text-sm"
+						class={cn(
+							buttonVariants({ variant: 'ghost', size: 'xs' }),
+							'ampoption cursor-pointer justify-start text-nowrap px-4 py-0 text-sm'
+						)}
 						tabindex="0"
 						onclick={() => {
 							searchAMP = option;
@@ -374,12 +383,15 @@
 				{/each}
 
 				{#if historyAMPOptions.models.length}
-					<div class="divider w-full py-0">Models</div>
+					<Divider class="py-0">Models</Divider>
 				{/if}
 
 				{#each historyAMPOptions.models as option}
 					<button
-						class="ampoption btn btn-ghost btn-xs cursor-pointer justify-start text-nowrap px-4 py-0 text-sm"
+						class={cn(
+							buttonVariants({ variant: 'ghost', size: 'xs' }),
+							'ampoption cursor-pointer justify-start text-nowrap px-4 py-0 text-sm'
+						)}
 						tabindex="0"
 						onclick={() => {
 							searchAMP = option;
@@ -394,12 +406,10 @@
 		<div class="flex gap-6 p-2">
 			<div class="flex items-center gap-2">
 				<label for="oplyPublic"><Link size={20} /></label>
-				<input
-					type="checkbox"
+				<Checkbox
 					id="oplyPublic"
-					class="checkbox"
-					bind:checked={searchPublic}
-					onchange={() => (searchPrivate = false)} />
+					bind:checked={() => searchPublic ?? false, (v) => (searchPublic = v)}
+					onCheckedChange={() => (searchPrivate = false)} />
 			</div>
 			<div class="flex items-center gap-2">
 				<label for="oplyPrivate">
@@ -408,23 +418,19 @@
 						<div class="absolute left-0 top-1/2 h-0.5 w-full -rotate-45 transform bg-red-500"></div>
 					</div>
 				</label>
-				<input
-					type="checkbox"
+				<Checkbox
 					id="oplyPrivate"
-					class="checkbox"
-					bind:checked={searchPrivate}
-					onchange={() => (searchPublic = false)} />
+					bind:checked={() => searchPrivate ?? false, (v) => (searchPrivate = v)}
+					onCheckedChange={() => (searchPublic = false)} />
 			</div>
 		</div>
 		<div class="flex gap-6 p-2">
 			<div class="flex items-center gap-2">
 				<label for="oplyStarred"><Star color="yellow" fill="yellow" size={20} /></label>
-				<input
-					type="checkbox"
+				<Checkbox
 					id="oplyStarred"
-					class="checkbox"
-					bind:checked={searchStarred}
-					onchange={() => (searchUnstarred = false)} />
+					bind:checked={() => searchStarred ?? false, (v) => (searchStarred = v)}
+					onCheckedChange={() => (searchUnstarred = false)} />
 			</div>
 			<div class="flex items-center gap-2">
 				<label for="oplyUnstarred">
@@ -432,12 +438,10 @@
 						<Star color="yellow" size={20} />
 					</div>
 				</label>
-				<input
-					type="checkbox"
+				<Checkbox
 					id="oplyUnstarred"
-					class="checkbox"
-					bind:checked={searchUnstarred}
-					onchange={() => (searchStarred = false)} />
+					bind:checked={() => searchUnstarred ?? false, (v) => (searchUnstarred = v)}
+					onCheckedChange={() => (searchStarred = false)} />
 			</div>
 		</div>
 	</div>

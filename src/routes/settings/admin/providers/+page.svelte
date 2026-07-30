@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Divider } from '$lib/components';
 	import { ProvidersGrid } from '$lib/components';
 	import { defaultsUUID } from '$lib/db/schema/users.js';
 	import dbg from 'debug';
@@ -11,12 +12,13 @@
 	<div class="flex gap-4">
 		<div class="flex w-fit items-center gap-4 text-nowrap font-bold">
 			<span class="text-xl">Default API providers</span>
-			<span class="alert alert-warning py-0">Changes made here will be visible to and will affect all users</span>
+			<span class="bg-warning rounded-2xl px-4 py-0 text-black"
+				>Changes made here will be visible to and will affect all users</span>
 		</div>
 	</div>
 
 	<div class="w-full">
-		<div class="divider w-full">Default providers</div>
+		<Divider>Default providers</Divider>
 		<ProvidersGrid
 			showDefault={true}
 			showCustom={false}

@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { Input } from '$lib/components/ui/input';
+	import { cn } from '$lib/utils/utils';
+	import { Spinner } from '$lib/components/ui/spinner';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import { APIupsertKey } from '$lib/api';
 	import { DeleteButton } from '$lib/components';
@@ -62,9 +65,8 @@
 	$inspect(status);
 </script>
 
-<input
+<Input
 	type="text"
-	class="input input-bordered"
 	bind:value={apiKey.label}
 	oninput={() => {
 		status = 'changed';
@@ -76,9 +78,8 @@
 	}}
 	spellcheck="false"
 	disabled={!edit || status === 'deleting'} />
-<input
+<Input
 	type="text"
-	class="input input-bordered"
 	bind:value={apiKey.key}
 	oninput={() => {
 		status = 'changed';
@@ -102,7 +103,7 @@
 	disabled={!edit || status === 'deleting'} />
 
 <div class="relative self-center">
-	<div class="loading absolute top-1" class:hidden={status !== 'saving'}></div>
+	<Spinner class={cn('absolute top-1 size-6', status !== 'saving' && 'hidden')} />
 	<div class="absolute top-1" class:hidden={status !== 'saved'}>
 		<Check />
 	</div>

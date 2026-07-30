@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Spinner } from '$lib/components/ui/spinner';
 	import Sun from 'lucide-svelte/icons/sun';
 	import Moon from 'lucide-svelte/icons/moon';
 
@@ -44,7 +45,7 @@
 				disabled={updatingUser}
 				onchange={updateUserData} />
 			{#if updatingUser}
-				<div class="loading loading-sm"></div>
+				<Spinner class="size-5" />
 			{:else}
 				<div></div>
 			{/if}

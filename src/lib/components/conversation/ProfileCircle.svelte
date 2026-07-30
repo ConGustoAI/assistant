@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { goto } from '$app/navigation';
 	import { APIupdateUser } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
@@ -35,16 +37,20 @@
 
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<ul tabindex="0" class="menu dropdown-content z-1 bg-base-200 p-2">
-		<button class="btn btn-primary btn-sm justify-start text-nowrap" onclick={gotoSettings}>Settings</button>
+		<button
+			class={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'justify-start text-nowrap')}
+			onclick={gotoSettings}>Settings</button>
 
 		{#if A.user}
-			<div class="btn btn-primary btn-sm flex flex-nowrap items-center gap-2">
+			<div class={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'flex flex-nowrap items-center gap-2')}>
 				Hacker
 				<input type="checkbox" class="toggle" bind:checked={A.user.hacker} onchange={setHacker} name="hacker" />
 			</div>
 		{/if}
 
-		<a class="btn btn-primary btn-sm justify-start text-nowrap" href={A.user ? '/login/logout' : '/login'}>
+		<a
+			class={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'justify-start text-nowrap')}
+			href={A.user ? '/login/logout' : '/login'}>
 			{#if A.user}Log out{:else}Log in{/if}
 		</a>
 	</ul>

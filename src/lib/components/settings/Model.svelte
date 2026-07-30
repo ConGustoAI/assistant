@@ -1,4 +1,9 @@
 <script lang="ts">
+	import { Checkbox } from '$lib/components/ui/checkbox';
+	import { Input } from '$lib/components/ui/input';
+	import { cn } from '$lib/utils/utils';
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import { APIhideItem, APIunhideItem } from '$lib/api';
 	import { APIupsertModel } from '$lib/api/model';
@@ -82,9 +87,9 @@
 	$inspect(status);
 </script>
 
-<input
+<Input
 	type="text"
-	class="input input-bordered w-full"
+	class="w-full"
 	bind:value={model.displayName}
 	oninput={() => {
 		status = 'changed';
@@ -98,9 +103,9 @@
 	spellcheck="false"
 	disabled={!edit || status === 'deleting'} />
 
-<input
+<Input
 	type="text"
-	class="input input-bordered w-full"
+	class="w-full"
 	bind:value={model.name}
 	spellcheck="false"
 	disabled={!edit || status === 'deleting'}
@@ -113,9 +118,9 @@
 		clearTimeout(updateTimer);
 		updateModelNow();
 	}} />
-<input
+<Input
 	type="number"
-	class="no-spinner input input-bordered w-28"
+	class="no-spinner w-28"
 	bind:value={model.inputContext}
 	oninput={() => {
 		status = 'changed';
@@ -127,9 +132,9 @@
 	}}
 	disabled={!edit || status === 'deleting'} />
 
-<input
+<Input
 	type="number"
-	class="no-spinner input input-bordered w-16"
+	class="no-spinner w-16"
 	bind:value={model.inputCost}
 	oninput={() => {
 		status = 'changed';
@@ -140,9 +145,9 @@
 		updateModelNow();
 	}}
 	disabled={!edit || status === 'deleting'} />
-<input
+<Input
 	type="number"
-	class="no-spinner input input-bordered w-28"
+	class="no-spinner w-28"
 	bind:value={model.outputContext}
 	oninput={() => {
 		status = 'changed';
@@ -154,9 +159,9 @@
 	}}
 	disabled={!edit || status === 'deleting'} />
 
-<input
+<Input
 	type="number"
-	class="no-spinner input input-bordered w-16"
+	class="no-spinner w-16"
 	bind:value={model.outputCost}
 	oninput={() => {
 		status = 'changed';
@@ -167,9 +172,9 @@
 		updateModelNow();
 	}}
 	disabled={!edit || status === 'deleting'} />
-<input
+<Input
 	type="number"
-	class="no-spinner input input-bordered w-14"
+	class="no-spinner w-14"
 	bind:value={model.maxTemp}
 	oninput={() => {
 		status = 'changed';
@@ -181,10 +186,8 @@
 	}}
 	disabled={!edit || status === 'deleting'} />
 
-<input
-	type="checkbox"
-	class="checkbox"
-	bind:checked={model.prefill}
+<Checkbox
+	bind:checked={() => model.prefill ?? false, (v) => (model.prefill = v)}
 	oninput={() => {
 		status = 'changed';
 		debounceModelUpdate();
@@ -195,10 +198,8 @@
 	}}
 	disabled={!edit || status === 'deleting'} />
 
-<input
-	type="checkbox"
-	class="checkbox"
-	bind:checked={model.images}
+<Checkbox
+	bind:checked={() => model.images ?? false, (v) => (model.images = v)}
 	oninput={() => {
 		status = 'changed';
 	}}
@@ -207,10 +208,8 @@
 		updateModelNow();
 	}}
 	disabled={!edit || status === 'deleting'} />
-<input
-	type="checkbox"
-	class="checkbox"
-	bind:checked={model.audio}
+<Checkbox
+	bind:checked={() => model.audio ?? false, (v) => (model.audio = v)}
 	oninput={() => {
 		status = 'changed';
 		debounceModelUpdate();
@@ -220,24 +219,8 @@
 		updateModelNow();
 	}}
 	disabled={!edit || status === 'deleting'} />
-<input
-	type="checkbox"
-	class="checkbox"
-	bind:checked={model.video}
-	oninput={() => {
-		status = 'changed';
-		debounceModelUpdate();
-	}}
-	onblur={() => {
-		clearTimeout(updateTimer);
-		updateModelNow();
-	}}
-	disabled={!edit || status === 'deleting'} />
-
-<input
-	type="checkbox"
-	class="checkbox"
-	bind:checked={model.pdf}
+<Checkbox
+	bind:checked={() => model.video ?? false, (v) => (model.video = v)}
 	oninput={() => {
 		status = 'changed';
 		debounceModelUpdate();
@@ -248,10 +231,8 @@
 	}}
 	disabled={!edit || status === 'deleting'} />
 
-<input
-	type="checkbox"
-	class="checkbox"
-	bind:checked={model.temperature_enabled}
+<Checkbox
+	bind:checked={() => model.pdf ?? false, (v) => (model.pdf = v)}
 	oninput={() => {
 		status = 'changed';
 		debounceModelUpdate();
@@ -262,10 +243,8 @@
 	}}
 	disabled={!edit || status === 'deleting'} />
 
-<input
-	type="checkbox"
-	class="checkbox"
-	bind:checked={model.top_p_enabled}
+<Checkbox
+	bind:checked={() => model.temperature_enabled ?? false, (v) => (model.temperature_enabled = v)}
 	oninput={() => {
 		status = 'changed';
 		debounceModelUpdate();
@@ -276,10 +255,8 @@
 	}}
 	disabled={!edit || status === 'deleting'} />
 
-<input
-	type="checkbox"
-	class="checkbox"
-	bind:checked={model.top_k_enabled}
+<Checkbox
+	bind:checked={() => model.top_p_enabled ?? false, (v) => (model.top_p_enabled = v)}
 	oninput={() => {
 		status = 'changed';
 		debounceModelUpdate();
@@ -290,10 +267,20 @@
 	}}
 	disabled={!edit || status === 'deleting'} />
 
-<input
-	type="checkbox"
-	class="checkbox"
-	bind:checked={model.max_tokens_enabled}
+<Checkbox
+	bind:checked={() => model.top_k_enabled ?? false, (v) => (model.top_k_enabled = v)}
+	oninput={() => {
+		status = 'changed';
+		debounceModelUpdate();
+	}}
+	onblur={() => {
+		clearTimeout(updateTimer);
+		updateModelNow();
+	}}
+	disabled={!edit || status === 'deleting'} />
+
+<Checkbox
+	bind:checked={() => model.max_tokens_enabled ?? false, (v) => (model.max_tokens_enabled = v)}
 	oninput={() => {
 		status = 'changed';
 		debounceModelUpdate();
@@ -305,7 +292,7 @@
 	disabled={!edit || status === 'deleting'} />
 
 <button
-	class="btn btn-outline"
+	class={buttonVariants({ variant: 'outline' })}
 	disabled={status === 'hiding' || !allowHiding}
 	onclick={async () => {
 		status = 'hiding';
@@ -313,7 +300,7 @@
 		status = null;
 	}}>
 	{#if status === 'hiding'}
-		<div class="loading"></div>
+		<Spinner class="size-6" />
 	{:else if A.hiddenItems.has(model.id ?? '') && allowHiding}
 		<EyeOff />
 	{:else}
@@ -332,7 +319,7 @@
 	disabled={!edit || status === 'deleting'} />
 
 <div class="relative self-center">
-	<div class="loading absolute top-1" class:hidden={status !== 'saving'}></div>
+	<Spinner class={cn('absolute top-1 size-6', status !== 'saving' && 'hidden')} />
 	<div class="absolute top-1" class:hidden={status !== 'saved'}>
 		<Check />
 	</div>

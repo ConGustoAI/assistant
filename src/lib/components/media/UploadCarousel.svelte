@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { A } from '$lib/appstate.svelte';
 	import { CloudUpload, FilePlus, FolderPlus } from 'lucide-svelte';
 	import { ConversationMediaPreview } from '.';
@@ -93,7 +95,7 @@
 	<!-- The message editing area should appear on the bottom when the carousel is invoked from inside a message -->
 	<!-- {#if A.mediaEditing && !message && A.conversation?.media?.includes(A.mediaEditing)}
 		<MediaEditor bind:media={A.mediaEditing} />
-		<div class="divider w-full"></div>
+		<Divider />
 	{/if} -->
 
 	<div
@@ -104,7 +106,10 @@
 
 		<div class="flex flex-col gap-1.5">
 			<button
-				class="btn carousel-item btn-outline rounded-xs relative h-9 min-h-8 w-14 items-center justify-center p-0"
+				class={cn(
+					buttonVariants({ variant: 'outline' }),
+					'carousel-item rounded-xs relative h-9 min-h-8 w-14 items-center justify-center p-0'
+				)}
 				onclick={() => document.getElementById('fileInput')?.click()}
 				title="Upload one or more files">
 				<FilePlus size={32} />
@@ -114,7 +119,10 @@
 			</button>
 
 			<button
-				class="btn carousel-item btn-outline rounded-xs relative h-9 min-h-8 items-center justify-center p-0"
+				class={cn(
+					buttonVariants({ variant: 'outline' }),
+					'carousel-item rounded-xs relative h-9 min-h-8 items-center justify-center p-0'
+				)}
 				title="Upload one of more directory"
 				onclick={() => document.getElementById('directoryInput')?.click()}>
 				<FolderPlus size={32} />
@@ -124,7 +132,10 @@
 			</button>
 
 			<button
-				class="btn btn-disabled carousel-item btn-outline rounded-xs relative h-9 min-h-8 w-14 items-center justify-center p-0"
+				class={cn(
+					buttonVariants({ variant: 'outline' }),
+					'carousel-item rounded-xs pointer-events-none relative h-9 min-h-8 w-14 items-center justify-center p-0 opacity-50'
+				)}
 				class:btn-disabled={!meidaNeedsUpload || !!A.mediaProcessing || totalUploadProgress !== undefined}
 				disabled={!meidaNeedsUpload || !!A.mediaProcessing || totalUploadProgress !== undefined}
 				onclick={async () => {
@@ -165,6 +176,6 @@
 
 	<!-- {#if A.mediaEditing && message}
 		<MediaEditor bind:media={A.mediaEditing} />
-		<div class="divider w-full"></div>
+		<Divider />
 	{/if} -->
 </div>

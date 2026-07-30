@@ -1,4 +1,10 @@
 <script lang="ts">
+	import { Checkbox } from '$lib/components/ui/checkbox';
+	import { Input } from '$lib/components/ui/input';
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
+	import { Divider } from '$lib/components';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import { APIdeleteProvider, APIhideItem, APIunhideItem, APIupsertModel, APIupsertProvider } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
@@ -155,9 +161,9 @@
 
 	let streamUsage = $derived(provider.type !== 'openai' || provider.openAIStreamUsage);
 
-	function streamUsageChanged(e: Event) {
+	function streamUsageChanged(checked: boolean) {
 		if (provider.type === 'openai') {
-			provider.openAIStreamUsage = (e.target as HTMLInputElement).checked;
+			provider.openAIStreamUsage = checked;
 			status = 'changed';
 			debounceProviderUpdate();
 		}
@@ -168,7 +174,7 @@
 
 <button
 	id="#{provider.id}"
-	class="btn btn-outline"
+	class={buttonVariants({ variant: 'outline' })}
 	onclick={async () => {
 		status = 'copying';
 		await copyProvider(provider);
@@ -176,15 +182,15 @@
 	}}
 	disabled={status === 'copying'}>
 	{#if status === 'copying'}
-		<div class="loading"></div>
+		<Spinner class="size-6" />
 	{:else}
 		<Copy />
 	{/if}
 </button>
 
-<input
+<Input
 	type="text"
-	class="input input-bordered w-full"
+	class="w-full"
 	bind:value={provider.name}
 	oninput={() => {
 		status = 'changed';
@@ -213,16 +219,11 @@
 	{/each}
 </select>
 
-<input
-	type="checkbox"
-	class="checkbox"
-	disabled={!edit || provider.type !== 'openai'}
-	checked={streamUsage}
-	onchange={streamUsageChanged} />
+<Checkbox disabled={!edit || provider.type !== 'openai'} checked={streamUsage} onCheckedChange={streamUsageChanged} />
 
-<input
+<Input
 	type="text"
-	class="input input-bordered w-full"
+	class="w-full"
 	bind:value={provider.baseURL}
 	spellcheck="false"
 	oninput={() => {
@@ -235,15 +236,21 @@
 	}}
 	disabled={!edit} />
 
-<button class="btn btn-outline w-full" class:btn-active={showApiKeys} onclick={() => (showApiKeys = !showApiKeys)}>
+<button
+	class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
+	class:btn-active={showApiKeys}
+	onclick={() => (showApiKeys = !showApiKeys)}>
 	API Keys
 </button>
-<button class="btn btn-outline w-full" class:btn-active={showModels} onclick={() => (showModels = !showModels)}>
+<button
+	class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
+	class:btn-active={showModels}
+	onclick={() => (showModels = !showModels)}>
 	Models
 </button>
 
 <button
-	class="btn btn-outline p-2.5"
+	class={cn(buttonVariants({ variant: 'outline' }), 'p-2.5')}
 	disabled={status === 'hiding' || !allowHiding}
 	onclick={async () => {
 		status = 'hiding';
@@ -251,7 +258,7 @@
 		status = null;
 	}}>
 	{#if status === 'hiding'}
-		<div class="loading"></div>
+		<Spinner class="size-6" />
 	{:else if A.hiddenItems.has(provider.id ?? '') && allowHiding}
 		<EyeOff size="fit-h" />
 	{:else}
@@ -269,7 +276,7 @@
 	disabled={!edit || status === 'deleting'} />
 
 <div class="relative self-center">
-	<div class="loading absolute top-1" class:hidden={status !== 'saving'}></div>
+	<Spinner class={cn('absolute top-1 size-6', status !== 'saving' && 'hidden')} />
 	<div class="absolute" class:hidden={status !== 'saved'}>
 		<Check />
 	</div>
@@ -281,7 +288,7 @@
 {#if showModels}
 	<div class="col-span-full col-start-2 mb-6 flex w-full flex-col items-center gap-4">
 		{#if showCustomChildren}
-			<div class="divider col-span-full w-full">{provider.name}: Your models</div>
+			<Divider class="col-span-full">{provider.name}: Your models</Divider>
 			<ModelsGrid
 				{provider}
 				edit={editCustomChildren}
@@ -292,15 +299,12 @@
 		{/if}
 
 		{#if showDefaultChildren}
-			<div class="divider col-span-full w-full">
-				{provider.name}: Default models
-			</div>
+			<Divider class="col-span-full">{provider.name}: Default models</Divider>
 			{#if editDefaultChildren}
-				<div class="divider w-full">
-					<div class="alert alert-warning w-fit py-0">
-						Changes made here will be visible to and will affect all users
-					</div>
-				</div>
+				<Divider
+					><span class="bg-warning w-fit rounded-2xl px-4 py-0 text-black"
+						>Changes made here will be visible to and will affect all users</span
+					></Divider>
 			{/if}
 
 			<ModelsGrid
@@ -311,31 +315,28 @@
 				{newChildUserID}
 				{allowHiding} />
 		{/if}
-		<div class="divider col-span-full w-full"></div>
+		<Divider class="col-span-full" />
 	</div>
 {/if}
 
 {#if showApiKeys}
 	<div class="col-span-full col-start-2 flex w-full flex-col items-center gap-4">
 		{#if showCustomChildren}
-			<div class="divider w-full">{provider.name}: Your API keys</div>
+			<Divider>{provider.name}: Your API keys</Divider>
 			<ApiKeysGrid {provider} edit={editCustomChildren} showCustom={true} showDefault={false} {newChildUserID} />
 		{/if}
 
 		{#if showDefaultChildren && (Object.values(A.apiKeys).filter((v) => v.providerID === provider.id && v.userID === defaultsUUID).length || editDefaultChildren)}
-			<div class="divider w-full">
-				{provider.name}: Default API Keys
-			</div>
+			<Divider>{provider.name}: Default API Keys</Divider>
 			{#if editDefaultChildren}
-				<div class="divider w-full">
-					<div class="alert alert-error w-fit py-0">
-						Only admins can see default keys, but any user can make requests with them
-					</div>
-				</div>
+				<Divider
+					><span class="bg-error w-fit rounded-2xl px-4 py-0 text-black"
+						>Only admins can see default keys, but any user can make requests with them</span
+					></Divider>
 			{/if}
 
 			<ApiKeysGrid {provider} edit={editDefaultChildren} showCustom={false} showDefault={true} {newChildUserID} />
 		{/if}
-		<div class="divider w-full"></div>
+		<Divider />
 	</div>
 {/if}

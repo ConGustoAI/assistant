@@ -38,17 +38,17 @@
 			{#if !model}
 				<div class="flex flex-col text-sm">
 					<span class="text-error">Assistant has no model</span>
-					<a href="/settings/assistants/#{A.conversation.assistantID}" class="link">Edit assistant</a>
+					<a href="/settings/assistants/#{A.conversation.assistantID}" class="underline">Edit assistant</a>
 				</div>
 			{:else if !providerKey}
 				<div class="flex flex-col text-sm">
 					<div class="text-error">Provider '{provider?.name}' has no API keys</div>
-					<a href="/settings/providers/#{provider.id}/keys" class="link">Edit provider</a>
+					<a href="/settings/providers/#{provider.id}/keys" class="underline">Edit provider</a>
 				</div>
 			{:else if !assistantKey && assistant.apiKeyID !== defaultsUUID}
 				<div class="flex flex-col text-sm">
 					<span class="text-error">Assistant has no API key</span>
-					<a href="/settings/assistants/#{A.conversation.assistantID}" class="link">Edit assistant</a>
+					<a href="/settings/assistants/#{A.conversation.assistantID}" class="underline">Edit assistant</a>
 				</div>
 			{/if}
 		{/if}

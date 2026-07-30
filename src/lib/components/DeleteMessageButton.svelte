@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { cn } from '$lib/utils/utils';
 	import { Trash2 } from 'lucide-svelte';
 
@@ -26,7 +28,7 @@
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<div tabindex={0} class={cn(disabled ? 'btn-disabled' : '', btnClass)}>
 		{#if deleting}
-			<div class="loading loading-sm"></div>
+			<Spinner class="size-5" />
 		{:else}
 			<Trash2 size="fit-h" />
 		{/if}
@@ -36,7 +38,7 @@
 		<li>
 			<button
 				bind:this={button}
-				class="btn btn-outline btn-sm bg-primary text-nowrap rounded-md"
+				class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'bg-primary text-nowrap rounded-md')}
 				onclick={async () => {
 					console.log('click');
 					disabled = true;
@@ -51,7 +53,7 @@
 			<li>
 				<button
 					bind:this={button}
-					class="btn btn-outline btn-sm bg-primary text-nowrap rounded-md"
+					class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'bg-primary text-nowrap rounded-md')}
 					onclick={async () => {
 						console.log('click');
 						disabled = true;

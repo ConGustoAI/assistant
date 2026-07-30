@@ -4,7 +4,7 @@
 </script>
 
 <div class="div div-col h-full">
-	<a class="link ml-2 mt-2 flex gap-2" href="/chat">
+	<a class="ml-2 mt-2 flex gap-2 underline" href="/chat">
 		<ArrowLeftCircle />Back to Chat
 	</a>
 	<div class="flex h-full w-full items-center justify-center">

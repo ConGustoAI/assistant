@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { Input } from '$lib/components/ui/input';
+	import { cn } from '$lib/utils/utils';
+	import { Spinner } from '$lib/components/ui/spinner';
 	import { A } from '$lib/appstate.svelte';
 	import { goto } from '$app/navigation';
 	import { APIupsertKey } from '$lib/api';
@@ -45,9 +48,9 @@
 
 <div>{provider}/{apiKey.label}</div>
 
-<input
+<Input
 	type="number"
-	class="no-spinner input input-sm input-bordered w-fit"
+	class="no-spinner h-8 w-fit"
 	bind:value={apiKey.usage}
 	onchange={(e) => {
 		status = 'changed';
@@ -59,9 +62,9 @@
 		updateKeyNow();
 	}} />
 
-<input
+<Input
 	type="number"
-	class="no-spinner input input-sm input-bordered w-fit"
+	class="no-spinner h-8 w-fit"
 	bind:value={apiKey.remainder}
 	oninput={(e) => {
 		status = 'changed';
@@ -73,7 +76,7 @@
 		updateKeyNow();
 	}} />
 <div class="self-center">
-	<div class="loading" class:hidden={status !== 'saving'}></div>
+	<Spinner class={cn('size-6', status !== 'saving' && 'hidden')} />
 	<div class="" class:hidden={status !== 'saved'}>
 		<Check />
 	</div>

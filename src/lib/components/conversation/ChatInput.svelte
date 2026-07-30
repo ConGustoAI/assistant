@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { cn } from '$lib/utils/utils';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { goto } from '$app/navigation';
 	import { env } from '$env/dynamic/public';
 	import { A } from '$lib/appstate.svelte';
@@ -262,7 +265,7 @@
 			<div class="absolute bottom-1 left-2">
 				<button
 					aria-label="Upload media"
-					class="btn btn-circle btn-sm relative"
+					class={cn(buttonVariants({ size: 'sm' }), 'relative rounded-full')}
 					onclick={() => {
 						A.conversationUploadOpen = !A.conversationUploadOpen;
 						if (!A.conversationUploadOpen) {
@@ -276,28 +279,28 @@
 					disabled={!uploadEnabled || !!A.mediaUploading}>
 					<Upload size={20} />
 					{#if A.mediaProcessing}
-						<span class="loading loading-spinner absolute h-full w-full"></span>
+						<Spinner class="absolute size-6 h-full w-full" />
 					{/if}
 					{#if A.mediaUploading}
-						<span class="loading loading-spinner text-success absolute h-full w-full"></span>
+						<Spinner class="text-success absolute size-6 h-full w-full" />
 					{/if}
 				</button>
 			</div>
 			<div class="absolute bottom-1 right-2">
 				{#if A.chatStreaming}
 					<div class="relative">
-						<button aria-label="Cancel" class="btn btn-sm" onclick={cancelConversation}>
+						<button aria-label="Cancel" class={buttonVariants({ size: 'sm' })} onclick={cancelConversation}>
 							<div class="relative">
 								<CircleStop />
 								<span class="absolute inset-0 flex items-center justify-center">
-									<span class="loading loading-spinner loading-md"></span>
+									<Spinner class="size-6" />
 								</span>
 							</div>
 						</button>
 					</div>
 				{:else}
 					<button
-						class="btn btn-sm rounded-md"
+						class={cn(buttonVariants({ size: 'sm' }), 'rounded-md')}
 						aria-label="Send"
 						onclick={onSubmit}
 						disabled={A.chatStreaming ||

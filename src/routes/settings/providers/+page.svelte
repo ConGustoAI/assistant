@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Divider } from '$lib/components';
 	import { ProvidersGrid } from '$lib/components';
 	import { A } from '$lib/appstate.svelte';
 
@@ -12,7 +13,7 @@
 	<h2 class="text-xl font-bold">Providers</h2>
 
 	<div class=" ">
-		<div class="divider w-full">Your providers</div>
+		<Divider>Your providers</Divider>
 		<ProvidersGrid
 			showDefault={false}
 			showCustom={true}
@@ -24,7 +25,7 @@
 			newProviderUserID={A.user?.id ?? 'anon'}
 			newChildUserID={A.user?.id ?? 'anon'} />
 
-		<div class="divider w-full">Default providers</div>
+		<Divider>Default providers</Divider>
 		<ProvidersGrid
 			showDefault={true}
 			showCustom={false}

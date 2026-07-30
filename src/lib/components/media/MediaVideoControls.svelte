@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Spinner } from '$lib/components/ui/spinner';
+	import { Divider } from '$lib/components';
 	import { APIupsertMedia } from '$lib/api';
 	import { A } from '$lib/appstate.svelte';
 	import { addImageToSkip, removeImageFromSkip } from '$lib/utils/media_utils.svelte';
@@ -51,10 +53,10 @@
 </script>
 
 {#if A.mediaEditing}
-	<div class="divider m-0! w-full">Upload options</div>
+	<Divider class="m-0!">Upload options</Divider>
 	<div class="mb-auto grid w-full grid-cols-[min-content_max-conent] items-center justify-center gap-1">
 		{#if processingImages}
-			<div class="loading loading-sm"></div>
+			<Spinner class="size-5" />
 		{/if}
 		<div class="col-start-2 flex items-center gap-2">
 			<input
@@ -111,7 +113,7 @@
 	</div>
 
 	<div class="flex w-full flex-col items-start gap-1 px-4">
-		<div class="divider my-0 w-full">Metadata</div>
+		<Divider class="my-0">Metadata</Divider>
 		<p class="text-sm">Duration: {A.mediaEditing.originalDuration}</p>
 		<p class="text-sm">Width: {A.mediaEditing.originalWidth}</p>
 		<p class="text-sm">Height: {A.mediaEditing.originalHeight}</p>
@@ -119,11 +121,11 @@
 
 	{#if A.mediaEditing.videoAsImages && A.mediaEditing.derivedImages}
 		<div class="flex w-full flex-col items-start overflow-auto px-4">
-			<div class="divider my-0 w-full">Pages as images</div>
+			<Divider class="my-0">Pages as images</Divider>
 			{#each A.mediaEditing.derivedImages as frame, i}
 				<div class="flex gap-2">
 					{#await frame}
-						<div class="loading loading-sm"></div>
+						<Spinner class="size-5" />
 					{:then f}
 						<input
 							type="checkbox"

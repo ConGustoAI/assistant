@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Checkbox } from '$lib/components/ui/checkbox';
+	import { Input } from '$lib/components/ui/input';
 	import { fixNumberInput } from '$lib/utils/utils';
 	import InfoPopup from '../InfoPopup.svelte';
 
@@ -109,19 +111,18 @@
 	{/if}
 
 	<div class="flex items-center gap-2">
-		<input
-			type="checkbox"
+		<Checkbox
 			id="temperature_enabled-{assistant.id}"
-			class="checkbox checkbox-xs"
+			class="size-4 [&>span>svg]:size-3"
 			checked={assistant.temperature_enabled && model?.temperature_enabled !== false}
 			disabled={!edit || !model?.temperature_enabled}
-			onchange={(e) => {
-				assistant.temperature_enabled = (e.target as HTMLInputElement).checked;
+			onCheckedChange={(e) => {
+				assistant.temperature_enabled = e;
 				onchange();
 			}} />
-		<input
+		<Input
 			type="number"
-			class="no-spinner input input-sm input-bordered w-14 py-0 leading-none"
+			class="no-spinner h-8 w-14 py-0 leading-none"
 			bind:value={assistant.temperature}
 			onchange={(e) => {
 				fixNumberInput(e, 0, model?.maxTemp ?? 2);
@@ -131,19 +132,18 @@
 	</div>
 
 	<div class="flex items-center gap-2">
-		<input
-			type="checkbox"
+		<Checkbox
 			id="top_p_enabled-{assistant.id}"
-			class="checkbox checkbox-xs"
+			class="size-4 [&>span>svg]:size-3"
 			checked={assistant.top_p_enabled && model?.top_p_enabled !== false}
 			disabled={!edit || !model?.top_p_enabled}
-			onchange={(e) => {
-				assistant.top_p_enabled = (e.target as HTMLInputElement).checked;
+			onCheckedChange={(e) => {
+				assistant.top_p_enabled = e;
 				onchange();
 			}} />
-		<input
+		<Input
 			type="number"
-			class="no-spinner input input-sm input-bordered w-14 py-0 leading-none"
+			class="no-spinner h-8 w-14 py-0 leading-none"
 			bind:value={assistant.topP}
 			onchange={(e) => {
 				fixNumberInput(e, 0, 1);
@@ -153,19 +153,18 @@
 	</div>
 
 	<div class="flex items-center gap-2">
-		<input
-			type="checkbox"
+		<Checkbox
 			id="top_k_enabled-{assistant.id}"
-			class="checkbox checkbox-xs"
+			class="size-4 [&>span>svg]:size-3"
 			checked={assistant.top_k_enabled && model?.top_k_enabled !== false}
 			disabled={!edit || !model?.top_k_enabled}
-			onchange={(e) => {
-				assistant.top_k_enabled = (e.target as HTMLInputElement).checked;
+			onCheckedChange={(e) => {
+				assistant.top_k_enabled = e;
 				onchange();
 			}} />
-		<input
+		<Input
 			type="number"
-			class="no-spinner input input-sm input-bordered w-14 py-0 leading-none"
+			class="no-spinner h-8 w-14 py-0 leading-none"
 			bind:value={assistant.topK}
 			onchange={(e) => {
 				fixNumberInput(e, 0, 1000);
@@ -175,19 +174,18 @@
 	</div>
 
 	<div class="flex items-center gap-2 pr-5">
-		<input
-			type="checkbox"
+		<Checkbox
 			id="max_tokens_enabled-{assistant.id}"
-			class="checkbox checkbox-xs"
+			class="size-4 [&>span>svg]:size-3"
 			checked={assistant.max_tokens_enabled && model?.max_tokens_enabled !== false}
 			disabled={!edit || !model?.max_tokens_enabled}
-			onchange={(e) => {
-				assistant.max_tokens_enabled = (e.target as HTMLInputElement).checked;
+			onCheckedChange={(e) => {
+				assistant.max_tokens_enabled = e;
 				onchange();
 			}} />
-		<input
+		<Input
 			type="number"
-			class="no-spinner input input-sm input-bordered w-14 py-0 leading-none"
+			class="no-spinner h-8 w-14 py-0 leading-none"
 			bind:value={assistant.maxTokens}
 			onchange={(e) => {
 				fixNumberInput(e, 0, model?.outputContext ?? 4096);
@@ -196,41 +194,36 @@
 			disabled={!edit || !(assistant.max_tokens_enabled && model?.max_tokens_enabled !== false)} />
 	</div>
 
-	<input
-		type="checkbox"
+	<Checkbox
 		id="prefillCheckbox-{assistant.id}"
-		class="checkbox checkbox-sm"
-		bind:checked={assistant.prefill}
+		class="size-5 [&>span>svg]:size-4"
+		bind:checked={() => assistant.prefill ?? false, (v) => (assistant.prefill = v)}
 		disabled={!model?.prefill || !edit}
 		{onchange} />
 
-	<input
-		type="checkbox"
+	<Checkbox
 		id="imagesCheckbox-{assistant.id}"
-		class="checkbox checkbox-sm"
-		bind:checked={assistant.images}
+		class="size-5 [&>span>svg]:size-4"
+		bind:checked={() => assistant.images ?? false, (v) => (assistant.images = v)}
 		disabled={!model?.images || !edit}
 		{onchange} />
-	<input
-		type="checkbox"
+	<Checkbox
 		id="audioCheckbox-{assistant.id}"
-		class="checkbox checkbox-sm"
-		bind:checked={assistant.audio}
+		class="size-5 [&>span>svg]:size-4"
+		bind:checked={() => assistant.audio ?? false, (v) => (assistant.audio = v)}
 		disabled={!model?.audio || !edit}
 		{onchange} />
-	<input
-		type="checkbox"
+	<Checkbox
 		id="videoCheckbox-{assistant.id}"
-		class="checkbox checkbox-sm"
-		bind:checked={assistant.video}
+		class="size-5 [&>span>svg]:size-4"
+		bind:checked={() => assistant.video ?? false, (v) => (assistant.video = v)}
 		disabled={!model?.video || !edit}
 		{onchange} />
 
-	<input
-		type="checkbox"
+	<Checkbox
 		id="pdfCheckbox-{assistant.id}"
-		class="checkbox checkbox-sm"
-		bind:checked={assistant.pdf}
+		class="size-5 [&>span>svg]:size-4"
+		bind:checked={() => assistant.pdf ?? false, (v) => (assistant.pdf = v)}
 		disabled={!model?.pdf || !edit}
 		{onchange} />
 
