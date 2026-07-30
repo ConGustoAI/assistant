@@ -40,7 +40,7 @@
 
 		<a
 			href={'/chat/' + c}
-			class="flex w-full items-center gap-2 overflow-hidden py-2 pr-4 pl-9 text-nowrap"
+			class="flex w-full items-center gap-2 py-2 pr-4 pl-9 text-nowrap"
 			onclick={() => {
 				if (A.isMobile) A.sidebarOpen = false;
 			}}>
