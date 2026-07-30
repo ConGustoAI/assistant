@@ -20,6 +20,14 @@
   A stored `system` preference is migrated to explicit dark: there is no working light default yet.
 - Rules at the end of `app.css` are unlayered, so they outrank Tailwind utilities: keep them off any
   property a component sets with a utility class (`padding-inline` vs `pl-*`, for instance).
+  `@layer components` in `app.css` carries the three looks shadcn has no component for and that call
+  sites kept copying: `.field` (native `<select>`, `GrowInput`), `.kbd`, and `.badge` (pill callout,
+  paired with `bg-warning`/`bg-error`). Size and padding stay at the call site, since utilities win.
+- Icons come from `@lucide/svelte`; the legacy `lucide-svelte` package is gone. Its old alias names
+  map to canonical ones (`Edit`->`SquarePen`, `UserCircle`->`CircleUser`, `AlertTriangle`->`TriangleAlert`).
+- bits-ui controls render a `<button>`, not an `<input>` - `onchange`/`oninput` never fire on
+  `Checkbox`/`Switch`. Always use `onCheckedChange`. Same shape for the rest: `Slider` commits with
+  `onValueCommit`, and a `DropdownMenu` only closes on click when the child is a `DropdownMenu.Item`.
 - Domain types are ambient globals in `src/app.d.ts` (`*Interface`), never imported.
   One interface covers DB columns plus client-only fields; comments mark what is not persisted.
 

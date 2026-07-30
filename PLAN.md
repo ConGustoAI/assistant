@@ -17,6 +17,10 @@
 - daisyUI replaced by shadcn-svelte on Tailwind 4, with the pre-migration look preserved:
   palette, control sizes and type scale were matched against the original running side by side, and
   daisyUI plus `tailwind.config.js` are gone.
+- Port fallout swept up: bits-ui checkboxes save again (they are buttons, so `onchange` never fired),
+  utilities Tailwind 4 dropped are gone (`bg-opacity-*` had turned the media overlays opaque), and the
+  daisyUI class names left with no CSS behind them are replaced. Repeated class strings became
+  `.field`/`.kbd`/`.badge`, and only `@lucide/svelte` ships.
 
 ## Todo
 

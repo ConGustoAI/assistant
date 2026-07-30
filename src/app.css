@@ -111,6 +111,29 @@
 	}
 }
 
+@layer components {
+	/*
+	  The shadcn Input look for the elements shadcn has no component for: native
+	  <select> and the contenteditable in GrowInput. Size and padding stay at the
+	  call site - utilities outrank this layer.
+	*/
+	.field {
+		@apply rounded-none border border-input bg-base-100 shadow-xs outline-none;
+		@apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
+		@apply disabled:border-base-200 disabled:bg-base-200 disabled:text-base-content/40;
+	}
+
+	.kbd {
+		@apply inline-flex w-fit items-center justify-center rounded-md border border-base-content/20;
+		@apply bg-base-200 px-1 py-1 font-mono text-sm;
+	}
+
+	/* Pill callout, replacing daisyUI's alert. Pair with bg-warning or bg-error. */
+	.badge {
+		@apply w-fit rounded-2xl px-4 py-0 text-black;
+	}
+}
+
 /* Native selects: the filled chevron the app had, instead of the platform arrow. */
 select {
 	appearance: none;

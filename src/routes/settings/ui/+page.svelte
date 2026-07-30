@@ -53,34 +53,22 @@
 
 	{#if A.user?.advancedInput}
 		<div
-			class="border-primary-content col-span-full grid w-fit grid-cols-[max-content_max-content] items-baseline gap-2 rounded-md border px-1 py-1">
-			<kbd
-				class="inline-flex w-fit items-center justify-center rounded-md border border-base-content/20 bg-base-200 px-1 py-1 font-mono text-sm"
-				>Enter</kbd>
+			class="col-span-full grid w-fit grid-cols-[max-content_max-content] items-baseline gap-2 rounded-md border px-1 py-1">
+			<kbd class="kbd">Enter</kbd>
 			<div>Add a new line to the current message</div>
-			<kbd
-				class="inline-flex w-fit items-center justify-center rounded-md border border-base-content/20 bg-base-200 px-1 py-1 font-mono text-sm"
-				>Shift + Enter</kbd>
+			<kbd class="kbd">Shift + Enter</kbd>
 			<div>Add a user message</div>
-			<kbd
-				class="inline-flex w-fit items-center justify-center rounded-md border border-base-content/20 bg-base-200 px-1 py-1 font-mono text-sm"
-				>Ctrl + Shift + Enter</kbd>
+			<kbd class="kbd">Ctrl + Shift + Enter</kbd>
 			<div>Add an assistant message</div>
-			<kbd
-				class="inline-flex w-fit items-center justify-center rounded-md border border-base-content/20 bg-base-200 px-1 py-1 font-mono text-sm"
-				>Ctrl + Enter</kbd>
+			<kbd class="kbd">Ctrl + Enter</kbd>
 			<div>Send the message</div>
 		</div>
 	{:else}
 		<div
-			class="border-primary-content col-span-full grid w-fit grid-cols-[max-content_max-content] items-baseline gap-2 rounded-md border px-1 py-1">
-			<kbd
-				class="inline-flex w-fit items-center justify-center rounded-md border border-base-content/20 bg-base-200 px-1 py-1 font-mono text-sm"
-				>Enter</kbd>
+			class="col-span-full grid w-fit grid-cols-[max-content_max-content] items-baseline gap-2 rounded-md border px-1 py-1">
+			<kbd class="kbd">Enter</kbd>
 			<div>Send the message</div>
-			<kbd
-				class="inline-flex w-fit items-center justify-center rounded-md border border-base-content/20 bg-base-200 px-1 py-1 font-mono text-sm"
-				>Shift + Enter</kbd>
+			<kbd class="kbd">Shift + Enter</kbd>
 			<div>Add a new line to the message</div>
 		</div>
 	{/if}

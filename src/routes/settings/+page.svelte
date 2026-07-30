@@ -92,10 +92,7 @@
 
 			<label class="flex flex-col">
 				<span class="text-sm">Default Assistant</span>
-				<select
-					class="h-12 w-full rounded-none border border-input bg-base-100 px-4 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:border-base-200 disabled:bg-base-200 disabled:text-base-content/40"
-					bind:value={A.user.assistant}
-					onchange={statusChanged}>
+				<select class="field h-12 w-full px-4 text-sm" bind:value={A.user.assistant} onchange={statusChanged}>
 					<option value={defaultsUUID}>Last one used</option>
 					{#each Object.values(A.assistants) as assistant}
 						<option value={assistant.id}>{assistant.name}</option>
@@ -161,7 +158,7 @@
 		</div>
 
 		<div class="flex w-fit flex-col">
-			<Divider>Ussage statistics</Divider>
+			<Divider>Usage statistics</Divider>
 			<div class="grid grid-cols-[auto_max-content_max-content_4rem] items-center gap-4 gap-y-2">
 				<div class="font-bold">API Key</div>
 				<div class="font-bold">$ Usage</div>

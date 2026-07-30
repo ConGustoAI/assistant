@@ -106,7 +106,7 @@
 		<div class="absolute -top-5"><InfoPopup title="Model supports PDF" /></div>
 	</div>
 	{#if provider.type === 'google'}
-		<div class="label-test flex justify-center">Gemini safety threshold (all categories)</div>
+		<div class="flex justify-center text-sm">Gemini safety threshold (all categories)</div>
 	{:else}
 		<div></div>
 	{/if}

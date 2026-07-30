@@ -56,7 +56,7 @@
 
 {#if A.mediaEditing}
 	<Divider class="m-0!">Upload options</Divider>
-	<div class="mb-auto grid w-full grid-cols-[min-content_max-conent] items-center justify-end gap-1">
+	<div class="mb-auto grid w-full grid-cols-[min-content_max-content] items-center justify-end gap-1">
 		{#if processingImages}
 			<Spinner class="size-5" />
 		{/if}
@@ -74,7 +74,7 @@
 				}} />
 			<label for="as-images">As images</label>
 			<select
-				class="h-8 rounded-none border border-input bg-base-100 px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:border-base-200 disabled:bg-base-200 disabled:text-base-content/40"
+				class="field h-8 px-3 text-sm"
 				bind:this={DPISelector}
 				onchange={handlePdfAsImages}
 				disabled={processingImages || !A.mediaEditing.PDFAsImages}>

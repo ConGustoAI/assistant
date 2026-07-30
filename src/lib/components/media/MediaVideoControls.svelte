@@ -54,7 +54,7 @@
 
 {#if A.mediaEditing}
 	<Divider class="m-0!">Upload options</Divider>
-	<div class="mb-auto grid w-full grid-cols-[min-content_max-conent] items-center justify-center gap-1">
+	<div class="mb-auto grid w-full grid-cols-[min-content_max-content] items-center justify-center gap-1">
 		{#if processingImages}
 			<Spinner class="size-5" />
 		{/if}

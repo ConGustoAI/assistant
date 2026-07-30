@@ -132,7 +132,7 @@
 			{#if info.length}
 				{#if !compareStats(statsFromMessages, statsFromConversation) && (statsFromConversation.tokensIn || statsFromConversation.tokensOut) && !isPublicPage()}
 					<div class="grid w-fit grid-cols-[1fr_1fr]">
-						<div class="font-bold">Conversatoin tokens</div>
+						<div class="font-bold">Conversation tokens</div>
 						<div class="font-bold">With deleted messages</div>
 						<TokenStats stats={statsFromMessages} />
 						<TokenStats stats={statsFromConversation} />
