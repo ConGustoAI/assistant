@@ -34,7 +34,7 @@
 	</div>
 
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-	<ul tabindex="0" class="menu dropdown-content z-[1] bg-base-200 p-2">
+	<ul tabindex="0" class="menu dropdown-content z-1 bg-base-200 p-2">
 		<button class="btn btn-primary btn-sm justify-start text-nowrap" onclick={gotoSettings}>Settings</button>
 
 		{#if A.user}

@@ -58,7 +58,7 @@
 
 <div class="flex w-full flex-col gap-4">
 	<div
-		class="grid w-full grid-cols-[min-content,10rem,8rem,8rem,auto,6rem,6rem,3rem,3rem,0] items-center gap-4 gap-y-2">
+		class="grid w-full grid-cols-[min-content_10rem_8rem_8rem_auto_6rem_6rem_3rem_3rem_0] items-center gap-4 gap-y-2">
 		<div></div>
 		<div class="font-bold">Label</div>
 		<div class="font-bold">Type</div>

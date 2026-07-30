@@ -1,17 +1,81 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@layer utilities {
+@config '../tailwind.config.js';
+
+@plugin 'daisyui' {
+	themes:
+		dark --default,
+		light;
+}
+
+/*
+  Theme overrides. daisyUI applies the default theme to :root, so the dark block
+  needs :root as well - the app renders with no data-theme attribute until the
+  user touches the theme control.
+*/
+:root,
+[data-theme='dark'] {
+	--color-primary: #212121;
+	--color-base-100: #212121;
+	--color-base-200: #171717;
+	--color-base-300: #0d0d0d;
+
+	--color-info: #8be9fd;
+	--color-success: #50fa7b;
+	--color-warning: #f1fa8c;
+	--color-error: #ff5555;
+
+	--radius-field: 0;
+
+	--debug: #00d9ff;
+	--star: #ffff00;
+	--base-usermessage: #171717;
+	--message: #ececec;
+}
+
+[data-theme='light'] {
+	--color-primary: #ffffff;
+	--color-base-100: #ffffff;
+	--color-base-200: #f9f9f9;
+	--color-base-300: #f4f4f4;
+
+	--color-info: #8be9fd;
+	--color-success: #50fa7b;
+	--color-warning: #f1fa8c;
+	--color-error: #ff5555;
+
+	--debug: #00d9ff;
+	--star: #444444;
+	--base-usermessage: #f4f4f4;
+	--message: #0d0d0d;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentcolor);
+	}
+}
+
+@utility no-scrollbar {
 	/* Hide scrollbar for Chrome, Safari and Opera */
-	.no-scrollbar::-webkit-scrollbar {
+	&::-webkit-scrollbar {
 		display: none;
 	}
 	/* Hide scrollbar for IE, Edge and Firefox */
-	.no-scrollbar {
-		-ms-overflow-style: none; /* IE and Edge */
-		scrollbar-width: none; /* Firefox */
-	}
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
 }
 
 * {

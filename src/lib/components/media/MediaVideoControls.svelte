@@ -51,8 +51,8 @@
 </script>
 
 {#if A.mediaEditing}
-	<div class="divider !m-0 w-full">Upload options</div>
-	<div class="mb-auto grid w-full grid-cols-[min-content,max-conent] items-center justify-center gap-1">
+	<div class="divider m-0! w-full">Upload options</div>
+	<div class="mb-auto grid w-full grid-cols-[min-content_max-conent] items-center justify-center gap-1">
 		{#if processingImages}
 			<div class="loading loading-sm"></div>
 		{/if}
@@ -80,7 +80,7 @@
 			<div class="col-start-2 w-48 text-sm opacity-70">Browser cannot extract frames from this format.</div>
 		{/if}
 		{#if A.mediaEditing.videoAsImages && currentAssistant && !currentAssistant.images}
-			<div class="col-start-2 w-full text-error">
+			<div class="text-error col-start-2 w-full">
 				<p>Assistant does not support images</p>
 			</div>
 		{/if}
@@ -104,7 +104,7 @@
 			{/if}
 		</div>
 		{#if A.mediaEditing.videoAsFile && currentAssistant && !currentAssistant.video}
-			<div class="col-start-2 w-full text-error">
+			<div class="text-error col-start-2 w-full">
 				<p>Assistant does not support video</p>
 			</div>
 		{/if}

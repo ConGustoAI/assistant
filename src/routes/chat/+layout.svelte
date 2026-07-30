@@ -126,14 +126,14 @@
 <main class="relative m-0 flex h-full max-h-full w-full flex-col sm:flex-row">
 	{#if A.sidebarOpen}
 		<div
-			class="flex h-full w-full shrink-0 flex-col items-center justify-start gap-2 bg-base-200 p-2 sm:w-56"
+			class="bg-base-200 flex h-full w-full shrink-0 flex-col items-center justify-start gap-2 p-2 sm:w-56"
 			transition:slide={{ duration: 100, axis: 'x' }}>
 			<div class="join flex w-full">
 				<button class="btn btn-outline join-item btn-sm h-full grow" onclick={async () => await NewChat()}
 					>New chat</button>
 				<details class="dropdown dropdown-end join-item my-0 h-full" bind:this={assistantSelectDropdown}>
 					<summary class="btn btn-outline join-item btn-sm h-full px-1"><ChevronUp class="rotate-180" /></summary>
-					<ul class="menu dropdown-content z-[20] w-52 bg-base-300 p-2 shadow">
+					<ul class="menu dropdown-content bg-base-300 z-20 w-52 p-2 shadow-sm">
 						<div class="divider w-full py-2">Your assistants</div>
 						{#each Object.entries(A.assistants).filter(([_, ass]) => ass.userID !== defaultsUUID) as [id, assistant]}
 							{#if !A.hiddenItems.has(id) || A.user?.assistant === id}
@@ -183,7 +183,7 @@
 					<button class="btn btn-ghost btn-outline btn-sm rounded-md p-1" title="Add messages">
 						<Plus size="fit-h" />
 					</button>
-					<ul class="menu dropdown-content z-20 w-32 text-nowrap bg-base-200 p-2">
+					<ul class="menu dropdown-content bg-base-200 z-20 w-32 text-nowrap p-2">
 						<li>
 							<button
 								class="btn btn-ghost btn-sm justify-end"

@@ -9,7 +9,7 @@
 {#if A.conversation?.id}
 	<div class="hidden items-center justify-end gap-2 sm:flex">
 		{#if A.conversation.public}
-			<a href={'/public/' + A.conversation.id} class="btn btn-sm rounded-md bg-base-300"><Link size={18} /></a>
+			<a href={'/public/' + A.conversation.id} class="btn btn-sm bg-base-300 rounded-md"><Link size={18} /></a>
 		{/if}
 		<label for="public" class="text-sm">Share</label>
 		{#if updatingPublic}

@@ -140,7 +140,7 @@
 	let savedSummary: string;
 </script>
 
-<div class="navbar mx-0 min-h-12 w-full min-w-0 items-center gap-4 border-b border-base-content bg-base-200">
+<div class="navbar border-base-content bg-base-200 mx-0 min-h-12 w-full min-w-0 items-center gap-4 border-b">
 	<!-- navbar-start -->
 	<div class="flex min-w-0 shrink-0 gap-2">
 		{#if isPublicPage()}
@@ -170,7 +170,7 @@
 		{/if}
 		{#if A.conversation?.id}
 			<button
-				class="btn btn-sm rounded-md bg-base-100 p-1"
+				class="btn btn-sm bg-base-100 rounded-md p-1"
 				title="Clone conversation"
 				onclick={async () => await cloneConversation()}>
 				{#if cloningConversation}
@@ -186,7 +186,7 @@
 		{/if}
 	</div>
 	<!-- navbar-center -->
-	<div class="flex min-w-0 shrink-[2] grow overflow-hidden">
+	<div class="shrink-2 flex min-w-0 grow overflow-hidden">
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
 			class="flex w-full text-ellipsis text-center text-xl font-bold"
@@ -246,7 +246,7 @@
 	</div>
 
 	<!-- navbar-end -->
-	<div class="mx-2 ml-auto grow-0 gap-2 justify-self-end">
+	<div class="mx-2 ml-auto flex grow-0 items-center gap-2 justify-self-end">
 		{#if A.conversation?.id && !isPublicPage()}
 			<ShareConversation />
 		{/if}
@@ -257,7 +257,7 @@
 			<summary class="mt-auto block text-center"><Info /></summary>
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<div
-				class="dropdown-content z-30 flex max-h-dvh w-max max-w-screen-md whitespace-pre-line p-2 pb-20"
+				class="dropdown-content max-w-(--breakpoint-md) z-30 flex max-h-dvh w-max whitespace-pre-line p-2 pb-20"
 				onkeydown={handleKeydown}
 				tabindex="-1">
 				<ConversationInfo />

@@ -198,15 +198,15 @@
 
 	{#if uploadEnabled && (A.conversationUploadOpen || A.conversationDragging)}
 		<div
-			class="absolute bottom-full flex max-h-[80vh] w-full flex-col overflow-visible bg-base-200"
+			class="bg-base-200 absolute bottom-full flex max-h-[80vh] w-full flex-col overflow-visible"
 			transition:slide={{ duration: 200 }}>
 			<MediaCarousel />
 		</div>
 	{/if}
 
-	<div class="grid grid-cols-[min-content,auto] items-center gap-0.5">
+	<div class="grid grid-cols-[min-content_auto] items-center gap-0.5">
 		<div
-			class="tooltip tooltip-right z-[200]"
+			class="tooltip tooltip-right z-200"
 			data-tip={prefillAvailable ? null : 'Prefill not available for this assistant'}>
 			<button
 				aria-label="Prefill Assistant message"
@@ -279,7 +279,7 @@
 						<span class="loading loading-spinner absolute h-full w-full"></span>
 					{/if}
 					{#if A.mediaUploading}
-						<span class="loading loading-spinner absolute h-full w-full text-success"></span>
+						<span class="loading loading-spinner text-success absolute h-full w-full"></span>
 					{/if}
 				</button>
 			</div>

@@ -32,11 +32,11 @@
 		{/if}
 	</div>
 
-	<ul class="menu dropdown-content z-50 w-fit rounded-md bg-base-200 p-2">
+	<ul class="menu dropdown-content bg-base-200 z-50 w-fit rounded-md p-2">
 		<li>
 			<button
 				bind:this={button}
-				class="btn btn-outline btn-sm text-nowrap rounded-md bg-primary"
+				class="btn btn-outline btn-sm bg-primary text-nowrap rounded-md"
 				onclick={async () => {
 					console.log('click');
 					disabled = true;
@@ -51,7 +51,7 @@
 			<li>
 				<button
 					bind:this={button}
-					class="btn btn-outline btn-sm text-nowrap rounded-md bg-primary"
+					class="btn btn-outline btn-sm bg-primary text-nowrap rounded-md"
 					onclick={async () => {
 						console.log('click');
 						disabled = true;

@@ -71,7 +71,7 @@
 </script>
 
 <div class="mb-10 flex w-full flex-col gap-4">
-	<div class="grid w-full grid-cols-[min-content,10rem,15rem,12rem,auto,6rem,3rem,3rem,0] gap-4 gap-y-2">
+	<div class="grid w-full grid-cols-[min-content_10rem_15rem_12rem_auto_6rem_3rem_3rem_0] gap-4 gap-y-2">
 		<div></div>
 		<div class="font-bold">Name</div>
 		<div class="font-bold">Model</div>

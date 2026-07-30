@@ -274,7 +274,7 @@
 		<Check />
 	</div>
 </div>
-<div class="col-span-full text-error" class:hidden={status !== 'error'}>
+<div class="text-error col-span-full" class:hidden={status !== 'error'}>
 	<span>{errorMessage}</span>
 </div>
 

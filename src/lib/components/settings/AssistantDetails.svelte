@@ -63,7 +63,7 @@
 </script>
 
 <div
-	class="grid w-full grid-cols-[min-content,max-content,max-content,max-content,min-content,min-content,min-content,min-content,min-content,auto] items-center gap-x-4 gap-y-2">
+	class="grid w-full grid-cols-[min-content_max-content_max-content_max-content_min-content_min-content_min-content_min-content_min-content_auto] items-center gap-x-4 gap-y-2">
 	<div class="flex items-center justify-center gap-2 text-sm">
 		<div class="text-center">Temperature</div>
 	</div>

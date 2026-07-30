@@ -5,6 +5,7 @@ yarn.lock
 
 # Generated and local tooling
 .pi/
+.claude/
 lovely-docs/
 .lovely-docs.yaml
 .windsurf/

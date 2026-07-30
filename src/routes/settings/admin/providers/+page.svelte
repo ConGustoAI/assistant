@@ -7,7 +7,7 @@
 	const debug = dbg('app:ui:settings:admin:providers');
 </script>
 
-<div class="flex max-w-screen-xl flex-col gap-4">
+<div class="max-w-(--breakpoint-xl) flex flex-col gap-4">
 	<div class="flex gap-4">
 		<div class="flex w-fit items-center gap-4 text-nowrap font-bold">
 			<span class="text-xl">Default API providers</span>

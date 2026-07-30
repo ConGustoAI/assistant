@@ -95,7 +95,7 @@
 
 <dialog class="modal inset-0" open={!!A.mediaEditing}>
 	<div
-		class="modal-box relative flex h-[80vh] w-[95vw] min-w-[95vw] flex-col overflow-visible rounded-sm border p-1 md:flex-row lg:w-[80vw] lg:min-w-[80vw]"
+		class="modal-box rounded-xs relative flex h-[80vh] w-[95vw] min-w-[95vw] flex-col overflow-visible border p-1 md:flex-row lg:w-[80vw] lg:min-w-[80vw]"
 		class:mb-60={A.debug}>
 		{#if A.mediaEditing}
 			{#if A.mediaEditing.type === 'video' && A.mediaEditing.videoPreviewUnsupported}
@@ -104,7 +104,7 @@
 						<p class="font-medium">Video preview unavailable</p>
 						<p class="text-sm opacity-70">This browser cannot display {A.mediaEditing.original.mimeType} files.</p>
 						{#if A.mediaEditing.processingError}
-							<p class="mt-2 text-sm text-error">{A.mediaEditing.processingError}</p>
+							<p class="text-error mt-2 text-sm">{A.mediaEditing.processingError}</p>
 						{/if}
 					</div>
 				</div>
@@ -128,12 +128,12 @@
 					</audio>
 				</div>
 			{:else if A.mediaEditing?.type === 'video'}
-				<div role="tablist" class="tabs tabs-lifted h-full w-full">
+				<div role="tablist" class="tabs tabs-lift h-full w-full">
 					<input
 						type="radio"
 						name="video-tabs"
 						role="tab"
-						class="tab text-nowrap [--tab-border-color:--tw-content]"
+						class="tab text-nowrap [--tab-border-color:var(--tw-content)]"
 						aria-label="Video"
 						checked />
 					<div class="tab-content h-full overflow-auto">
@@ -163,12 +163,12 @@
 						disabled={isPublicPage()} />
 				</div>
 			{:else if A.mediaEditing?.type === 'pdf'}
-				<div role="tablist" class="tabs tabs-lifted h-full w-full">
+				<div role="tablist" class="tabs tabs-lift h-full w-full">
 					<input
 						type="radio"
 						name="pdf-tabs"
 						role="tab"
-						class="tab text-nowrap [--tab-border-color:--tw-content]"
+						class="tab text-nowrap [--tab-border-color:var(--tw-content)]"
 						aria-label="Original"
 						checked />
 					<div class="tab-content h-full overflow-auto">
@@ -194,7 +194,7 @@
 			<div
 				class="flex min-w-fit shrink-0 grow-0 flex-col items-end justify-start gap-1 overflow-visible border-t p-1 md:border-l md:border-t-0">
 				{#if !mediaSupported}
-					<div class="w-full text-center text-error">
+					<div class="text-error w-full text-center">
 						<p>Media type not supported</p>
 					</div>
 				{/if}
@@ -242,7 +242,7 @@
 					{/if}
 				{/if}
 				<button
-					class="btn btn-outline btn-sm justify-self-end bg-base-200 p-1"
+					class="btn btn-outline btn-sm bg-base-200 justify-self-end p-1"
 					onclick={() => (A.mediaEditing = undefined)}>Close</button>
 			</div>
 		{/if}
