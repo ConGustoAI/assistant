@@ -1,5 +1,5 @@
 <script lang="ts">
-	// Horizontal rule, optionally with a centred label - the daisyUI `divider` shape.
+	// Horizontal rule, optionally with a centred label.
 	import { Separator } from '$lib/components/ui/separator';
 	import { cn } from '$lib/utils/utils';
 

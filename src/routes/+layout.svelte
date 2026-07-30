@@ -5,7 +5,7 @@
 	import { ModeWatcher, mode, setMode, setTheme, userPrefersMode } from 'mode-watcher';
 
 	// There is no usable light default yet, so 'system' becomes an explicit dark preference.
-	// setTheme keeps daisyUI's data-theme in step with the .dark class shadcn-svelte reads.
+	// setTheme keeps data-theme, which carries the palette, in step with the .dark class.
 	$effect(() => {
 		if ($userPrefersMode === 'system') setMode('dark');
 		setTheme($mode === 'light' ? 'light' : 'dark');
@@ -64,7 +64,7 @@
 	});
 </script>
 
-<!-- defaultTheme keeps daisyUI's data-theme in step with the .dark class shadcn-svelte reads. -->
+<!-- defaultTheme sets data-theme on first paint, before the effect above runs. -->
 <ModeWatcher defaultMode="dark" defaultTheme="dark" />
 
 {@render children()}
