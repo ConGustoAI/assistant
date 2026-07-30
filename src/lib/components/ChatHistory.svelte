@@ -21,7 +21,7 @@
 	let searchOptionsOpen = $state(false);
 	// let searchAMPFocused = $state(false);
 	// let searchAMPOptionFocused = $state(false);
-	let searchAMPInput: HTMLInputElement | undefined = $state(undefined);
+	let searchAMPInput: HTMLInputElement | null = $state(null);
 
 	let searchPublic = $state(false);
 	let searchPrivate = $state(false);
