@@ -25,7 +25,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	// For public messages, we want them to look the way they would look to an
 	// anonymous user, even if the user is logged in
-	if (!event.url.pathname.startsWith('/public/')) {
+	const anonymous = event.url.pathname.startsWith('/public/');
+
+	if (!anonymous) {
 		const sessionCookie = getSessionTokenCookie(event);
 
 		if (sessionCookie) {
@@ -35,7 +37,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	debug('session %o', session);
 
-	if (!session && env.DEV_LOGIN_USER) {
+	if (!session && !anonymous && env.DEV_LOGIN_USER) {
 		session = {
 			id: 'dev-session-' + env.DEV_LOGIN_USER,
 			userID: env.DEV_LOGIN_USER,

@@ -62,7 +62,7 @@
 	<div class="mx-0 flex h-full w-full shrink flex-col overflow-hidden bg-inherit">
 		<ChatTitle />
 		{#if !A.chatDataLoading}
-			<div class="g-transparent bg-opacity-10 mb-auto w-full grow overflow-auto">
+			<div class="mb-auto w-full grow overflow-auto bg-transparent">
 				{#if A.conversation?.messages}
 					{#each A.conversation.messages as _, i}
 						<ChatMessage message={A.conversation.messages[i]} submitConversation={async () => {}} />

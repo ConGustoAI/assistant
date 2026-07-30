@@ -216,7 +216,7 @@
 	{#if isHovered}
 		{#if !isPublicPage()}
 			<div
-				class="bg-opacity-30 absolute top-0 right-0 flex items-start gap-1 rounded-md bg-primary p-1"
+				class="absolute top-0 right-0 flex items-start gap-1 rounded-md bg-primary/30 p-1"
 				transition:fade={{ duration: 100 }}>
 				{#if !A.user || A.user.hacker}
 					<button
@@ -225,21 +225,21 @@
 						title={media.repeat ? 'Send the file for every chat turn' : 'Send the file once'}
 						aria-pressed={!!media.repeat}
 						onclick={() => (media.repeat = !media.repeat)}>
-						{#if media.repeat}<RefreshCcwIcon class="h-full w-auto" />{:else}<RefreshCwOff class="h-full w-auto" />{/if}
+						{#if media.repeat}<RefreshCcw class="h-full w-auto" />{:else}<RefreshCwOff class="h-full w-auto" />{/if}
 					</button>
 				{/if}
 			</div>
 
 			{#if message.editing}
 				<div class="absolute top-0 left-0 size-full p-6">
-					<button class="bg-opacity-50 rounded-md bg-black text-error" onclick={unlinkMedia}>
+					<button class="rounded-md bg-black/50 text-error" onclick={unlinkMedia}>
 						<X size="fit-h" />
 					</button>
 				</div>
 			{:else}
 				<div class="absolute top-0 left-0 size-full p-8">
 					<button
-						class="bg-opacity-50 rounded-md bg-black"
+						class="rounded-md bg-black/50"
 						onclick={() => {
 							if (A.mediaEditing) {
 								A.mediaEditing = undefined;
@@ -247,14 +247,14 @@
 								A.mediaEditing = media;
 							}
 						}}>
-						<Edit size="fit-h" />
+						<SquarePen size="fit-h" />
 					</button>
 				</div>
 			{/if}
 		{:else}
 			<div class="absolute top-0 left-0 size-full p-8">
 				<button
-					class="bg-opacity-50 rounded-md bg-black"
+					class="rounded-md bg-black/50"
 					onclick={() => {
 						if (A.mediaEditing) {
 							A.mediaEditing = undefined;

@@ -37,7 +37,7 @@
 {#if A.mediaEditing}
 	{#if !isPublicPage()}
 		<div class="flex items-baseline gap-2">
-			<p class="label">Size</p>
+			<p class="text-sm">Size</p>
 			<select
 				class="h-8 w-48 rounded-none border border-input bg-base-100 px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:border-base-200 disabled:bg-base-200 disabled:text-base-content/40"
 				bind:value={selectedResizePreset}
@@ -53,7 +53,7 @@
 		</div>
 		{#if selectedResizePreset === 'custom'}
 			<div class="flex items-center justify-between gap-2">
-				<p class="label">Resolution</p>
+				<p class="text-sm">Resolution</p>
 				<div class="flex w-48 items-baseline justify-between gap-2">
 					<Input type="number" class="h-8 w-full shrink px-3 text-sm" placeholder="W" bind:value={resizeWidth} />
 					x

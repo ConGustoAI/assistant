@@ -9,11 +9,11 @@
 	import { assert } from '$lib/utils/utils';
 	import dbg from 'debug';
 	import {
-		AlertTriangle,
+		TriangleAlert,
 		AudioLines,
-		Edit,
+		SquarePen,
 		Plus,
-		RefreshCcwIcon,
+		RefreshCcw,
 		RefreshCwOff,
 		Upload,
 		Volume1,
@@ -181,7 +181,7 @@
 
 			{#if media.originalWidth != undefined}
 				<div
-					class="text-primary-content bg-opacity-50 absolute right-0 bottom-0 rounded-none bg-black px-1 text-center text-sm">
+					class="absolute right-0 bottom-0 rounded-none bg-black/50 px-1 text-center text-sm text-primary-foreground">
 					{media.originalWidth}x{media.originalHeight}
 					{#if media.transformed}
 						<span>↓</span>
@@ -236,8 +236,7 @@
 			<img src={thumbnailURL} alt={media.filename} class="mx-auto h-full w-full overflow-hidden object-contain" />
 		{:else if media.type === 'text'}
 			<pre class="tab-size-2 m-0 line-clamp-5 overflow-hidden text-sm">{thumbnailText ?? ''}</pre>
-			<div
-				class="text-primary-content bg-opacity-50 absolute right-0 bottom-0 rounded-none bg-black px-1 text-end text-sm">
+			<div class="absolute right-0 bottom-0 rounded-none bg-black/50 px-1 text-end text-sm text-primary-foreground">
 				<p>
 					{#if numWords != undefined}
 						W: {numWords}
@@ -255,8 +254,8 @@
 
 		{#if !(mediaSupported === true)}
 			<div class="pointer-events-none absolute top-0 left-0 size-full p-5">
-				<div class="bg-opacity-50 pointer-events-auto rounded-md bg-black text-error">
-					<AlertTriangle size="fit-h" />
+				<div class="pointer-events-auto rounded-md bg-black/50 text-error">
+					<TriangleAlert size="fit-h" />
 				</div>
 			</div>
 		{/if}
@@ -320,7 +319,7 @@
 						A.mediaEditing = media;
 					}
 				}}>
-				<Edit size="fit-h" />
+				<SquarePen size="fit-h" />
 			</button> -->
 
 			<DeleteButton
@@ -335,21 +334,21 @@
 					title={media.repeat ? 'Send the file for every chat turn' : 'Send the file once'}
 					aria-pressed={!!media.repeat}
 					onclick={() => (media.repeat = !media.repeat)}>
-					{#if media.repeat}<RefreshCcwIcon class="h-full w-auto" />{:else}<RefreshCwOff class="h-full w-auto" />{/if}
+					{#if media.repeat}<RefreshCcw class="h-full w-auto" />{:else}<RefreshCwOff class="h-full w-auto" />{/if}
 				</button>
 			{/if}
 		</div>
 
 		{#if message}
 			<div class="pointer-events-none absolute top-0 left-0 h-full w-full p-10">
-				<button class="bg-opacity-50 pointer-events-auto bg-black text-success" onclick={addMediaToMessage}>
+				<button class="pointer-events-auto bg-black/50 text-success" onclick={addMediaToMessage}>
 					<Plus size="fit-h" />
 				</button>
 			</div>
 		{:else}
 			<div class="pointer-events-none absolute top-0 left-0 size-full p-10">
 				<button
-					class="bg-opacity-50 pointer-events-auto rounded-md bg-black"
+					class="pointer-events-auto rounded-md bg-black/50"
 					onclick={() => {
 						if (A.mediaEditing) {
 							A.mediaEditing = undefined;
@@ -358,7 +357,7 @@
 							A.mediaEditing = media;
 						}
 					}}>
-					<Edit size="fit-h" />
+					<SquarePen size="fit-h" />
 				</button>
 			</div>
 		{/if}

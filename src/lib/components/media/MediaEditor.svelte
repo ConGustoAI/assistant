@@ -187,7 +187,7 @@
 				{/if}
 
 				<div class="flex items-baseline gap-2">
-					<p class="label mr-auto">Title:</p>
+					<p class="mr-auto text-sm">Title:</p>
 					{#if titleUpdating}
 						<Spinner class="size-5" />
 					{/if}

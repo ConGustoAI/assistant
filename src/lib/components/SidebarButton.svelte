@@ -10,8 +10,8 @@
 	aria-label={A.sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
 	onclick={() => (A.sidebarOpen = !A.sidebarOpen)}>
 	{#if A.sidebarOpen}
-		<ArrowLeftSquare />
+		<SquareArrowLeft />
 	{:else}
-		<ArrowRightSquare />
+		<SquareArrowRight />
 	{/if}
 </button>

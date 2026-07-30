@@ -161,7 +161,7 @@
 					if (message.editing) {
 						message.originalText = message.text;
 					}
-				}}><Edit size={15} /></button>
+				}}><SquarePen size={15} /></button>
 		{/if}
 		<button
 			title="Copy message to clipboard"
@@ -194,56 +194,46 @@
 					<Menu class="h-full w-auto" />
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content align="end" class="z-20 flex w-64 flex-col bg-base-200 p-2 text-sm text-nowrap">
-					<li>
-						<button
-							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-							onclick={async (e: Event) => {
-								message.role = message.role === 'assistant' ? 'user' : 'assistant';
-								const target = e.target as HTMLButtonElement;
-								target.blur();
-								savingMessage = true;
-								await updateMessage(message);
-								savingMessage = false;
-							}}>Change role to {message.role === 'assistant' ? 'user' : 'assistant'}</button>
-					</li>
+					<button
+						class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
+						onclick={async (e: Event) => {
+							message.role = message.role === 'assistant' ? 'user' : 'assistant';
+							const target = e.target as HTMLButtonElement;
+							target.blur();
+							savingMessage = true;
+							await updateMessage(message);
+							savingMessage = false;
+						}}>Change role to {message.role === 'assistant' ? 'user' : 'assistant'}</button>
 					<Divider>Add message above</Divider>
-					<li>
-						<button
-							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-							onclick={async (e) => {
-								const target = e.target as HTMLButtonElement;
-								target.blur();
-								await addMessage({ parent: message, role: 'assistant', above: true, editing: true });
-							}}>assistant</button>
-					</li>
-					<li>
-						<button
-							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-							onclick={async (e) => {
-								const target = e.target as HTMLButtonElement;
-								target.blur();
-								await addMessage({ parent: message, role: 'user', above: true, editing: true });
-							}}>user</button>
-					</li>
+					<button
+						class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
+						onclick={async (e) => {
+							const target = e.target as HTMLButtonElement;
+							target.blur();
+							await addMessage({ parent: message, role: 'assistant', above: true, editing: true });
+						}}>assistant</button>
+					<button
+						class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
+						onclick={async (e) => {
+							const target = e.target as HTMLButtonElement;
+							target.blur();
+							await addMessage({ parent: message, role: 'user', above: true, editing: true });
+						}}>user</button>
 					<Divider>Add message below</Divider>
-					<li>
-						<button
-							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-							onclick={async (e) => {
-								const target = e.target as HTMLButtonElement;
-								target.blur();
-								await addMessage({ parent: message, role: 'assistant', above: false, editing: true });
-							}}>assistant</button>
-					</li>
-					<li>
-						<button
-							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-							onclick={async (e) => {
-								const target = e.target as HTMLButtonElement;
-								target.blur();
-								await addMessage({ parent: message, role: 'user', above: false, editing: true });
-							}}>user</button>
-					</li>
+					<button
+						class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
+						onclick={async (e) => {
+							const target = e.target as HTMLButtonElement;
+							target.blur();
+							await addMessage({ parent: message, role: 'assistant', above: false, editing: true });
+						}}>assistant</button>
+					<button
+						class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
+						onclick={async (e) => {
+							const target = e.target as HTMLButtonElement;
+							target.blur();
+							await addMessage({ parent: message, role: 'user', above: false, editing: true });
+						}}>user</button>
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
 		{/if}

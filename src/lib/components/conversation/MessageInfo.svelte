@@ -142,7 +142,7 @@
 					bind:this={messagesSentDropdown}
 					type="checkbox"
 					class="peer absolute inset-x-0 top-0 z-10 h-10 cursor-pointer opacity-0" />
-				<div class="text-primary-content min-h-0 cursor-pointer bg-base-200 p-2 peer-checked:bg-base-100">
+				<div class="min-h-0 cursor-pointer bg-base-200 p-2 text-primary-foreground peer-checked:bg-base-100">
 					<div class="flex justify-end gap-2">
 						<strong class="mr-auto self-start">Sent</strong>
 						<button
@@ -170,7 +170,7 @@
 				</div>
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div
-					class="text-primary-content hidden bg-primary p-2 break-all peer-checked:block"
+					class="hidden bg-primary p-2 break-all text-primary-foreground peer-checked:block"
 					onkeydown={handleKeydownSelectAll}
 					tabindex="-1">
 					<JsonView json={JSON.parse(message.messagesSent)} depth={3} />
@@ -184,7 +184,7 @@
 					bind:this={resultDropdown}
 					type="checkbox"
 					class="peer absolute inset-x-0 top-0 z-10 h-10 cursor-pointer opacity-0" />
-				<div class="text-primary-content min-h-0 cursor-pointer bg-base-200 p-2 peer-checked:bg-base-100">
+				<div class="min-h-0 cursor-pointer bg-base-200 p-2 text-primary-foreground peer-checked:bg-base-100">
 					<div class="flex justify-end gap-2">
 						<strong class="mr-auto self-start">Received</strong>
 						<button
@@ -212,7 +212,7 @@
 				</div>
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div
-					class="text-primary-content hidden bg-primary p-2 break-all peer-checked:block"
+					class="hidden bg-primary p-2 break-all text-primary-foreground peer-checked:block"
 					onkeydown={handleKeydownSelectAll}
 					tabindex="-1">
 					<JsonView json={JSON.parse(message.result)} depth={2} />

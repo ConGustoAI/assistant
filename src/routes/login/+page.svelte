@@ -17,94 +17,11 @@
 
 	let isLogin = $state(true);
 
-	// let EmailSpinning = false;
 	let loginGoogleSpinning = $state(false);
 	let loginGithubSpinning = $state(false);
 </script>
 
 <h2 class="flex items-center justify-center gap-2 text-xl font-semibold">{isLogin ? 'Login' : 'Sign Up'}</h2>
-<!-- {#if !env.PUBLIC_DISABLE_EMAIL_LOGIN}
-	<form
-		method="POST"
-		action={isLogin ? '?/loginEmail' : '?/signup'}
-		use:enhance={() => {
-			return async ({ result }) => {
-				EmailSpinning = false;
-				if (result.type === 'redirect') {
-					goto(result.location, { invalidateAll: true });
-				}
-				await applyAction(result);
-			};
-		}}>
-		<div class="flex flex-col">
-			<label class="label" for="email">
-				<span class="text-sm">Email</span>
-			</label>
-			<Input
-				id="email"
-				name="email"
-				type="email"
-				placeholder="email@example.com"
-				autocomplete="email"
-				value={form?.email ?? ''}
-				 />
-			{#if form?.emailMissing}
-				<Notification messageType="error" bind:message={form.emailMissing} />
-			{/if}
-		</div>
-		<div class="mt-4 flex flex-col">
-			<label class="label" for="password">
-				<span class="text-sm">Password</span>
-			</label>
-			<Input
-				id="password"
-				name="password"
-				value={form?.password ?? ''}
-				
-				type="password"
-				autocomplete={isLogin ? 'current-password' : 'new-password'} />
-			{#if form?.pwresetError}
-				<Notification messageType="error" bind:message={form.pwresetError} />
-			{/if}
-		</div>
-		{#if form?.emailError}
-			<Notification messageType="error" bind:message={form.emailError} />
-		{/if}
-		<div class="mt-6 flex flex-col">
-			<button
-				class={buttonVariants({ variant: 'outline' })}
-				on:click={() => {
-					EmailSpinning = true;
-				}}>
-				{#if EmailSpinning}
-					<Spinner class="size-6" />
-				{/if}
-				{isLogin ? 'Login' : 'Sign Up'}
-			</button>
-		</div>
-		{#if isLogin}
-			<div class="mt-2 text-center">
-				<button formaction="?/recover" class="hover:underline"> Forgot password? </button>
-			</div>
-			{#if form?.pwresetSent}
-				<Notification messageType="success" bind:message={form.pwresetSent} />
-			{/if}
-			{#if form?.pwresetError}
-				<button
-					class="mt-2 text-center text-error"
-					on:click={() => {
-						if (form) form.pwresetError = '';
-					}}>{form?.pwresetError}</button>
-			{/if}
-		{/if}
-		<div class="mt-4 text-center">
-			<span>{isLogin ? "Don't have an account?" : 'Already have an account?'}</span>
-			<a href={null} class="underline ml-1" on:click={toggleMode}>
-				{isLogin ? 'Sign up' : 'Login'}
-			</a>
-		</div>
-	</form>
-{/if} -->
 
 {#if !env.PUBLIC_DISABLE_EMAIL_LOGIN && (!env.PUBLIC_DISABLE_GOOGLE_LOGIN || !env.PUBLIC_DISABLE_GITHUB_LOGIN)}
 	<Divider>OR</Divider>

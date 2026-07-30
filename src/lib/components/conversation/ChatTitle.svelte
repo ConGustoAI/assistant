@@ -150,12 +150,12 @@
 	<div class="flex min-w-0 shrink-0 gap-2">
 		{#if isPublicPage()}
 			<a class="flex gap-2 text-nowrap text-ellipsis underline" href="/chat">
-				<ArrowLeftCircle />Congusto Chat
+				<CircleArrowLeft />Congusto Chat
 			</a>
 		{/if}
 
 		{#if A.conversation?.id && !A.sidebarOpen}
-			<a href={'/chat/'} class="underline"><Edit /></a>
+			<a href={'/chat/'} class="underline"><SquarePen /></a>
 		{/if}
 
 		{#if A.conversation?.id && !isPublicPage() && !A.isMobile}
@@ -241,7 +241,7 @@
 									onclick={() => {
 										savedSummary = A.conversation!.summary ?? '';
 										editingSummary = true;
-									}}><Edit size="h-fit" /></button>
+									}}><SquarePen size="h-fit" /></button>
 							{/if}
 						</div>
 					{/if}
@@ -261,7 +261,7 @@
 		<Cost total={(A.conversation?.tokensInCost ?? 0) + (A.conversation?.tokensOutCost ?? 0)} />
 
 		<DropdownMenu.Root bind:open={detailsOpen}>
-			<DropdownMenu.Trigger class="mt-auto hidden text-center sm:block"><Info /></DropdownMenu.Trigger>
+			<DropdownMenu.Trigger class="hidden sm:block"><Info /></DropdownMenu.Trigger>
 			<DropdownMenu.Content
 				align="end"
 				class="z-30 flex max-h-dvh w-max max-w-(--breakpoint-md) p-2 pb-20 whitespace-pre-line"

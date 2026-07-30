@@ -134,9 +134,8 @@
 			<button
 				class={cn(
 					buttonVariants({ variant: 'outline' }),
-					'pointer-events-none relative h-9 min-h-8 w-14 shrink-0 snap-center items-center justify-center rounded-xs p-0 opacity-50'
+					'relative h-9 min-h-8 w-14 shrink-0 snap-center items-center justify-center rounded-xs p-0'
 				)}
-				class:btn-disabled={!meidaNeedsUpload || !!A.mediaProcessing || totalUploadProgress !== undefined}
 				disabled={!meidaNeedsUpload || !!A.mediaProcessing || totalUploadProgress !== undefined}
 				onclick={async () => {
 					const newConversation = await uploadConversationMedia();
