@@ -47,7 +47,7 @@
 	{#if disabled}
 		<div
 			class={cn(
-				'h-fit min-h-10 w-full resize-none overflow-auto rounded-none border border-input bg-background px-3 py-2 text-base whitespace-pre-wrap shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50',
+				'h-fit min-h-10 w-full resize-none overflow-auto rounded-none border border-input bg-base-100 px-3 py-2 text-base whitespace-pre-wrap shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50',
 				className
 			)}>
 			{value}
@@ -70,7 +70,7 @@
 			{onkeydown}
 			{onchange}
 			class={cn(
-				'h-full min-h-10 overflow-y-auto rounded-none border border-input bg-background px-3 py-2 text-base whitespace-pre-wrap shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50',
+				'h-full min-h-10 overflow-y-auto rounded-none border border-input bg-base-100 px-3 py-2 text-base whitespace-pre-wrap shadow-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50',
 				className
 			)}>
 		</div>
