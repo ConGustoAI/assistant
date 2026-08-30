@@ -11,18 +11,23 @@
   configured in `components.json`, and excluded from ESLint since the CLI regenerates them.
   Their default sizes were edited once to the app's scale (3rem fields, square corners, 24px
   checkboxes) so call sites need no per-site classes.
-- `app.css` holds the palette the app had before the port, under `[data-theme='dark'|'light']`,
-  exposed to Tailwind through `@theme inline` - that is what keeps `bg-base-200`, `text-error` and
-  friends working. shadcn's own surface variables point at the same palette.
+- `app.css` has one palette block per theme, `[data-theme='dark'|'light']`, each holding the app's own
+  tokens (`--base-*`, `--error`, `--star` ...) next to the shadcn surface tokens the vendored
+  components use. `@theme inline` turns both into utilities - that is what keeps `bg-base-200`,
+  `text-error` and `bg-popover` working. The two themes map onto each other differently, so the
+  surfaces are spelled out per theme rather than aliased to the app tokens.
   Rendered markdown themes `@tailwindcss/typography` by hand (`--tw-prose-*`).
 - `app.html` pins `class="dark" data-theme="dark"`, and the root layout mirrors `mode-watcher`'s
-  mode into `data-theme`, so the `.dark` class and the palette never disagree.
+  mode into `data-theme`. `data-theme` carries the values; the `.dark` class only drives the `dark:`
+  variant, so the two must stay in step.
   A stored `system` preference is migrated to explicit dark: there is no working light default yet.
-- Rules at the end of `app.css` are unlayered, so they outrank Tailwind utilities: keep them off any
-  property a component sets with a utility class (`padding-inline` vs `pl-*`, for instance).
-  `@layer components` in `app.css` carries the three looks shadcn has no component for and that call
-  sites kept copying: `.field` (native `<select>`, `GrowInput`), `.kbd`, and `.badge` (pill callout,
-  paired with `bg-warning`/`bg-error`). Size and padding stay at the call site, since utilities win.
+- `@layer components` in `app.css` carries the looks shadcn has no component for and that call sites
+  kept copying: `.field` (native `<select>`, `GrowInput`), `.kbd`, `.callout` (pill, needs a light
+  `bg-warning`/`bg-error` since its text is black), and `.media-progress`. They are layered so size
+  and padding stay at the call site - utilities outrank `@layer components`.
+- Only the `select` rule is unlayered, deliberately: its end padding has to outrank the call site's
+  `px-*` or the text runs under the arrow. Anything else unlayered would silently beat a utility
+  (`.media-progress` used to force every progress bar to 0.5rem through `block-size`).
 - Icons come from `@lucide/svelte`; the legacy `lucide-svelte` package is gone. Its old alias names
   map to canonical ones (`Edit`->`SquarePen`, `UserCircle`->`CircleUser`, `AlertTriangle`->`TriangleAlert`).
 - bits-ui controls render a `<button>`, not an `<input>` - `onchange`/`oninput` never fire on
@@ -121,9 +126,9 @@ pages. `DEV_LOGIN_USER` mints a fake admin session for local development.
 - `bunx vite build` builds without DB scripts. Full `bun run build` also copies the pdf.js worker into
   `static/`, migrates, and seeds the configured database.
 - `.claude/scratch/uidiff.sh <route>` and `fontdiff.sh <route>` compare the app against a worktree of
-  the pre-migration commit running on port 5174: the first crops and zooms every differing region,
+  the pre-migration commit running on port 5184: the first crops and zooms every differing region,
   the second diffs computed typography. Both are agent-local, not committed.
-- UI changes are checked in a real browser with `agent-browser` against a dev server on port 5173.
+- UI changes are checked in a real browser with `agent-browser` against a dev server on port 5183.
   Three traps: pages render client-side only (`ssr = false`), so screenshots need a wait on real
   content; screenshot paths must live inside the repo when the agent runs sandboxed; and a browser
   session that has been through many HMR updates reports stale module errors - reconnect before

@@ -410,10 +410,7 @@
 		<div class="flex gap-6 p-2">
 			<div class="flex items-center gap-2">
 				<label for="oplyPublic"><Link size={20} /></label>
-				<Checkbox
-					id="oplyPublic"
-					bind:checked={() => searchPublic ?? false, (v) => (searchPublic = v)}
-					onCheckedChange={() => (searchPrivate = false)} />
+				<Checkbox id="oplyPublic" bind:checked={searchPublic} onCheckedChange={() => (searchPrivate = false)} />
 			</div>
 			<div class="flex items-center gap-2">
 				<label for="oplyPrivate">
@@ -422,19 +419,13 @@
 						<div class="absolute top-1/2 left-0 h-0.5 w-full -rotate-45 transform bg-red-500"></div>
 					</div>
 				</label>
-				<Checkbox
-					id="oplyPrivate"
-					bind:checked={() => searchPrivate ?? false, (v) => (searchPrivate = v)}
-					onCheckedChange={() => (searchPublic = false)} />
+				<Checkbox id="oplyPrivate" bind:checked={searchPrivate} onCheckedChange={() => (searchPublic = false)} />
 			</div>
 		</div>
 		<div class="flex gap-6 p-2">
 			<div class="flex items-center gap-2">
 				<label for="oplyStarred"><Star color="yellow" fill="yellow" size={20} /></label>
-				<Checkbox
-					id="oplyStarred"
-					bind:checked={() => searchStarred ?? false, (v) => (searchStarred = v)}
-					onCheckedChange={() => (searchUnstarred = false)} />
+				<Checkbox id="oplyStarred" bind:checked={searchStarred} onCheckedChange={() => (searchUnstarred = false)} />
 			</div>
 			<div class="flex items-center gap-2">
 				<label for="oplyUnstarred">
@@ -442,16 +433,13 @@
 						<Star color="yellow" size={20} />
 					</div>
 				</label>
-				<Checkbox
-					id="oplyUnstarred"
-					bind:checked={() => searchUnstarred ?? false, (v) => (searchUnstarred = v)}
-					onCheckedChange={() => (searchStarred = false)} />
+				<Checkbox id="oplyUnstarred" bind:checked={searchUnstarred} onCheckedChange={() => (searchStarred = false)} />
 			</div>
 		</div>
 	</div>
 {/if}
 
-<ul class="base-200 no-scrollbar flex w-full flex-col flex-nowrap overflow-y-auto p-0 text-sm">
+<ul class="no-scrollbar flex w-full flex-col flex-nowrap overflow-y-auto p-0 text-sm">
 	{#if datedConversation.today.length}
 		<ConversationHistoryGroup
 			title="Today"

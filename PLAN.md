@@ -20,28 +20,27 @@
 - Port fallout swept up: bits-ui checkboxes save again (they are buttons, so `onchange` never fired),
   utilities Tailwind 4 dropped are gone (`bg-opacity-*` had turned the media overlays opaque), and the
   daisyUI class names left with no CSS behind them are replaced. Repeated class strings became
-  `.field`/`.kbd`/`.badge`, and only `@lucide/svelte` ships.
+  `.field`/`.kbd`/`.callout`, and only `@lucide/svelte` ships.
+- `app.css` consolidated: one palette block per theme, dead shadcn tokens (chart, sidebar) and dead
+  daisyUI rules dropped, and `.media-progress` moved into `@layer components` so the call sites'
+  `h-*`/`w-*` win again - unlayered it had been forcing every progress bar to 0.5rem.
 
 ## Todo
 
 ### Follow-ups from the port
 
-- [ ] Media: image upload and the editor dialog are verified. PDF and video still are not - their
-      tabs, frame extraction and page rendering have only been checked against the compiled CSS.
-      Drive them the same way: open the upload panel, then set files on the hidden `#fileInput`
-      (`agent-browser upload '#fileInput' <path>`).
 - [ ] Rework the provider/model/assistant grids: their fixed column widths overflow even a 2K
       display, so Hide and Delete fall off the right edge. Pre-existing, not caused by the port.
 - [ ] Decide what light mode should be. It is defined but unreachable: `system` is migrated to dark
       because the light palette was never finished.
 - [ ] Revisit the vendored component tweaks (sizes, square corners, checkbox size) if shadcn's own
       scale turns out to be preferable to the daisyUI-era one.
-- [ ] `.claude/orig` holds a worktree of `4c25f11` for side-by-side comparison on port 5174.
+- [ ] `.claude/orig` holds a worktree of `4c25f11` for side-by-side comparison on port 5184.
       Remove it when it stops being useful: `git worktree remove .claude/orig`.
 
 ### Unrelated
 
 - [ ] Define explicit SVG upload behavior ([#186](https://github.com/ConGustoAI/chat/issues/186)).
 - [ ] Decide which untracked workspace files belong in version control
-      (`CLAUDE.md`, `.ignore`, `.vscode/settings.json`, `public_key.pem`, `test/mock-server/`,
+      (`.ignore`, `.vscode/settings.json`, `public_key.pem`, `test/mock-server/`,
       `test/gemini-flash-thinking/`).

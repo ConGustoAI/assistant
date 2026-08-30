@@ -20,19 +20,6 @@
 	let updatingLike = $state(false);
 	let cloningConversation = $state(false);
 
-	let detailsOpen = $state(false);
-	let summaryElement: HTMLElement | undefined = undefined;
-
-	function closeDetails() {
-		detailsOpen = false;
-		if (summaryElement) summaryElement.blur();
-	}
-	function handleKeydown(event: KeyboardEvent) {
-		if (event.key === 'Escape') {
-			closeDetails();
-		}
-	}
-
 	async function updateLike() {
 		if (!A.conversation || !A.conversation.id) return;
 
@@ -260,18 +247,14 @@
 
 		<Cost total={(A.conversation?.tokensInCost ?? 0) + (A.conversation?.tokensOutCost ?? 0)} />
 
-		<DropdownMenu.Root bind:open={detailsOpen}>
+		<DropdownMenu.Root>
 			<DropdownMenu.Trigger class="hidden sm:block"><Info /></DropdownMenu.Trigger>
 			<DropdownMenu.Content
 				align="end"
-				class="z-30 flex max-h-dvh w-max max-w-(--breakpoint-md) p-2 pb-20 whitespace-pre-line"
-				onkeydown={handleKeydown}>
+				class="z-30 flex max-h-dvh w-max max-w-(--breakpoint-md) p-2 pb-20 whitespace-pre-line">
 				<ConversationInfo />
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
-		{#if detailsOpen}
-			<button class="fixed inset-0 z-20" onclick={closeDetails} aria-label="Close modal"></button>
-		{/if}
 
 		{#if !isPublicPage()}
 			<ProfileCircle />

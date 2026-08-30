@@ -7,7 +7,7 @@
 		assistant = $bindable(),
 		edit,
 		oninput = () => {}
-	}: { assistant: AssistantInterface; edit: boolean; oninput: (event: Event) => void } = $props();
+	}: { assistant: AssistantInterface; edit: boolean; oninput: () => void } = $props();
 </script>
 
 <div class="col-span-full flex flex-col">
@@ -51,7 +51,7 @@
 					() => assistant.assistantInstructionsFromUser ?? false, (v) => (assistant.assistantInstructionsFromUser = v)
 				}
 				id="instructionsFromUser"
-				onCheckedChange={() => oninput(new Event('change'))}
+				onCheckedChange={oninput}
 				disabled={!edit} />
 		</div>
 	</div>

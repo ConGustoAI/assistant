@@ -172,7 +172,6 @@
 		{#if !isPublicPage()}
 			<DeleteMessageButton
 				title="Delete message"
-				class=""
 				btnClass={cn(buttonVariants({ variant: 'ghost', size: 'xs' }), 'rounded-md p-1')}
 				deleteAction={deleteMessage}
 				deleteWithMediaAction={message.role === 'user' && message.media?.length ? deleteMessageWithMedia : undefined} />

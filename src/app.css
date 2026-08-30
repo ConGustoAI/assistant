@@ -2,14 +2,22 @@
 @import 'tw-animate-css';
 @import 'shadcn-svelte/tailwind.css';
 
-@custom-variant dark (&:is(.dark *));
-
 @plugin '@tailwindcss/typography';
 
+/* Utilities key off the .dark class, the palette below off data-theme. app.html pins both
+   and the root layout keeps them in step, so the two never disagree. */
+@custom-variant dark (&:is(.dark *));
+
+:root {
+	/* Base of the --radius-* scale in @theme inline. */
+	--radius: 0.625rem;
+}
+
 /*
-  App palette. data-theme is pinned
-  in app.html and mirrored from mode-watcher; @theme inline turns these into the
-  bg-base-*, text-base-content, text-error ... utilities the components use.
+  Palette, one block per theme: the app's own tokens (base-*, error, star ...) next to the
+  shadcn surface tokens the vendored components use. @theme inline below turns both into
+  utilities - bg-base-200, text-error, bg-popover. Light and dark map onto each other
+  differently, so the surfaces are spelled out rather than aliased to the app tokens.
 */
 [data-theme='dark'] {
 	/* Native popups, selects and scrollbars follow this, as they did under daisyUI. */
@@ -33,42 +41,25 @@
 	--star: #ffff00;
 	--base-usermessage: #171717;
 	--message: #ececec;
-}
 
-/* shadcn-svelte light palette. The dark palette lives in the .dark block below. */
-:root {
-	--background: oklch(1 0 0);
-	--foreground: oklch(0.145 0 0);
-	--card: oklch(1 0 0);
-	--card-foreground: oklch(0.145 0 0);
-	--popover: oklch(1 0 0);
-	--popover-foreground: oklch(0.145 0 0);
-	--primary: oklch(0.205 0 0);
-	--primary-foreground: oklch(0.985 0 0);
-	--secondary: oklch(0.97 0 0);
-	--secondary-foreground: oklch(0.205 0 0);
-	--muted: oklch(0.97 0 0);
-	--muted-foreground: oklch(0.556 0 0);
-	--accent: oklch(0.97 0 0);
-	--accent-foreground: oklch(0.205 0 0);
-	--destructive: oklch(0.577 0.245 27.325);
-	--border: oklch(0.922 0 0);
-	--input: oklch(0.922 0 0);
-	--ring: oklch(0.708 0 0);
-	--chart-1: oklch(0.87 0 0);
-	--chart-2: oklch(0.556 0 0);
-	--chart-3: oklch(0.439 0 0);
-	--chart-4: oklch(0.371 0 0);
-	--chart-5: oklch(0.269 0 0);
-	--radius: 0.625rem;
-	--sidebar: oklch(0.985 0 0);
-	--sidebar-foreground: oklch(0.145 0 0);
-	--sidebar-primary: oklch(0.205 0 0);
-	--sidebar-primary-foreground: oklch(0.985 0 0);
-	--sidebar-accent: oklch(0.97 0 0);
-	--sidebar-accent-foreground: oklch(0.205 0 0);
-	--sidebar-border: oklch(0.922 0 0);
-	--sidebar-ring: oklch(0.708 0 0);
+	--background: #212121;
+	--foreground: oklch(0.746477 0.0216 264.436);
+	--card: #171717;
+	--card-foreground: var(--foreground);
+	--popover: #171717;
+	--popover-foreground: var(--foreground);
+	--primary: #212121;
+	--primary-foreground: var(--foreground);
+	--secondary: #171717;
+	--secondary-foreground: var(--foreground);
+	--muted: oklch(0.269 0 0);
+	--muted-foreground: oklch(0.708 0 0);
+	--accent: oklch(0.269 0 0);
+	--accent-foreground: oklch(0.985 0 0);
+	--destructive: #ff5555;
+	--border: color-mix(in oklab, var(--foreground) 20%, transparent);
+	--input: var(--border);
+	--ring: oklch(0.556 0 0);
 }
 
 [data-theme='light'] {
@@ -90,11 +81,79 @@
 	--star: #444444;
 	--base-usermessage: #f4f4f4;
 	--message: #0d0d0d;
+
+	--background: oklch(1 0 0);
+	--foreground: oklch(0.145 0 0);
+	--card: oklch(1 0 0);
+	--card-foreground: oklch(0.145 0 0);
+	--popover: oklch(1 0 0);
+	--popover-foreground: oklch(0.145 0 0);
+	--primary: oklch(0.205 0 0);
+	--primary-foreground: oklch(0.985 0 0);
+	--secondary: oklch(0.97 0 0);
+	--secondary-foreground: oklch(0.205 0 0);
+	--muted: oklch(0.97 0 0);
+	--muted-foreground: oklch(0.556 0 0);
+	--accent: oklch(0.97 0 0);
+	--accent-foreground: oklch(0.205 0 0);
+	--destructive: oklch(0.577 0.245 27.325);
+	--border: oklch(0.922 0 0);
+	--input: var(--border);
+	--ring: oklch(0.708 0 0);
+}
+
+@theme inline {
+	--color-base-100: var(--base-100);
+	--color-base-200: var(--base-200);
+	--color-base-300: var(--base-300);
+	--color-base-content: var(--base-content);
+	--color-base-usermessage: var(--base-usermessage);
+	--color-message: var(--message);
+	--color-neutral: var(--neutral);
+	--color-info: var(--info);
+	--color-success: var(--success);
+	--color-warning: var(--warning);
+	--color-error: var(--error);
+	--color-debug: var(--debug);
+	--color-star: var(--star);
+
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+
+	--radius-sm: calc(var(--radius) * 0.6);
+	--radius-md: calc(var(--radius) * 0.8);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) * 1.4);
+	--radius-2xl: calc(var(--radius) * 1.8);
+	--radius-3xl: calc(var(--radius) * 2.2);
+	--radius-4xl: calc(var(--radius) * 2.6);
+
+	--font-sans:
+		ui-sans-serif, -apple-system, system-ui, 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
+		'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
+		/* Layered on purpose: unlayered it would outrank the no-scrollbar utility. */
+		scrollbar-width: thin;
 	}
 	body {
 		@apply bg-background text-foreground;
@@ -104,19 +163,12 @@
 	}
 }
 
-@layer base {
-	/* Must stay layered: unlayered it would outrank the no-scrollbar utility. */
-	* {
-		scrollbar-width: thin;
-	}
-}
-
+/*
+  Looks shadcn has no component for. Layered, so size and padding stay at the call site -
+  utilities outrank @layer components.
+*/
 @layer components {
-	/*
-	  The shadcn Input look for the elements shadcn has no component for: native
-	  <select> and the contenteditable in GrowInput. Size and padding stay at the
-	  call site - utilities outrank this layer.
-	*/
+	/* The shadcn Input look for a native <select> and the contenteditable in GrowInput. */
 	.field {
 		@apply rounded-none border border-input bg-base-100 shadow-xs outline-none;
 		@apply focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50;
@@ -128,13 +180,32 @@
 		@apply bg-base-200 px-1 py-1 font-mono text-sm;
 	}
 
-	/* Pill callout, replacing daisyUI's alert. Pair with bg-warning or bg-error. */
-	.badge {
-		@apply w-fit rounded-2xl px-4 py-0 text-black;
+	/* Pill callout, replacing daisyUI's alert. Needs a light bg-* at the call site: the
+	   text is black, so bg-warning and bg-error are the two that read. */
+	.callout {
+		@apply inline-flex w-fit items-center gap-2 rounded-2xl px-4 py-0 text-black;
+	}
+
+	/* A native <progress> only takes colour through pseudo-elements. */
+	.media-progress {
+		appearance: none;
+		border: none;
+		height: 0.5rem;
+		width: 100%;
+
+		&::-webkit-progress-bar {
+			background-color: var(--color-base-200);
+		}
+		&::-webkit-progress-value,
+		&::-moz-progress-bar {
+			background-color: currentColor;
+		}
 	}
 }
 
-/* Native selects: the filled chevron the app had, instead of the platform arrow. */
+/* Native selects: the filled chevron the app had, instead of the platform arrow.
+   Unlayered on purpose - the end padding has to outrank the call site's px-*, or the
+   text would run under the arrow. */
 select {
 	appearance: none;
 	background-image: var(--select-arrow);
@@ -144,53 +215,8 @@ select {
 	padding-inline-end: 2.5rem;
 }
 
-/* Media playback bar: a native <progress> only styles through pseudo-elements. */
-.media-progress {
-	appearance: none;
-	block-size: 0.5rem;
-	inline-size: 100%;
-	border: none;
-}
-.media-progress::-webkit-progress-bar {
-	background-color: var(--color-base-200);
-}
-.media-progress::-webkit-progress-value,
-.media-progress::-moz-progress-bar {
-	background-color: currentColor;
-}
-
 [data-theme='light'] .hljs {
 	background: #edf2f7 !important;
-}
-
-.divider {
-	height: auto;
-	margin: auto;
-}
-
-.divider-horizontal {
-	height: 100%;
-}
-
-.prose {
-	blockquote,
-	dl,
-	dd,
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6,
-	hr,
-	figure,
-	p,
-	li,
-	ul,
-	ol {
-		margin: 0;
-		border-radius: 0.25rem;
-	}
 }
 
 .prose {
@@ -213,11 +239,30 @@ select {
 	--tw-prose-th-borders: color-mix(in oklab, var(--color-base-content) 20%, transparent);
 	--tw-prose-td-borders: color-mix(in oklab, var(--color-base-content) 20%, transparent);
 	--tw-prose-links: var(--color-info);
+
+	blockquote,
+	dl,
+	dd,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	hr,
+	figure,
+	p,
+	li,
+	ul,
+	ol {
+		margin: 0;
+		border-radius: 0.25rem;
+	}
 }
 
 .prose :where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 	background-color: inherit;
-	padding: 1px 1px;
+	padding: 1px;
 }
 
 .prose pre {
@@ -226,7 +271,6 @@ select {
 	margin: 0 0 0.5rem 0;
 	padding: 0;
 	width: 100%;
-	/* font-size: 100%; */
 }
 
 .no-spinner {
@@ -248,30 +292,6 @@ select {
 
 .katex * {
 	margin: 0;
-	/* text-align: left; */
-}
-
-.MathJax svg {
-	display: initial !important;
-}
-
-.tab-size-2 {
-	tab-size: 2;
-}
-
-.tab-size-4 {
-	tab-size: 4;
-}
-
-input.tab:checked + .tab-content,
-:is(.tab-active, [aria-selected='true']) + .tab-content {
-	display: flex;
-	flex-direction: column;
-}
-input.tab:checked + .tab-content,
-:is(.tab-active, [aria-selected='true']) + .tab-content {
-	display: flex;
-	flex-direction: column;
 }
 
 .bg-checkered {
@@ -292,16 +312,7 @@ input.tab:checked + .tab-content,
 	-ms-interpolation-mode: nearest-neighbor;
 }
 
-/* .katex-display {
-	margin-left: 0;
-}
-
-@media (min-width: 768px) {
-	.katex-display {
-		margin-left: 10rem !important;
-	}
-} */
-
+/* @zerodevx/svelte-json-view, used for the raw request/response dumps. */
 .wrap {
 	font-family: monospace;
 	font-size: 14px;
@@ -310,103 +321,4 @@ input.tab:checked + .tab-content,
 
 .wrap ul {
 	padding-left: 10px !important;
-}
-/*
-  ---break---
-*/
-/*
-  Surfaces and text keep the palette the app had before the shadcn port.
-*/
-.dark {
-	--background: #212121;
-	--foreground: oklch(0.746477 0.0216 264.436);
-	--card: #171717;
-	--card-foreground: var(--foreground);
-	--popover: #171717;
-	--popover-foreground: var(--foreground);
-	--primary: #212121;
-	--primary-foreground: var(--foreground);
-	--secondary: #171717;
-	--secondary-foreground: var(--foreground);
-	--muted: oklch(0.269 0 0);
-	--muted-foreground: oklch(0.708 0 0);
-	--accent: oklch(0.269 0 0);
-	--accent-foreground: oklch(0.985 0 0);
-	--destructive: #ff5555;
-	--border: color-mix(in oklab, var(--foreground) 20%, transparent);
-	--input: var(--border);
-	--ring: oklch(0.556 0 0);
-	--chart-1: oklch(0.87 0 0);
-	--chart-2: oklch(0.556 0 0);
-	--chart-3: oklch(0.439 0 0);
-	--chart-4: oklch(0.371 0 0);
-	--chart-5: oklch(0.269 0 0);
-	--sidebar: oklch(0.205 0 0);
-	--sidebar-foreground: oklch(0.985 0 0);
-	--sidebar-primary: oklch(0.488 0.243 264.376);
-	--sidebar-primary-foreground: oklch(0.985 0 0);
-	--sidebar-accent: oklch(0.269 0 0);
-	--sidebar-accent-foreground: oklch(0.985 0 0);
-	--sidebar-border: oklch(1 0 0 / 10%);
-	--sidebar-ring: oklch(0.556 0 0);
-}
-/*
-  ---break---
-*/
-@theme inline {
-	--color-base-100: var(--base-100);
-	--color-base-200: var(--base-200);
-	--color-base-300: var(--base-300);
-	--color-base-content: var(--base-content);
-	--color-neutral: var(--neutral);
-	--color-info: var(--info);
-	--color-success: var(--success);
-	--color-warning: var(--warning);
-	--color-error: var(--error);
-	--color-base-usermessage: var(--base-usermessage);
-	--color-message: var(--message);
-	--color-star: var(--star);
-	--color-debug: var(--debug);
-
-	--font-sans:
-		ui-sans-serif, -apple-system, system-ui, 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
-		'Segoe UI Emoji', 'Segoe UI Symbol';
-	--color-sidebar-ring: var(--sidebar-ring);
-	--color-sidebar-border: var(--sidebar-border);
-	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-	--color-sidebar-accent: var(--sidebar-accent);
-	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-	--color-sidebar-primary: var(--sidebar-primary);
-	--color-sidebar-foreground: var(--sidebar-foreground);
-	--color-sidebar: var(--sidebar);
-	--color-chart-5: var(--chart-5);
-	--color-chart-4: var(--chart-4);
-	--color-chart-3: var(--chart-3);
-	--color-chart-2: var(--chart-2);
-	--color-chart-1: var(--chart-1);
-	--color-ring: var(--ring);
-	--color-input: var(--input);
-	--color-border: var(--border);
-	--color-destructive: var(--destructive);
-	--color-accent-foreground: var(--accent-foreground);
-	--color-accent: var(--accent);
-	--color-muted-foreground: var(--muted-foreground);
-	--color-muted: var(--muted);
-	--color-secondary-foreground: var(--secondary-foreground);
-	--color-secondary: var(--secondary);
-	--color-primary-foreground: var(--primary-foreground);
-	--color-primary: var(--primary);
-	--color-popover-foreground: var(--popover-foreground);
-	--color-popover: var(--popover);
-	--color-card-foreground: var(--card-foreground);
-	--color-card: var(--card);
-	--color-foreground: var(--foreground);
-	--color-background: var(--background);
-	--radius-sm: calc(var(--radius) * 0.6);
-	--radius-md: calc(var(--radius) * 0.8);
-	--radius-lg: var(--radius);
-	--radius-xl: calc(var(--radius) * 1.4);
-	--radius-2xl: calc(var(--radius) * 1.8);
-	--radius-3xl: calc(var(--radius) * 2.2);
-	--radius-4xl: calc(var(--radius) * 2.6);
 }

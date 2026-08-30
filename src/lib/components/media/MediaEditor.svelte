@@ -115,7 +115,7 @@
 				</div>
 			{:else if A.mediaEditing.processingError}
 				<div class="flex h-full grow items-center justify-center p-6">
-					<div class="badge max-w-xl px-4 text-left">
+					<div class="callout max-w-xl bg-error text-left">
 						<TriangleAlert size={18} />
 						<span>{A.mediaEditing.processingError}</span>
 					</div>
@@ -153,7 +153,7 @@
 			{:else if A.mediaEditing?.type === 'text'}
 				<div class="flex h-full max-h-full grow flex-col overflow-auto p-2">
 					<GrowInput
-						class="tab-size-4 font-mono"
+						class="font-mono [tab-size:4]"
 						spellcheck={false}
 						bind:value={A.mediaEditing.text}
 						oninput={() => (textNeedsSave = true)}

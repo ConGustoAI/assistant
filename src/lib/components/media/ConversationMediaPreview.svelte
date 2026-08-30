@@ -235,7 +235,7 @@
 		{:else if media.type === 'pdf'}
 			<img src={thumbnailURL} alt={media.filename} class="mx-auto h-full w-full overflow-hidden object-contain" />
 		{:else if media.type === 'text'}
-			<pre class="tab-size-2 m-0 line-clamp-5 overflow-hidden text-sm">{thumbnailText ?? ''}</pre>
+			<pre class="m-0 line-clamp-5 overflow-hidden text-sm [tab-size:2]">{thumbnailText ?? ''}</pre>
 			<div class="absolute right-0 bottom-0 rounded-none bg-black/50 px-1 text-end text-sm text-primary-foreground">
 				<p>
 					{#if numWords != undefined}
