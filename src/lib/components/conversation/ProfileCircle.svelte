@@ -38,24 +38,32 @@
 	</DropdownMenu.Trigger>
 
 	<DropdownMenu.Content align="end" class="flex w-fit flex-col gap-1 bg-base-200 p-2 text-sm">
-		<button
+		<DropdownMenu.Item
 			class={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'justify-start text-nowrap')}
-			onclick={gotoSettings}>Settings</button>
+			onSelect={gotoSettings}>Settings</DropdownMenu.Item>
 
 		{#if A.user}
-			<div class={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'flex flex-nowrap items-center gap-2')}>
+			<!-- The Switch owns the toggle, so the item itself must not select or close. -->
+			<DropdownMenu.Item
+				closeOnSelect={false}
+				class={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'flex flex-nowrap items-center gap-2')}>
 				Hacker
 				<Switch
 					bind:checked={() => A.user?.hacker ?? false, (v) => A.user && (A.user.hacker = v)}
 					onCheckedChange={setHacker}
 					name="hacker" />
-			</div>
+			</DropdownMenu.Item>
 		{/if}
 
-		<a
-			class={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'justify-start text-nowrap')}
-			href={A.user ? '/login/logout' : '/login'}>
-			{#if A.user}Log out{:else}Log in{/if}
-		</a>
+		<DropdownMenu.Item>
+			{#snippet child({ props })}
+				<a
+					{...props}
+					class={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'justify-start text-nowrap')}
+					href={A.user ? '/login/logout' : '/login'}>
+					{#if A.user}Log out{:else}Log in{/if}
+				</a>
+			{/snippet}
+		</DropdownMenu.Item>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

@@ -114,7 +114,7 @@
 	<div class="flex items-center gap-2">
 		<Checkbox
 			id="temperature_enabled-{assistant.id}"
-			class="size-4 [&>span>svg]:size-3"
+			class="size-4 [&_svg]:size-3"
 			checked={assistant.temperature_enabled && model?.temperature_enabled !== false}
 			disabled={!edit || !model?.temperature_enabled}
 			onCheckedChange={(e) => {
@@ -135,7 +135,7 @@
 	<div class="flex items-center gap-2">
 		<Checkbox
 			id="top_p_enabled-{assistant.id}"
-			class="size-4 [&>span>svg]:size-3"
+			class="size-4 [&_svg]:size-3"
 			checked={assistant.top_p_enabled && model?.top_p_enabled !== false}
 			disabled={!edit || !model?.top_p_enabled}
 			onCheckedChange={(e) => {
@@ -156,7 +156,7 @@
 	<div class="flex items-center gap-2">
 		<Checkbox
 			id="top_k_enabled-{assistant.id}"
-			class="size-4 [&>span>svg]:size-3"
+			class="size-4 [&_svg]:size-3"
 			checked={assistant.top_k_enabled && model?.top_k_enabled !== false}
 			disabled={!edit || !model?.top_k_enabled}
 			onCheckedChange={(e) => {
@@ -177,7 +177,7 @@
 	<div class="flex items-center gap-2 pr-5">
 		<Checkbox
 			id="max_tokens_enabled-{assistant.id}"
-			class="size-4 [&>span>svg]:size-3"
+			class="size-4 [&_svg]:size-3"
 			checked={assistant.max_tokens_enabled && model?.max_tokens_enabled !== false}
 			disabled={!edit || !model?.max_tokens_enabled}
 			onCheckedChange={(e) => {
@@ -197,33 +197,33 @@
 
 	<Checkbox
 		id="prefillCheckbox-{assistant.id}"
-		class="size-5 [&>span>svg]:size-4"
+		class="size-5 [&_svg]:size-4"
 		bind:checked={() => assistant.prefill ?? false, (v) => (assistant.prefill = v)}
 		disabled={!model?.prefill || !edit}
 		onCheckedChange={onchange} />
 
 	<Checkbox
 		id="imagesCheckbox-{assistant.id}"
-		class="size-5 [&>span>svg]:size-4"
+		class="size-5 [&_svg]:size-4"
 		bind:checked={() => assistant.images ?? false, (v) => (assistant.images = v)}
 		disabled={!model?.images || !edit}
 		onCheckedChange={onchange} />
 	<Checkbox
 		id="audioCheckbox-{assistant.id}"
-		class="size-5 [&>span>svg]:size-4"
+		class="size-5 [&_svg]:size-4"
 		bind:checked={() => assistant.audio ?? false, (v) => (assistant.audio = v)}
 		disabled={!model?.audio || !edit}
 		onCheckedChange={onchange} />
 	<Checkbox
 		id="videoCheckbox-{assistant.id}"
-		class="size-5 [&>span>svg]:size-4"
+		class="size-5 [&_svg]:size-4"
 		bind:checked={() => assistant.video ?? false, (v) => (assistant.video = v)}
 		disabled={!model?.video || !edit}
 		onCheckedChange={onchange} />
 
 	<Checkbox
 		id="pdfCheckbox-{assistant.id}"
-		class="size-5 [&>span>svg]:size-4"
+		class="size-5 [&_svg]:size-4"
 		bind:checked={() => assistant.pdf ?? false, (v) => (assistant.pdf = v)}
 		disabled={!model?.pdf || !edit}
 		onCheckedChange={onchange} />

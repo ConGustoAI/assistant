@@ -193,46 +193,36 @@
 					<Menu class="h-full w-auto" />
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content align="end" class="z-20 flex w-64 flex-col bg-base-200 p-2 text-sm text-nowrap">
-					<button
+					<DropdownMenu.Item
 						class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-						onclick={async (e: Event) => {
+						onSelect={async () => {
 							message.role = message.role === 'assistant' ? 'user' : 'assistant';
-							const target = e.target as HTMLButtonElement;
-							target.blur();
 							savingMessage = true;
 							await updateMessage(message);
 							savingMessage = false;
-						}}>Change role to {message.role === 'assistant' ? 'user' : 'assistant'}</button>
+						}}>Change role to {message.role === 'assistant' ? 'user' : 'assistant'}</DropdownMenu.Item>
 					<Divider>Add message above</Divider>
-					<button
+					<DropdownMenu.Item
 						class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-						onclick={async (e) => {
-							const target = e.target as HTMLButtonElement;
-							target.blur();
+						onSelect={async () => {
 							await addMessage({ parent: message, role: 'assistant', above: true, editing: true });
-						}}>assistant</button>
-					<button
+						}}>assistant</DropdownMenu.Item>
+					<DropdownMenu.Item
 						class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-						onclick={async (e) => {
-							const target = e.target as HTMLButtonElement;
-							target.blur();
+						onSelect={async () => {
 							await addMessage({ parent: message, role: 'user', above: true, editing: true });
-						}}>user</button>
+						}}>user</DropdownMenu.Item>
 					<Divider>Add message below</Divider>
-					<button
+					<DropdownMenu.Item
 						class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-						onclick={async (e) => {
-							const target = e.target as HTMLButtonElement;
-							target.blur();
+						onSelect={async () => {
 							await addMessage({ parent: message, role: 'assistant', above: false, editing: true });
-						}}>assistant</button>
-					<button
+						}}>assistant</DropdownMenu.Item>
+					<DropdownMenu.Item
 						class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-						onclick={async (e) => {
-							const target = e.target as HTMLButtonElement;
-							target.blur();
+						onSelect={async () => {
 							await addMessage({ parent: message, role: 'user', above: false, editing: true });
-						}}>user</button>
+						}}>user</DropdownMenu.Item>
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
 		{/if}

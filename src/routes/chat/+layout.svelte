@@ -144,17 +144,17 @@
 						<Divider class="py-2">Your assistants</Divider>
 						{#each Object.entries(A.assistants).filter(([_, ass]) => ass.userID !== defaultsUUID) as [id, assistant]}
 							{#if !A.hiddenItems.has(id) || A.user?.assistant === id}
-								<button
+								<DropdownMenu.Item
 									class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
-									onclick={async () => await NewChat(assistant.id)}>{assistant.name}</button>
+									onSelect={async () => await NewChat(assistant.id)}>{assistant.name}</DropdownMenu.Item>
 							{/if}
 						{/each}
 						<Divider class="py-2">Default assistants</Divider>
 						{#each Object.entries(A.assistants).filter(([_, ass]) => ass.userID === defaultsUUID) as [id, assistant]}
 							{#if !A.hiddenItems.has(id) || A.user?.assistant === id}
-								<button
+								<DropdownMenu.Item
 									class={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
-									onclick={async () => await NewChat(assistant.id)}>{assistant.name}</button>
+									onSelect={async () => await NewChat(assistant.id)}>{assistant.name}</DropdownMenu.Item>
 							{/if}
 						{/each}
 					</DropdownMenu.Content>
@@ -195,20 +195,16 @@
 						<Plus class="h-full w-auto" />
 					</DropdownMenu.Trigger>
 					<DropdownMenu.Content align="end" class="z-20 flex w-32 flex-col bg-base-200 p-2 text-sm text-nowrap">
-						<button
+						<DropdownMenu.Item
 							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-							onclick={async (e) => {
-								const target = e.target as HTMLButtonElement;
-								target.blur();
+							onSelect={async () => {
 								await addMessage({ role: 'assistant', above: false, editing: true });
-							}}>assistant</button>
-						<button
+							}}>assistant</DropdownMenu.Item>
+						<DropdownMenu.Item
 							class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-end')}
-							onclick={async (e) => {
-								const target = e.target as HTMLButtonElement;
-								target.blur();
+							onSelect={async () => {
 								await addMessage({ role: 'user', above: false, editing: true });
-							}}>user</button>
+							}}>user</DropdownMenu.Item>
 					</DropdownMenu.Content>
 				</DropdownMenu.Root>
 			{/if}
