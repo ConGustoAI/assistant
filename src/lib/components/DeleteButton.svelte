@@ -31,7 +31,7 @@
 		{/if}
 	</DropdownMenu.Trigger>
 
-	<DropdownMenu.Content class="w-fit p-2">
+	<DropdownMenu.Content class="w-fit bg-transparent p-0 shadow-none ring-0">
 		<DropdownMenu.Item
 			class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'rounded-md bg-primary text-nowrap')}
 			onSelect={async () => {

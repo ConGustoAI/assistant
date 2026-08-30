@@ -277,7 +277,8 @@
 	<div class="col-span-full col-start-2 mb-6 flex w-full flex-col gap-2">
 		{#if showDefault && edit}
 			<Divider
-				><span class="badge bg-warning">Changes made here will be visible to and will affect all users</span></Divider>
+				><span class="callout bg-warning">Changes made here will be visible to and will affect all users</span
+				></Divider>
 		{/if}
 
 		<AssistantDetails bind:assistant {edit} onchange={statusChanged} {model} {provider} />

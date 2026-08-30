@@ -302,7 +302,7 @@
 			<Divider class="col-span-full">{provider.name}: Default models</Divider>
 			{#if editDefaultChildren}
 				<Divider
-					><span class="badge bg-warning">Changes made here will be visible to and will affect all users</span
+					><span class="callout bg-warning">Changes made here will be visible to and will affect all users</span
 					></Divider>
 			{/if}
 
@@ -329,7 +329,8 @@
 			<Divider>{provider.name}: Default API Keys</Divider>
 			{#if editDefaultChildren}
 				<Divider
-					><span class="badge bg-error">Only admins can see default keys, but any user can make requests with them</span
+					><span class="callout bg-error"
+						>Only admins can see default keys, but any user can make requests with them</span
 					></Divider>
 			{/if}
 

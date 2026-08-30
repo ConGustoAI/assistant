@@ -36,7 +36,7 @@
 			aria-label="Select conversation"
 			name="selectedConversations"
 			checked={selectedConversations.includes(c)}
-			onCheckedChange={(e) => handleCheckboxChange(e, c)} />
+			onCheckedChange={(checked) => handleCheckboxChange(checked, c)} />
 
 		<a
 			href={'/chat/' + c}
