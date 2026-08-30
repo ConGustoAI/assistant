@@ -21,7 +21,7 @@
 			{/if}
 			<label for="aboutUserFromUser" class="cursor-pointer text-sm">From my profile</label>
 			<Checkbox
-				class="size-4 [&>span>svg]:size-3"
+				class="size-4 [&_svg]:size-3"
 				bind:checked={() => assistant.aboutUserFromUser ?? false, (v) => (assistant.aboutUserFromUser = v)}
 				id="aboutUserFromUser"
 				disabled={!edit} />
@@ -46,7 +46,7 @@
 			{/if}
 			<label for="instructionsFromUser" class="cursor-pointer text-sm">From my profile</label>
 			<Checkbox
-				class="size-4 [&>span>svg]:size-3"
+				class="size-4 [&_svg]:size-3"
 				bind:checked={
 					() => assistant.assistantInstructionsFromUser ?? false, (v) => (assistant.assistantInstructionsFromUser = v)
 				}

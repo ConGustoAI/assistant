@@ -26,6 +26,7 @@
 			<Button
 				variant="outline"
 				class="text-xl"
+				type="submit"
 				formaction="?/google"
 				onclick={() => {
 					loginGoogleSpinning = true;
@@ -42,6 +43,7 @@
 			<Button
 				variant="outline"
 				class="text-xl"
+				type="submit"
 				formaction="?/github"
 				onclick={() => {
 					loginGithubSpinning = true;

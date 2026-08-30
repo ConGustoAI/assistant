@@ -147,7 +147,7 @@
 						<strong class="mr-auto self-start">Sent</strong>
 						<button
 							aria-label="Copy to clipboard"
-							class={cn(buttonVariants({ variant: 'ghost' }), 'z-50 size-5 min-h-fit rounded-md p-0')}
+							class={cn(buttonVariants({ variant: 'ghost' }), 'relative z-50 size-5 min-h-fit rounded-md p-0')}
 							title="Copy to clipboard"
 							onclick={() => {
 								assert(message.messagesSent);
@@ -158,7 +158,7 @@
 
 						<button
 							aria-label="Download as JSON"
-							class={cn(buttonVariants({ variant: 'ghost' }), 'z-50 size-5 min-h-fit rounded-md p-0')}
+							class={cn(buttonVariants({ variant: 'ghost' }), 'relative z-50 size-5 min-h-fit rounded-md p-0')}
 							title="Download as JSON"
 							onclick={() => {
 								assert(message.messagesSent);
@@ -189,7 +189,7 @@
 						<strong class="mr-auto self-start">Received</strong>
 						<button
 							aria-label="Copy to clipboard"
-							class={cn(buttonVariants({ variant: 'ghost' }), 'z-50 size-5 min-h-fit rounded-md p-0')}
+							class={cn(buttonVariants({ variant: 'ghost' }), 'relative z-50 size-5 min-h-fit rounded-md p-0')}
 							title="Copy to clipboard"
 							onclick={() => {
 								assert(message.result);
@@ -200,7 +200,7 @@
 
 						<button
 							aria-label="Download as JSON"
-							class={cn(buttonVariants({ variant: 'ghost' }), 'z-50 size-5 min-h-fit rounded-md p-0')}
+							class={cn(buttonVariants({ variant: 'ghost' }), 'relative z-50 size-5 min-h-fit rounded-md p-0')}
 							title="Download as JSON"
 							onclick={() => {
 								assert(message.result);
